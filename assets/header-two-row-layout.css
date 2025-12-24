@@ -1,0 +1,202 @@
+header.header.header--two-row {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+
+header.header.header--two-row .header__bottom-row {
+    width: 100%;
+    border-top: 1px solid #ECECEC;
+    border-bottom: 1px solid #ECECEC;
+    background: #FFF;
+}
+
+header.header.header--two-row .header__bottom-row nav.header__inline-menu {
+    margin: 0;
+}
+
+header.header.header--two-row .header__bottom-row {
+    grid-column: span 3;
+}
+
+.header__top-row {
+    width: 100%;
+    grid-column: span 3;
+}
+
+header.header.header--two-row .header__top-row-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+}
+
+header.header.header--two-row .header__icons {
+    grid-area: unset;
+}
+
+.search-input-wrapper {
+    border-radius: 10px;
+    border: 1px solid #A1A1A1;
+    background: #FFF;
+    position: relative;
+        overflow: hidden;
+}
+
+.search-input-wrapper input#Search-In-Header {
+    width: 100%;
+    height: 42px;
+    padding: 10px 10px 10px 47px;
+    color: #919191;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border: unset;
+}
+
+.search-input-wrapper span.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+}
+
+.header__search-section .predictive-search-results {
+    position: absolute;
+    background-color: #fff;
+    top: 100%;
+}
+
+.header__icons-new {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    justify-content: end;
+}
+
+.header__icons-new a.header__icon-row-layout.header__icon--cart {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin: 0;
+}
+
+.header__icons-new a {
+    text-decoration: none;
+}
+
+.header__icons-new  .cart-count-bubble {
+    position: unset;
+}
+
+.header__icons-new .cart-count-bubble {
+    font-family: "Helvetica Neue";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-left: -6px;
+}
+
+account-icon {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.header__icons-new a span.svg-wrapper {
+    width: 22px;
+    height: 22px;
+}
+
+.header__icons-new a.header__icon-row-layout span.snv-text {
+    color: #191B1D;
+    font-family: "Helvetica Neue";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+.list-menu__item {
+    color: #191B1D;
+    text-align: center;
+    font-family: "Helvetica Neue";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 16.5px 0;
+    position: relative;
+}
+
+.header__inline-menu-wrap ul.list-menu.list-menu--inline {
+    gap: 26px;
+}
+
+header.header.header--two-row .header__bottom-row nav.header__inline-menu .list-menu__item:after {
+     content: '';
+    display: block;
+    width: 0;
+    height: 1.5px;
+    background: #191b1d;
+            position: absolute;
+    bottom: 0;
+    transition: width .3s;
+        left: -1px;
+    bottom: -2px;
+
+}
+
+.header__cls-button {
+    position: relative;
+}
+
+.header__cls-button:before {
+    content: '';
+    background: #ECECEC;
+    width: .5px;
+    height: 100%;
+    position: absolute;
+    left: -38%;
+}
+
+header.header.header--two-row .header__bottom-row nav.header__inline-menu .list-menu__item:hover:after {
+    width: 100%;
+ }
+.header__inline-menu-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+
+a.cls-pr__button {
+    border-radius: 10px;
+    background: #FFE7AB;
+    color: #191B1D;
+    text-align: center;
+    font-family: "Helvetica Neue";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+    padding: 6.5px 19px;
+    display: inline-flex;
+    align-items: center;
+}
+
+header.header.header--two-row .header__bottom-row nav.header__inline-menu ul.list-menu.list-menu--inline li:first-child .list-menu__item {
+    padding-left: 0;
+}
+
+.header__heading a.header__heading-link {
+    padding-left: 0;
+}
+
