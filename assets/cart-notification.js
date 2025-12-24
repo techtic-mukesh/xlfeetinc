@@ -27,7 +27,7 @@ class CartNotification extends HTMLElement {
     document.body.addEventListener('click', this.onBodyClick);
   }
 
-  close() {
+  close() { 
     this.notification.classList.remove('active');
     document.body.removeEventListener('click', this.onBodyClick);
 

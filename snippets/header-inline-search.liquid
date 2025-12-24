@@ -1,0 +1,56 @@
+{% comment %}
+  Renders an inline search bar with predictive search for the two-row header layout
+  
+  Accepts:
+  - input_id: {String} Unique ID for the search input
+  
+  Usage:
+  {% render 'header-inline-search', input_id: 'Search-In-Header' %}
+{% endcomment %}
+
+<predictive-search class="header__search-inline" data-loading-text="{{ 'accessibility.loading' | t }}">
+  <form action="{{ routes.search_url }}" method="get" role="search" class="search-form" autocomplete="off">
+    <div class="search-input-wrapper">
+      <span class="search-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <g opacity="0.5">
+            <path d="M15.2831 15.2544L19.25 19.25M17.4167 10.0833C17.4167 14.1334 14.1334 17.4167 10.0833 17.4167C6.03325 17.4167 2.75 14.1334 2.75 10.0833C2.75 6.03325 6.03325 2.75 10.0833 2.75C14.1334 2.75 17.4167 6.03325 17.4167 10.0833Z" stroke="#191B1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </svg>
+      </span>
+      
+      <input
+        type="search"
+        name="q"
+        id="{{ input_id }}"
+        placeholder="Search"
+        class="search-input"
+        value="{{ search.terms | escape }}"
+        role="combobox"
+        aria-expanded="false"
+        aria-owns="predictive-search-results-{{ input_id }}"
+        aria-controls="predictive-search-results-{{ input_id }}"
+        aria-autocomplete="list"
+        aria-haspopup="listbox"
+      >
+      
+      <button type="reset" class="search-btn close-icon"  style="display:none;"aria-label="{{ 'general.search.reset' | t }}">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></div>
+  </form>
+
+  <div id="predictive-search-results-{{ input_id }}" class="predictive-search-results" tabindex="-1" data-predictive-search>
+    <div class="predictive-search__loading-state">
+      <span class="svg-wrapper">
+        {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+      </span>
+    </div>
+  </div>
+
+  <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+</predictive-search>
