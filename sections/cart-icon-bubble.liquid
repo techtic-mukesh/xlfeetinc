@@ -1,15 +1,28 @@
 {% if cart == empty %}
-  <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
-{% else %}
-  <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
-{% endif %}
-
-<span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
-{%- if cart != empty -%}
-  <div class="cart-count-bubble">
-    {%- if cart.item_count < 100 -%}
-      <span aria-hidden="true">{{ cart.item_count }}</span>
-    {%- endif -%}
-    <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
-  </div>
-{%- endif -%}
+                 <span class="svg-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="24" viewBox="0 0 22 24" fill="none">
+                    <path d="M6.84961 10.6V4.35C6.84961 2.27893 8.52854 0.599998 10.5996 0.599998C12.6707 0.599998 14.3496 2.27893 14.3496 4.35V10.5591M8.59961 23.1H12.5996C15.3999 23.1 16.8 23.1 17.8696 22.555C18.8104 22.0757 19.5753 21.3108 20.0546 20.37C20.5996 19.3004 20.5996 17.9003 20.5996 15.1V12.1C20.5996 10.6999 20.5996 9.9998 20.3271 9.46502C20.0874 8.99462 19.705 8.61217 19.2346 8.37248C18.6998 8.1 17.9997 8.1 16.5996 8.1H4.59961C3.19948 8.1 2.49941 8.1 1.96463 8.37248C1.49423 8.61217 1.11178 8.99462 0.872093 9.46502C0.599609 9.9998 0.599609 10.6999 0.599609 12.1V15.1C0.599609 17.9003 0.599609 19.3004 1.14458 20.37C1.62394 21.3108 2.38885 22.0757 3.32966 22.555C4.39922 23.1 5.79935 23.1 8.59961 23.1Z" stroke="#191B1D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                 <span class="snv-text">
+                    Cart
+                  </span>
+              {% else %}
+                <span class="svg-wrapper">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="24" viewBox="0 0 22 24" fill="none">
+                    <path d="M6.84961 10.6V4.35C6.84961 2.27893 8.52854 0.599998 10.5996 0.599998C12.6707 0.599998 14.3496 2.27893 14.3496 4.35V10.5591M8.59961 23.1H12.5996C15.3999 23.1 16.8 23.1 17.8696 22.555C18.8104 22.0757 19.5753 21.3108 20.0546 20.37C20.5996 19.3004 20.5996 17.9003 20.5996 15.1V12.1C20.5996 10.6999 20.5996 9.9998 20.3271 9.46502C20.0874 8.99462 19.705 8.61217 19.2346 8.37248C18.6998 8.1 17.9997 8.1 16.5996 8.1H4.59961C3.19948 8.1 2.49941 8.1 1.96463 8.37248C1.49423 8.61217 1.11178 8.99462 0.872093 9.46502C0.599609 9.9998 0.599609 10.6999 0.599609 12.1V15.1C0.599609 17.9003 0.599609 19.3004 1.14458 20.37C1.62394 21.3108 2.38885 22.0757 3.32966 22.555C4.39922 23.1 5.79935 23.1 8.59961 23.1Z" stroke="#191B1D" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                 <span class="snv-text">
+                    Cart
+                  </span>
+              {% endif %}
+              <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+              {%- if cart != empty -%}
+                <div class="cart-count-bubble">
+                  {%- if cart.item_count < 100 -%}
+                    <span aria-hidden="true">{{ cart.item_count }}</span>
+                  {%- endif -%}
+                  <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+                </div>
+              {%- endif -%}
