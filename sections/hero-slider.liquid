@@ -6,7 +6,6 @@
   - Responsive design
 {% endcomment %}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 <style>
   .hero-section-{{ section.id }} {
@@ -290,7 +289,6 @@ line-height: 80px;
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const heroSwiper{{ section.id | remove: '-' }} = new Swiper('.hero-swiper-{{ section.id }}', {
