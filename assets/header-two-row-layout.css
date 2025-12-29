@@ -38,7 +38,7 @@ header.header.header--two-row .header__icons {
 
 .search-input-wrapper {
     border-radius: 10px;
-    border: 1px solid #A1A1A1;
+    outline: 1px solid #A1A1A1;
     background: #FFF;
     position: relative;
         overflow: hidden;
@@ -68,6 +68,8 @@ header.header.header--two-row .header__icons {
     position: absolute;
     background-color: #fff;
     top: 100%;
+        left: 50%;
+    transform: translateX(-50%);
 }
 
 .header__icons-new {
@@ -154,6 +156,7 @@ header.header.header--two-row .header__bottom-row nav.header__inline-menu .list-
 
 .header__cls-button {
     position: relative;
+    display: inline-flex;
 }
 
 .header__cls-button:before {
@@ -162,7 +165,7 @@ header.header.header--two-row .header__bottom-row nav.header__inline-menu .list-
     width: .5px;
     height: 100%;
     position: absolute;
-    left: -38%;
+    left: -41%;
 }
 
 header.header.header--two-row .header__bottom-row nav.header__inline-menu .list-menu__item:hover:after {
@@ -173,6 +176,7 @@ header.header.header--two-row .header__bottom-row nav.header__inline-menu .list-
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    flex-flow: row wrap;
 }
 
 
@@ -190,6 +194,21 @@ a.cls-pr__button {
     padding: 6.5px 19px;
     display: inline-flex;
     align-items: center;
+        transition: all .3s ease;
+        gap: 4px;
+}
+
+a.cls-pr__button svg path {
+     transition: all .3s ease;
+}
+
+a.cls-pr__button:hover {
+    background-color: #191b1d;
+    color: #fff;
+}
+
+a.cls-pr__button:hover svg  path {
+    fill: #fff;
 }
 
 header.header.header--two-row .header__bottom-row nav.header__inline-menu ul.list-menu.list-menu--inline li:first-child .list-menu__item {
@@ -198,5 +217,130 @@ header.header.header--two-row .header__bottom-row nav.header__inline-menu ul.lis
 
 .header__heading a.header__heading-link {
     padding-left: 0;
+}
+
+/* Chrome, Safari, Edge (WebKit) */
+.search-input-wrapper input#Search-In-Header::-webkit-search-cancel-button,
+.search-input-wrapper input#Search-In-Header::-webkit-search-decoration,
+.search-input-wrapper input#Search-In-Header::-webkit-search-results-button,
+.search-input-wrapper input#Search-In-Header::-webkit-search-results-decoration {
+  display: none;
+}
+
+/* Firefox */
+.search-input-wrapper input#Search-In-Header[type="search"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+
+.search-input-wrapper button.search-btn.close-icon {
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: url();
+    border: unset;
+    cursor: pointer;
+}
+
+
+
+@media only screen and (max-width: 1300px) {
+    .header__cls-button {
+        display: none;
+    }
+
+    header.header.header--two-row .header__bottom-row nav.header__inline-menu {
+    width: 100%;
+}
+
+.header__inline-menu-wrap ul.list-menu.list-menu--inline {
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+header.header.header--two-row .header__top-row-inner {
+    grid-template-columns: 1fr 1fr auto;
+}
+}
+
+@media only screen and (max-width: 1080px) {
+    header.header.header--two-row .header__bottom-row {
+    display: none;
+}
+
+    header.header.header--two-row .header__top-row-inner {
+        grid-template-columns: auto auto 1fr;
+    }
+
+    header.header.header--two-row .header__top-row-inner .header__search-section {
+    display: none;
+}
+
+ }
+
+
+@media only screen and (max-width: 750px) {
+    .header__heading a.header__heading-link {
+        padding: 0;
+    }
+
+    header.header.header--two-row {
+        padding: 20px 0;
+    }
+
+
+    .header__heading-logo {
+        max-width: 197px;
+    }
+    .header__heading, .header__heading-link {
+        text-align: left;
+    }
+
+    
+.header__icons-new a.header__icon-row-layout span.snv-text {
+    display: none;
+}
+
+.header__icons-new .cart-count-bubble {
+    position: absolute;
+}
+
+.header__heading, .header__heading-link {
+    padding: 0;
+    display: inline-flex;
+}
+.header__heading-logo-wrapper {
+    display: inline-flex;
+}
+
+.header__logo-section {
+    display: inline-flex;
+}
+.header__icons-new a span.svg-wrapper {
+    width: 30px;
+    height: 30px;
+    padding: 4px;
+}
+
+header.header.header--two-row .header__top-row-inner {
+    gap: 10px;
+}
+.header__icons-new {
+    gap: 5px;
+    padding-right: 0;
+}
+
+.header__icon--menu, .header__icon--menu svg  {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.utility-bar__grid .utility-bar__item a svg {
+    width: 16px;
+    height: 16px;
+}
 }
 

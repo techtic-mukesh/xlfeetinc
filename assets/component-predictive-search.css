@@ -53,7 +53,7 @@
   }
 
   .header predictive-search {
-    position: relative;
+    position: unset;
   }
 }
 

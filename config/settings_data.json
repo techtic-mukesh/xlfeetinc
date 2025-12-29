@@ -110,11 +110,11 @@
     "brand_headline": "",
     "brand_description": "<p></p>",
     "brand_image_width": 100,
-    "social_facebook_link": "",
-    "social_instagram_link": "",
-    "social_youtube_link": "",
+    "social_facebook_link": "/",
+    "social_instagram_link": "/",
+    "social_youtube_link": "/",
     "social_tiktok_link": "",
-    "social_twitter_link": "",
+    "social_twitter_link": "/",
     "social_snapchat_link": "",
     "social_pinterest_link": "",
     "social_tumblr_link": "",
@@ -168,12 +168,12 @@
       },
       "scheme-3": {
         "settings": {
-          "background": "#242833",
+          "background": "#000000",
           "background_gradient": "",
-          "text": "#ffffff",
+          "text": "#a6a6a6",
           "button": "#ffffff",
           "button_label": "#000000",
-          "secondary_button_label": "#ffffff",
+          "secondary_button_label": "#a6a6a6",
           "shadow": "#121212"
         }
       },
