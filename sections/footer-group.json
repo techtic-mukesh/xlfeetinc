@@ -13,19 +13,72 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "contact_info_RNbHaM": {
+          "type": "contact_info",
+          "settings": {
+            "heading": "Explore XL Feet",
+            "show_address": true,
+            "address": "XLfeet Inc. 242 Fillmore Ave East,",
+            "address_line2": "St Paul, MN 55107",
+            "show_email": true,
+            "email": "customercare@xlfeet.com",
+            "show_phone": true,
+            "phone": "+1 (651) 797-6000",
+            "show_hours": true,
+            "hours": "<p>available 11:00-6:00 <br/>Mon-Fri:- 12:00-5:00 <br/>Sat (Central US)</p>"
+          }
+        },
+        "link_list_CT4rpR": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick Links",
+            "menu": "footer"
+          }
+        },
+        "link_list_taipKQ": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Help",
+            "menu": "footer"
+          }
+        },
+        "social_newsletter_3XPFQE": {
+          "type": "social_newsletter",
+          "settings": {
+            "heading": "Let Us Surprise You",
+            "badge_text": "",
+            "badge_color": "#ff5733",
+            "badge_text_color": "#ffffff",
+            "show_social": true,
+            "enable_newsletter": true,
+            "newsletter_heading": "SIGN UP FOR NEWSLETTERS",
+            "newsletter_text": "Be the first to Know. Sign up for newsletter today",
+            "newsletter_placeholder": "Enter your email...",
+            "newsletter_button_text": "Subscribe"
+          }
+        }
+      },
+      "block_order": [
+        "contact_info_RNbHaM",
+        "link_list_CT4rpR",
+        "link_list_taipKQ",
+        "social_newsletter_3XPFQE"
+      ],
       "settings": {
-        "color_scheme": "scheme-1",
-        "newsletter_enable": true,
-        "newsletter_heading": "Subscribe to our emails",
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "payment_enable": true,
-        "show_policy": true,
+        "color_scheme": "scheme-3",
+        "enable_custom_grid": true,
+        "newsletter_enable": false,
+        "newsletter_heading": "Sign Up for Newsletters",
+        "enable_follow_on_shop": false,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": false,
+        "show_policy": false,
         "margin_top": 0,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 52,
+        "padding_bottom": 0
       }
     }
   },
