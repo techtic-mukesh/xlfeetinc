@@ -1,0 +1,396 @@
+{% comment %}
+  Weekend Sale Banner Section
+  Dynamic banner with customizable text, images, and styling
+{% endcomment %}
+
+<style>
+  .weekend-sale-banner {
+    width: 100%;
+    min-height: 600px;
+    position: relative;
+    overflow: hidden;
+    background-color: {{ section.settings.background_color }};
+    display: flex;
+    align-items: center;
+  }
+
+  {% if section.settings.show_border %}
+  .weekend-sale-banner::before,
+  .weekend-sale-banner::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: rgba(25, 27, 29, 0.25);
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .weekend-sale-banner::before {
+    top: 30px;
+  }
+
+  .weekend-sale-banner::after {
+    bottom: 30px;
+  }
+  {% endif %}
+
+  .weekend-sale-inner {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    min-height: 600px;
+  }
+
+  .banner-content {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    z-index: 10;
+    padding: 60px 0;
+  }
+
+  .banner-text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    line-height: normal;
+  }
+
+  .banner-subtitle {
+    font-size: 30px;
+    font-family: 'Instrument Serif';
+    color: #191b1d;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+
+  .banner-title {
+    font-size: 46px;
+    font-weight: 500;
+    font-family: 'Helvetica Neue';
+    color: #000;
+    text-align: left;
+    margin: 0;
+  }
+
+  .banner-description {
+    font-size: 30px;
+    color: #000;
+    text-align: left;
+    display: inline-block;
+    font-family: 'Helvetica Neue';
+  }
+.banner-description span p{
+  margin: 0;
+  }
+
+  .banner-cta {
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    max-width: 265px;
+    width: 100%;
+    height: 52px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: relative;
+    border-radius: 12px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    text-align: center;
+    font-family: 'Helvetica Neue';
+  }
+
+  .banner-cta:hover {
+    background-color: #000;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .banner-cta-arrow {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease;
+  }
+
+  .banner-cta:hover .banner-cta-arrow {
+    transform: translate(3px, -3px);
+  }
+
+  .banner-image-wrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    /* width: 55%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .banner-product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Tablet Styles */
+  @media (max-width: 1024px) {
+    .weekend-sale-banner {
+      min-height: 500px;
+    }
+
+    .weekend-sale-inner {
+      min-height: 500px;
+      padding: 0 40px;
+    }
+
+    .banner-content {
+      max-width: 380px;
+      gap: 30px;
+    }
+
+    .banner-subtitle {
+      font-size: 22px;
+    }
+
+    .banner-title {
+      font-size: 38px;
+    }
+
+    .banner-description {
+      font-size: 22px;
+    }
+
+    .banner-image-wrapper {
+      width: 50%;
+    }
+  }
+
+  /* Mobile Styles */
+  @media (max-width: 768px) {
+    .weekend-sale-banner {
+      min-height: auto;
+    }
+
+    .weekend-sale-inner {
+      flex-direction: column;
+      min-height: auto;
+      padding: 0;
+     border: 1px solid rgba(25, 27, 29, 0.4);
+      margin: 10px;
+    }
+
+    {% if section.settings.show_border %}
+    .weekend-sale-banner::before {
+      /* top: 15px; */
+      display: none;
+    }
+
+    .weekend-sale-banner::after {
+      /* bottom: 15px; */
+      display: none;
+
+    }
+    {% endif %}
+
+    .banner-content {
+      max-width: 100%;
+      padding: 50px 30px;
+      gap: 25px;
+      order: 1;
+    }
+
+    .banner-text-group {
+      gap: 10px;
+    }
+
+    .banner-subtitle {
+      font-size: 22px;
+      line-height: 18px;
+    }
+
+    .banner-title {
+      font-size: 22px;
+      line-height: 22px;
+      font-weight: 500;
+    }
+
+    .banner-description {
+      font-size: 18px;
+      line-height: 18px;
+      color: #000;
+
+    }
+
+    .banner-cta {
+      padding: 10px 30px;
+      font-size: 14px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .banner-image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 350px;
+      order: 2;
+    }
+    
+  }
+
+  /* Small Mobile Styles */
+  @media (max-width: 480px) {
+    .banner-content {
+      padding: 40px 25px;
+      gap: 20px;
+    }
+    .banner-cta-arrow {
+      width: 22px;
+      height: 22px;
+    }
+  }
+</style>
+
+<section class="weekend-sale-banner">
+  <div class="weekend-sale-inner">
+    <div class="banner-content">
+      <div class="banner-text-group">
+        {% if section.settings.subtitle %}
+          <p class="banner-subtitle">{{ section.settings.subtitle }}</p>
+        {% endif %}
+
+        {% if section.settings.title %}
+          <h2 class="banner-title">{{ section.settings.title }}</h2>
+        {% endif %}
+
+        {% if section.settings.discount_text != blank %}
+          <div class="banner-description">
+            {% if section.settings.discount_text != blank %}
+              <span>{{ section.settings.discount_text }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+      {% if section.settings.button_text and section.settings.button_link %}
+        <a href="{{ section.settings.button_link }}" class="banner-cta">
+          <span>{{ section.settings.button_text }}</span>
+          <svg class="banner-cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7"/>
+            <path d="M7 7h10v10"/>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+
+    {% if section.settings.product_image %}
+      <div class="banner-image-wrapper">
+        <img 
+          src="{{ section.settings.product_image | image_url: width: 1200 }}" 
+          alt="{{ section.settings.product_image.alt | default: section.settings.title | escape }}"
+          class="banner-product-image"
+          loading="lazy"
+          width="1200"
+          height="800"
+        >
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Weekend Sale Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#d8cfc4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_border",
+      "label": "Show Border Overlay",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle (Italic)",
+      "default": "Make It Yours Before It's Gone"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title",
+      "default": "This Weekend Only"
+    },
+    {
+      "type": "richtext",
+      "id": "discount_text",
+      "label": "Discount Text (Bold)"
+    },
+    {
+      "type": "header",
+      "content": "Product Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image (Right Side)"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Weekend Sale Banner",
+      "category": "Promotional"
+    }
+  ]
+}
+{% endschema %}

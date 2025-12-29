@@ -1,0 +1,495 @@
+{% comment %}
+  Shop by Width and Size Section
+  Dynamic section with customizable backgrounds and filter options
+{% endcomment %}
+
+<div class="shop-filter-wrapper">
+  <!-- Shop by Width Section -->
+  <div class="frame-parent" style="background-image: url('{{ section.settings.width_background_image | image_url }}');">
+    <div
+  class="overlay-background"
+  style="--overlay-opacity: {{ section.settings.width_overlay_opacity | divided_by: 100.0 }};">
+</div>
+    <div class="frame-content">
+    <div class="shop-by-width-parent">
+      <h2 class="shop-by-width">{{ section.settings.width_title }}</h2>
+      {% if section.settings.width_show_shop_all %}
+      <a href="{{ section.settings.width_shop_all_link }}" class="shop-all-parent">
+        <span class="shop-all">{{ section.settings.width_shop_all_text }}</span>
+        <svg class="arrow-up-right-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      {% endif %}
+    </div>
+    <div class="frame-group">
+      {% for block in section.blocks %}
+        {% if block.type == 'width_option' %}
+        <a href="{{ block.settings.link }}" class="width-wrapper">
+          <span class="option-text">{{ block.settings.label }}</span>
+        </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    </div>
+  </div>
+
+  <!-- Shop by Size Section -->
+  <div class="frame-parent" style="background-image: url('{{ section.settings.size_background_image | image_url }}');">
+    
+<div
+  class="overlay-background"
+  style="--overlay-opacity: {{ section.settings.size_overlay_opacity | divided_by: 100.0 }};">
+</div>
+
+    <div class="frame-content">    <div class="shop-by-size-parent">
+      <h2 class="shop-by-size">{{ section.settings.size_title }}</h2>
+      {% if section.settings.size_show_shop_all %}
+      <a href="{{ section.settings.size_shop_all_link }}" class="shop-all-parent">
+        <span class="shop-all">{{ section.settings.size_shop_all_text }}</span>
+        <svg class="arrow-up-right-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      {% endif %}
+    </div>
+    <div class="frame-group">
+      {% for block in section.blocks %}
+        {% if block.type == 'size_option' %}
+        <a href="{{ block.settings.link }}" class="size-wrapper">
+          <span class="option-text">{{ block.settings.label }}</span>
+        </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.shop-filter-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  width: 100%;
+}
+
+.frame-parent {
+  width: 100%;
+  height: 450px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px 80px;
+  box-sizing: border-box;
+  gap: 262px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  text-align: left;
+  font-size: 38px;
+  color: #fff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.overlay-background {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, var(--overlay-opacity));
+  z-index: 1;
+}
+
+.frame-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 262px;
+  height: 100%;
+    justify-content: center;
+}
+
+.shop-by-width-parent,
+.shop-by-size-parent {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.shop-by-width,
+.shop-by-size {
+  position: relative;
+ font-size: 38px;
+    font-weight: 500;
+    font-family: 'Helvetica Neue';
+    color: #fff;
+    text-align: left;
+    font-family: 'Helvetica Neue';
+    color: #fff;
+    text-align: left;
+    margin: 0;
+}
+
+.shop-all-parent {
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  font-size: 16px;
+  text-decoration: none;
+  color: #fff;
+  transition: opacity 0.3s ease;
+}
+
+.shop-all-parent:hover {
+  opacity: 0.8;
+}
+
+.shop-all {
+  position: relative;
+  text-decoration: underline;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.arrow-up-right-icon {
+  width: 22px;
+  position: relative;
+  max-height: 100%;
+}
+
+.frame-group {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 10px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.width-wrapper,
+.size-wrapper {
+  backdrop-filter: blur(26px);
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.29);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.width-wrapper:hover,
+.size-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+.option-text {
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+
+@media screen and (max-width: 768px) {
+  .shop-filter-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .shop-by-width-parent,
+  .shop-by-size-parent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+  .frame-parent {
+    padding: 30px 20px;
+    height: 400px;
+  }
+  
+  .frame-content {
+    gap: 150px;
+  }
+  
+  .shop-by-width,
+  .shop-by-size {
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 500;  
+}
+  
+  .frame-group {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .frame-parent {
+    height: 350px;
+  }
+  
+  .frame-content {
+    gap: 120px;
+  }
+  
+  .shop-all {
+    font-size: 14px;
+  }
+  
+  .option-text {
+    font-size: 14px;
+  }
+  
+  .width-wrapper,
+  .size-wrapper {
+    padding: 6px 16px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Shop by Width & Size",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Shop by Width Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "width_background_image",
+      "label": "Width Background Image"
+    },
+    {
+      "type": "range",
+      "id": "width_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "width_title",
+      "label": "Width Section Title",
+      "default": "Shop by width"
+    },
+    {
+      "type": "checkbox",
+      "id": "width_show_shop_all",
+      "label": "Show 'Shop All' Link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "width_shop_all_text",
+      "label": "Shop All Text",
+      "default": "SHOP ALL"
+    },
+    {
+      "type": "url",
+      "id": "width_shop_all_link",
+      "label": "Shop All Link"
+    },
+    {
+      "type": "header",
+      "content": "Shop by Size Section"
+    },
+    {
+      "type": "image_picker",
+      "id": "size_background_image",
+      "label": "Size Background Image"
+    },
+    {
+      "type": "range",
+      "id": "size_overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Opacity",
+      "default": 30
+    },
+    {
+      "type": "text",
+      "id": "size_title",
+      "label": "Size Section Title",
+      "default": "Shop by size"
+    },
+    {
+      "type": "checkbox",
+      "id": "size_show_shop_all",
+      "label": "Show 'Shop All' Link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "size_shop_all_text",
+      "label": "Shop All Text",
+      "default": "SHOP ALL"
+    },
+    {
+      "type": "url",
+      "id": "size_shop_all_link",
+      "label": "Shop All Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "width_option",
+      "name": "Width Option",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "6E WIDE"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        }
+      ]
+    },
+    {
+      "type": "size_option",
+      "name": "Size Option",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "7-13"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop by Width & Size",
+      "blocks": [
+        {
+          "type": "width_option",
+          "settings": {
+            "label": "6E WIDE"
+          }
+        },
+        {
+          "type": "width_option",
+          "settings": {
+            "label": "5E WIDE"
+          }
+        },
+        {
+          "type": "width_option",
+          "settings": {
+            "label": "4E WIDE"
+          }
+        },
+        {
+          "type": "width_option",
+          "settings": {
+            "label": "3E WIDE"
+          }
+        },
+        {
+          "type": "width_option",
+          "settings": {
+            "label": "2E WIDE"
+          }
+        },
+        {
+          "type": "width_option",
+          "settings": {
+            "label": "D MED/ REG"
+          }
+        },
+        {
+          "type": "width_option",
+          "settings": {
+            "label": "NARROW"
+          }
+        },
+        {
+          "type": "size_option",
+          "settings": {
+            "label": "7-13"
+          }
+        },
+        {
+          "type": "size_option",
+          "settings": {
+            "label": "14"
+          }
+        },
+        {
+          "type": "size_option",
+          "settings": {
+            "label": "15"
+          }
+        },
+        {
+          "type": "size_option",
+          "settings": {
+            "label": "16"
+          }
+        },
+        {
+          "type": "size_option",
+          "settings": {
+            "label": "17"
+          }
+        },
+        {
+          "type": "size_option",
+          "settings": {
+            "label": "18"
+          }
+        },
+        {
+          "type": "size_option",
+          "settings": {
+            "label": "19"
+          }
+        },
+        {
+          "type": "size_option",
+          "settings": {
+            "label": "20"
+          }
+        },
+        {
+          "type": "size_option",
+          "settings": {
+            "label": "21"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
