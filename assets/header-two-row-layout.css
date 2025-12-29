@@ -30,6 +30,7 @@ header.header.header--two-row .header__top-row-inner {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
+    padding-bottom: 12px;
 }
 
 header.header.header--two-row .header__icons {
@@ -285,6 +286,10 @@ header.header.header--two-row .header__top-row-inner {
 @media only screen and (max-width: 750px) {
     .header__heading a.header__heading-link {
         padding: 0;
+    }
+
+    header.header.header--two-row .header__top-row-inner {
+        padding-bottom: 0;
     }
 
     header.header.header--two-row {

@@ -76,8 +76,14 @@
 .card .card__inner .card__media {
   overflow: hidden;
   /* Fix for Safari border bug on hover */
-  z-index: 0;
+  z-index: 1;
   border-radius: calc(var(--border-radius) - var(--border-width) - var(--image-padding));
+}
+
+.card .card__inner .card__media a {
+    width: 100%;
+    height: 100%;
+    z-index: 4;
 }
 
 .card--card .card__inner .card__media {
@@ -136,7 +142,7 @@
 
 .card__information {
   grid-row-start: 2;
-  padding: 1.3rem 1rem;
+  padding: 10px  1rem;
 }
 
 .card:not(.ratio) > .card__content {
@@ -265,8 +271,8 @@
 
 @media screen and (min-width: 750px) {
   .card__information {
-    padding-bottom: 1.7rem;
-    padding-top: 1.7rem;
+    padding-bottom: 0;
+    padding-top: 10px;
   }
 }
 
@@ -291,7 +297,7 @@
 
 .card__media .media img {
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center center;
   width: 100%;
 }
@@ -303,6 +309,16 @@
 .card__heading {
   margin-top: 0;
   margin-bottom: 0;
+      color: #191B1D;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    margin-bottom: 10px;
+        display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 }
 
 .card__heading:last-child {
@@ -358,6 +374,11 @@
 
 .card__heading a:after {
   outline-offset: 0.3rem;
+  display: none;
+}
+
+.card--standard>.card__content .quick-add {
+    display: none;
 }
 
 .card__heading a:focus:after {
@@ -401,10 +422,7 @@
     transform: scale(1.03);
   }
 
-  .underline-links-hover:hover a {
-    text-decoration: underline;
-    text-underline-offset: 0.3rem;
-  }
+ 
 }
 
 .card--standard.card--media .card__inner .card__information,
@@ -418,6 +436,7 @@
 .card--standard:not(.card--horizontal) .placeholder-svg {
   width: 100%;
 }
+
 
 .card--standard > .card__content {
   padding: 0;
@@ -475,7 +494,12 @@
 }
 
 .card-information > .price {
-  color: rgb(var(--color-foreground));
+  color: #191B1D;
+font-family: "Helvetica Neue";
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 16px; /* 100% */
 }
 
 .card--horizontal .card-information > .price {
@@ -550,6 +574,25 @@
   clip-path: polygon(var(--shape--blob-1));
 }
 
+.card--standard .card__inner .card__content .quick-add {
+    position: absolute;
+    border: 0;
+    top: auto;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    z-index: -2;
+    margin-bottom: 0;
+    opacity: 0;
+    transition: all .3s ease;
+}
+
+.card-wrapper:hover  .card__content .quick-add {
+  opacity: 1;
+  z-index: 3;
+}
+
 /* Card Shape Hover Rules */
 
 @media (prefers-reduced-motion: no-preference) {
@@ -592,4 +635,19 @@
   .grid__item:nth-child(8n) .product-card-wrapper:hover .shape--blob {
     clip-path: polygon(var(--shape--blob-5));
   }
+}
+
+
+.card-information .caption-with-letter-spacing.light {
+    color: #666;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px; /* 100% */
+    text-transform: capitalize;
+    opacity: 1;
+    margin-bottom: 10px;
+    margin-top: 0;
+        font-family: "Helvetica Neue";
+
 }

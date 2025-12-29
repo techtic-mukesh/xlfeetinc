@@ -5,6 +5,11 @@
   z-index: 1;
 }
 
+.quick-add__submit:before, .quick-add__submit:after {
+    display: none;
+}
+
+
 .card--card .quick-add {
   margin: 0 1.3rem 1rem;
 }
@@ -359,6 +364,16 @@ quick-add-modal .product-form__buttons {
   padding: 0.8rem;
   min-width: 100%;
   box-sizing: border-box;
+  border-radius: 12px;
+    border: 1px solid #191B1D;
+    background: #FFF;
+    color: #191B1D;
+    text-align: center;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
 }
 
 quick-add-modal .product-media-container.constrain-height {
