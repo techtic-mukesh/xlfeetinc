@@ -64,7 +64,7 @@
         "autoplay": true,
         "autoplay_delay": 200,
         "autoplay_disable_on_interaction": false,
-        "autoplay_pause_on_hover": false,
+        "autoplay_pause_on_hover": true,
         "loop": true,
         "show_navigation": true,
         "navigation_color": "#ffffff",
@@ -113,6 +113,7 @@
         "description": "",
         "show_description": false,
         "description_style": "body",
+        "show_view_all_top": false,
         "enable_swiper": true,
         "columns_desktop": 4,
         "enable_desktop_slider": true,
@@ -125,6 +126,7 @@
         "show_secondary_image": true,
         "show_vendor": true,
         "show_rating": true,
+        "show_variant_swatches": false,
         "quick_add": "standard",
         "columns_mobile": "2",
         "swipe_on_mobile": false,
@@ -337,15 +339,15 @@
         "heading_size": "h1",
         "link_text": "Shop Now",
         "header_button_type": "view_all",
-        "card_width": 300,
-        "card_height": 400,
+        "card_width": 400,
+        "card_height": 500,
         "columns_desktop": 4,
         "enable_carousel": true,
         "color_scheme": "",
         "columns_mobile": "2",
         "swipe_on_mobile": false,
-        "padding_top": 60,
-        "padding_bottom": 60,
+        "padding_top": 72,
+        "padding_bottom": 80,
         "padding_left": 80,
         "padding_right": 80
       }
@@ -399,6 +401,55 @@
         "show_text_below": false
       }
     },
+    "weekend_sale_banner_6YYwar": {
+      "type": "weekend-sale-banner",
+      "name": "Weekend Sale Banner",
+      "settings": {
+        "background_color": "#d8cfc4",
+        "show_border": true,
+        "subtitle": "Make It Yours Before It's Gone",
+        "title": "This Weekend Only",
+        "discount_text": "<p><strong>Flat 30% OFF </strong>on All Styles</p>",
+        "product_image": "shopify://shop_images/Rectangle_40199_1.png",
+        "product_mobile": "shopify://shop_images/Rectangle_40200_f9a931be-f7ce-4e04-9e9b-02efe5fc81aa.png",
+        "button_text": "Shop Collection",
+        "button_link": "shopify://collections/boots-copy"
+      }
+    },
+    "featured_collection_NEJz3V": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "shoes",
+        "products_to_show": 4,
+        "subheading": "Limited. Final. Forever.",
+        "subheading_size": "h4",
+        "title": "Exclusive final run, no restocks.",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "show_view_all_top": true,
+        "enable_swiper": false,
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": true,
+        "show_variant_swatches": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
     "customer_feedback_RtTW7e": {
       "type": "customer-feedback",
       "blocks": {
@@ -445,29 +496,14 @@
         "review_en7kTY",
         "review_mjLqFL"
       ],
-      "disabled": true,
       "name": "Customer Feedback",
       "settings": {
         "subtitle": "Customer Feedback",
         "title": "Real reviews from real customers",
         "padding_top": 40,
-        "padding_bottom": 52,
+        "padding_bottom": 156,
         "padding_left": 80,
         "padding_right": 80
-      }
-    },
-    "weekend_sale_banner_6YYwar": {
-      "type": "weekend-sale-banner",
-      "name": "Weekend Sale Banner",
-      "settings": {
-        "background_color": "#d8cfc4",
-        "show_border": true,
-        "subtitle": "Make It Yours Before It's Gone",
-        "title": "This Weekend Only",
-        "discount_text": "",
-        "product_image": "shopify://shop_images/Rectangle_40199_1.png",
-        "button_text": "Shop Collection",
-        "button_link": "shopify://collections/boots-copy"
       }
     }
   },
@@ -477,7 +513,8 @@
     "shop_by_width_size_J6EitD",
     "collection_list_Jqe9Bf",
     "image_banner",
-    "customer_feedback_RtTW7e",
-    "weekend_sale_banner_6YYwar"
+    "weekend_sale_banner_6YYwar",
+    "featured_collection_NEJz3V",
+    "customer_feedback_RtTW7e"
   ]
 }
