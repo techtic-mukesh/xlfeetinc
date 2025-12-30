@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 36,
         "padding_bottom": 36
@@ -18,6 +19,7 @@
     },
     "form": {
       "type": "contact-form",
+      "disabled": true,
       "settings": {
         "heading": "",
         "heading_size": "h1",
@@ -25,10 +27,31 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "contact_us_p4ViDa": {
+      "type": "contact-us",
+      "name": "Conatct Us",
+      "settings": {
+        "heading": "Contact Us",
+        "heading_size": "h1",
+        "address_title": "Address",
+        "address_content": "<p>XLFEET INC.<br/>242 FILMORE AVE EAST<br/>ST. PAUL, MN 55107</p>",
+        "working_hours_title": "",
+        "working_hours_content": "<p><strong>monday to friday</strong><br/>11:00 - 6:00<br/><br/><strong>Saturday</strong><br/>12:00 - 5:00 (Central<br/>Time)</p>",
+        "phone_title": "Telephone",
+        "phone": "+1 (651) 797-6000",
+        "show_social": true,
+        "conatct_info_heading_clr": "#216ca6",
+        "conatct_from_bg_clr": "#f4f4f4",
+        "color_scheme": "scheme-6395ba34-90ad-4b4d-b74c-c0570640edec",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
-    "form"
+    "form",
+    "contact_us_p4ViDa"
   ]
 }

@@ -24,7 +24,7 @@
     "animations_hover_elements": "none",
     "buttons_border_thickness": 1,
     "buttons_border_opacity": 100,
-    "buttons_radius": 0,
+    "buttons_radius": 12,
     "buttons_shadow_opacity": 0,
     "buttons_shadow_horizontal_offset": 0,
     "buttons_shadow_vertical_offset": 4,
@@ -143,27 +143,45 @@
       }
     },
     "content_for_index": [],
+    "blocks": {
+      "17670844658694443202": {
+        "type": "shopify://apps/wishlist-plus/blocks/wishlist-app-embed/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
+        "disabled": false,
+        "settings": {
+          "storefront_layout_enabled": false,
+          "storefront_layout_primary_bg_color": "#000000",
+          "storefront_layout_primary_text_color": "#ffffff",
+          "storefront_layout_secondary_bg_color": "#F4F8FE",
+          "storefront_layout_secondary_text_color": "#333333",
+          "storefront_layout_ui_border_radius": 6,
+          "storefront_layout_notification_position": "left",
+          "storefront_layout_action_popup_position": "left",
+          "storefront_layout_drawer_position": "left",
+          "storefront_layout_as_section_page": ""
+        }
+      }
+    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
           "background": "#ffffff",
           "background_gradient": "",
-          "text": "#121212",
-          "button": "#121212",
-          "button_label": "#ffffff",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212"
+          "text": "#000000",
+          "button": "#ffffff",
+          "button_label": "#000000",
+          "secondary_button_label": "#191b1d",
+          "shadow": "#191b1d"
         }
       },
       "scheme-2": {
         "settings": {
-          "background": "#ececec",
+          "background": "#f9f9f9",
           "background_gradient": "",
-          "text": "#121212",
-          "button": "#121212",
-          "button_label": "#f3f3f3",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212"
+          "text": "#646464",
+          "button": "#646464",
+          "button_label": "#f9f9f9",
+          "secondary_button_label": "#646464",
+          "shadow": "#646464"
         }
       },
       "scheme-3": {
@@ -198,23 +216,38 @@
           "secondary_button_label": "#ffffff",
           "shadow": "#121212"
         }
-      }
-    },
-    "blocks": {
-      "17670844658694443202": {
-        "type": "shopify://apps/wishlist-plus/blocks/wishlist-app-embed/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
-        "disabled": false,
+      },
+      "scheme-8c4a1294-8eb7-41fe-b32c-4725426eef9e": {
         "settings": {
-          "storefront_layout_enabled": false,
-          "storefront_layout_primary_bg_color": "#000000",
-          "storefront_layout_primary_text_color": "#ffffff",
-          "storefront_layout_secondary_bg_color": "#F4F8FE",
-          "storefront_layout_secondary_text_color": "#333333",
-          "storefront_layout_ui_border_radius": 6,
-          "storefront_layout_notification_position": "left",
-          "storefront_layout_action_popup_position": "left",
-          "storefront_layout_drawer_position": "left",
-          "storefront_layout_as_section_page": ""
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#646464",
+          "button": "#ffffff",
+          "button_label": "#646464",
+          "secondary_button_label": "#ffffff",
+          "shadow": "#ffffff"
+        }
+      },
+      "scheme-0e18c6b1-3a88-4af3-8626-eb0927a77401": {
+        "settings": {
+          "background": "#f4f4f4",
+          "background_gradient": "",
+          "text": "#000000",
+          "button": "#f4f4f4",
+          "button_label": "#000000",
+          "secondary_button_label": "#f4f4f4",
+          "shadow": "#f4f4f4"
+        }
+      },
+      "scheme-8e5ed33a-8089-4491-99a0-e3d031a8d1a9": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#1f1f1f",
+          "button": "#1f1f1f",
+          "button_label": "#ffffff",
+          "secondary_button_label": "#1f1f1f",
+          "shadow": "#1f1f1f"
         }
       }
     }
