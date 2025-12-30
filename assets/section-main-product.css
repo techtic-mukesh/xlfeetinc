@@ -78,14 +78,14 @@ product-info {
 
   .product--medium:not(.product--no-media) .product__media-wrapper,
   .product--small:not(.product--no-media) .product__info-wrapper {
-    max-width: 55%;
-    width: calc(55% - var(--grid-desktop-horizontal-spacing) / 2);
+    max-width: 50%;
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
   }
 
   .product--medium:not(.product--no-media) .product__info-wrapper,
   .product--small:not(.product--no-media) .product__media-wrapper {
-    max-width: 45%;
-    width: calc(45% - var(--grid-desktop-horizontal-spacing) / 2);
+    max-width: 50%;
+    width: calc(50% - var(--grid-desktop-horizontal-spacing) / 2);
   }
 }
 
@@ -171,8 +171,8 @@ product-info {
 .product-form__input {
   flex: 0 0 100%;
   padding: 0;
-  margin: 0 0 1.2rem 0;
-  max-width: 44rem;
+  margin: 0 0 30px 0;
+  max-width: 100%;
   min-width: fit-content;
   border: none;
 }
@@ -190,7 +190,24 @@ product-info {
 }
 
 .product-form__submit {
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
+      border-radius: 12px;
+    border: 1px solid #191B1D;
+    background: #191B1D;
+    color: #FFF;
+    text-align: center;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+}
+.product-form__submit:after, .product-form__submit:before {
+  display: none;
+}
+
+#more-payment-options-link {
+  display: none ;
 }
 
 .product-form__submit[aria-disabled='true'] + .shopify-payment-button .shopify-payment-button__button[disabled],
@@ -243,11 +260,67 @@ a.product__text {
 
 .product__text.caption-with-letter-spacing {
   text-transform: uppercase;
+      color: #000;
+    font-family: "Helvetica Neue";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    text-transform: capitalize;
+        padding: 8px 20px;
+        border-radius: 12px;
+border: 1px solid #666;
+background: rgba(255, 255, 255, 0.29);
+backdrop-filter: blur(13px);
+display: inline-flex;
+margin-bottom: 15px;
 }
 
 .product__title {
   word-break: break-word;
-  margin-bottom: 1.5rem;
+  margin-bottom: 12px;
+  color: #000;
+font-family: "Helvetica Neue";
+font-size: 34px;
+font-style: normal;
+font-weight: 700;
+line-height: 38px; /* 111.765% */
+}
+
+.product__title h1 {
+   color: #000;
+font-family: "Helvetica Neue";
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: 38px; /* 111.765% */
+}
+
+.product__info-wrapper .price__container span.price-item {
+    color: #191B1D;
+    text-align: right;
+    font-family: "Helvetica Neue";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px; /* 66.667% */
+}
+
+.product__info-container .price--on-sale .price-item--regular {
+  color: #666;
+font-family: "Helvetica Neue";
+font-size: 18px;
+font-style: normal;
+font-weight: 300;
+line-height: 18px; /* 100% */
+text-decoration-line: line-through;
+margin: 0;
+}
+
+.product__info-container  .price.price--large.price--on-sale.price--show-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .product__title > * {
@@ -271,11 +344,47 @@ a.product__text {
 }
 
 .product .price .badge {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
 }
 
 .product .price__container {
-  margin-bottom: 0.5rem;
+  margin-bottom:0;
+}
+
+.product .price .badge {
+    background-color: unset;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='20' viewBox='0 0 75 20' fill='none'%3E%3Cpath d='M6 5C6 2.23858 8.23858 0 11 0H70C72.7614 0 75 2.23858 75 5V15C75 17.7614 72.7614 20 70 20H11C8.23858 20 6 17.7614 6 15V5Z' fill='%23FFE887'/%3E%3Cpath d='M-1.96701e-07 9.5L6.75 5.60289L6.75 13.3971L-1.96701e-07 9.5Z' fill='%23FFE887'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    color: #000;
+    font-family: "Helvetica Neue";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px; /* 100% */
+    background-size: contain;
+    padding-left: 17px;
+    padding-top: 7px;
+    padding-right: 8px;
+}
+
+shopify-payment-terms {
+    display: none;
+}
+
+.product__info-container> p.product__sku {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #D9D9D9;
+    padding-bottom: 30px;
+    margin-top: 21px;
+}
+
+.product__info-container> p.product__sku span {
+    color: #666;
 }
 
 .product .price dl {
@@ -287,14 +396,50 @@ a.product__text {
   display: none;
 }
 
+.product__info-container> variant-selects {
+    margin-top: 0 !important;
+}
+
+.product-form__input .form__label, span.size-option-title {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px; /* 75% */
+}
+
+.size-option-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.size-option-header .size-chart-button {
+    background: url();
+    border: 1px solid #D22030;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4.5px 13px;
+    border-radius: 25px;
+    color: #D22030;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px; /* 100% */
+    font-family: "Helvetica Neue";
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
 @media screen and (min-width: 750px) {
   .product__info-container {
     max-width: 60rem;
   }
 
-  .product__info-container .price--on-sale .price-item--regular {
-    font-size: 1.6rem;
-  }
+
 
   .product__info-container > *:first-child {
     margin-top: 0;
@@ -364,7 +509,7 @@ a.product__text {
 }
 
 .product-form__buttons {
-  max-width: 44rem;
+  max-width: 100%;
 }
 
 .product--no-media .product__info-container > modal-opener {
@@ -1492,3 +1637,23 @@ a.product__text {
     border: none;
   }
 }
+
+.product__info-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+}
+
+.product__info-wrapper .logo-pdpSide {
+    max-width: 69px;
+    height: 69px;
+    min-width: 69px;
+}
+
+.product__info-wrapper .logo-pdpSide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+

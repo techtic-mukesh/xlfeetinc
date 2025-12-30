@@ -113,9 +113,21 @@
       {%- endif -%}
     </div>
     {%- if show_badges -%}
-      <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
-        {{ 'products.product.on_sale' | t }}
-      </span>
+      {% if compare_at_price > price %}
+  {% assign save_percent = compare_at_price
+    | minus: price
+    | times: 100
+    | divided_by: compare_at_price
+    | round
+  %}
+{% endif %}
+
+   {% if compare_at_price > price %}
+  <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
+    Save {{ save_percent }}%
+  </span>
+{% endif %}
+
 
       <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
         {{ 'products.product.sold_out' | t }}
