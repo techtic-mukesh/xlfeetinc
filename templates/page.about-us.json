@@ -1,0 +1,424 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "page_banner_K4NTqq": {
+      "type": "page-banner",
+      "name": "Page Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/about-us-banner.png",
+        "mobile_image": "shopify://shop_images/about-us-banner.png",
+        "gradient_angle": "90deg",
+        "gradient_color": "#000000",
+        "gradient_opacity_start": 40,
+        "gradient_opacity_end": 0,
+        "title_color": "#ffffff",
+        "text_transform": "uppercase",
+        "font_size_min": 26,
+        "font_size_max": 48
+      }
+    },
+    "text_with_video_qYrGhJ": {
+      "type": "text-with-video",
+      "name": "Text with Video",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "video_position": "right",
+        "heading": "XLfeet's founder, Adrian, wears size 16EE",
+        "text": "<p>When Adrian Coulter, XLFeet Owner, was in first grade, he was seven years old and his shoe size matched his age: 7 men’s. While in sixth grade at age/shoe size 12, he learned that would be the last time he would be able to walk into any random shoe store and find a wide selection of shoes from which to choose. Not only would he have to get his shoes at a small independent shoe store in Minneapolis which is now closed, and had little, if any, selection; it was the same store where his grandpa with extra large feet also shopped – which was kind of embarrassing for this young teenager.<br/><br/></p>",
+        "description_color": "#646464",
+        "video_url": "https://youtu.be/AexVgsS74gU",
+        "video_radius": 20,
+        "padding_top": 70,
+        "padding_bottom": 70
+      }
+    },
+    "image_feature_grid_Rc9NHK": {
+      "type": "image-feature-grid",
+      "blocks": {
+        "item_yqfmB3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/about_img_2.webp",
+            "small_text": "Offering you",
+            "heading": "Multitude Of Styles",
+            "link": "",
+            "text_color": "#ffffff"
+          }
+        },
+        "item_6trWGU": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/about_img_3.webp",
+            "small_text": "Twin Cities",
+            "heading": "physical store origin",
+            "link": "",
+            "text_color": "#ffffff"
+          }
+        },
+        "item_gCiCFe": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/about_img_4.webp",
+            "small_text": "to pro athletes",
+            "heading": "Serving Average Joe",
+            "link": "",
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "item_yqfmB3",
+        "item_6trWGU",
+        "item_gCiCFe"
+      ],
+      "name": "Image Feature Grid",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "company_journey_Qhxntg": {
+      "type": "company-journey",
+      "blocks": {
+        "timeline_t7Cxh4": {
+          "type": "timeline",
+          "settings": {
+            "year": "1990",
+            "description": "Age 7, Size 7",
+            "block_color_scheme": ""
+          }
+        },
+        "timeline_QmNN6p": {
+          "type": "timeline",
+          "settings": {
+            "year": "1999",
+            "description": "Age: 16, size: 16",
+            "block_color_scheme": ""
+          }
+        },
+        "timeline_cUKk79": {
+          "type": "timeline",
+          "settings": {
+            "year": "1997 - 2009",
+            "description": "Struggled to find shoes that simply fit",
+            "block_color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "timeline_t7Cxh4",
+        "timeline_QmNN6p",
+        "timeline_cUKk79"
+      ],
+      "name": "Our Story Timeline",
+      "settings": {
+        "text": "<p>At age 16 his feet finally stopped growing. He would eventually learn that he was not the only one in this quandary. He didn’t know how common it was for people with big feet to have their shoe size match their age until deep into their teenage years. Virtually all the customers at XLFeet have shared this same experience; and if you are a parent with a son following in those same footsteps, beware, it’s likely his feet are not done growing.<br/><br/>The struggle continued throughout his early adult life – difficulty finding everyday shoes, having to wear sneakers instead of boots when sledding in the snow, special ordering dress shoes when renting a tux, and no hope of finding skis, skates or other specialty footwear – problems that are too well known by those with extra large/wide feet.<br/><br/>One day while sitting in the math lab at college, Adrian noticed a foul odor and discovered it was the disintegrating soles of the cheap clearance shoes he was wearing. Beginning to fret about having to hunt down a pair of size 16 shoes again, it was frustrating as he always had to settle for very few shoes to choose from whether comfortable or not. And fashionable? That was out of the question. It was then that he committed to do something about it and started his own shoe company.</p>",
+        "custom_page_width": 1104,
+        "image": "shopify://shop_images/exploring-banner.png",
+        "banner_text": "<p><strong>Expanding </strong>To Even Better Serve The Big And Tall Community</p>",
+        "banner_text_color": "#ffffff",
+        "color_scheme": "scheme-2",
+        "padding_top": 70,
+        "padding_bottom": 70
+      }
+    },
+    "company_highlights_zjbCWe": {
+      "type": "company-highlights",
+      "blocks": {
+        "pill_NqyxfH": {
+          "type": "pill",
+          "settings": {
+            "year": "2008",
+            "description": "Started xlfeet in back room of his house",
+            "extra_content_block": "",
+            "block_color_scheme": ""
+          }
+        },
+        "pill_q4zqbh": {
+          "type": "pill",
+          "settings": {
+            "year": "2010",
+            "description": "provided the shoe store experience from xlfeetmobile;",
+            "extra_content_block": "",
+            "block_color_scheme": ""
+          }
+        },
+        "pill_zDW77G": {
+          "type": "pill",
+          "settings": {
+            "year": "2012",
+            "description": "Added Florsheim Brand after receiving $1K microgrant",
+            "extra_content_block": "",
+            "block_color_scheme": ""
+          }
+        },
+        "card_eJLGp8": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_40201_abecaed3-d69d-450e-9614-a439aede96f1.png",
+            "title": "Adrian’s Home where XLFeet began out of a spare bedroom."
+          }
+        },
+        "card_8RNFkq": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_40201_1_920eb514-ed93-4f2c-b7d1-56284d9240b2.png",
+            "title": "Photo light box for manually creating product images for the website."
+          }
+        },
+        "card_zizrPk": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_40201_2_6c87e082-49fe-44b3-be13-31a841e61af6.png",
+            "title": "The van Adrian believed would deliver his store to the customer’s door."
+          }
+        },
+        "card_pA8wqM": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_40201_3_40047c86-e999-4e52-879c-3ffeb2461760.png",
+            "title": "Adrian’s tablet for accepting mobile payments."
+          }
+        }
+      },
+      "block_order": [
+        "pill_NqyxfH",
+        "pill_q4zqbh",
+        "pill_zDW77G",
+        "card_eJLGp8",
+        "card_8RNFkq",
+        "card_zizrPk",
+        "card_pA8wqM"
+      ],
+      "name": "Company Highlights",
+      "settings": {
+        "color_scheme": "scheme-8c4a1294-8eb7-41fe-b32c-4725426eef9e",
+        "heading_img": "shopify://shop_images/heighlight_Icon_6201a5a9-1b65-498f-bbec-423625a4a3d3.png",
+        "company_heading": "Our Journey & Presence",
+        "heading_block_color_scheme": "scheme-0e18c6b1-3a88-4af3-8626-eb0927a77401",
+        "description": "<p>As the founder/owner of XLFeet.com, Adrian knew footwear manufacturers were making extra large sizes yet few, if any, stores were stocking them. He did further research and asked around to find a way to connect with those manufacturers. Later at a shoe show in Las Vegas (with no knowledge about shoes, the lingo, or how to run a shoe store) he spoke to over 500 shoe manufacturers. Only one of those 500+ vendors let Adrian sell their shoes. The next year he went back and got three more brands.<br/><br/>He started the company out of his house and thought he would sell online only without a physical store. Adrian was still working full time selling cell phones in a retail store and had started XLFeet.com on the side.<br/><br/>Early in 2010 as sales began to trickle in, he bought a cargo van and put XLFeet.com decals on it thinking he might deliver the shoe store experience to his customers in the Minneapolis / St Paul Twin City area.<br/><br/>In 2012, XLFeet.com moved into its first physical store due to some shoe brands requiring the company to have a brick and mortar location. That year Adrian’s resources became dangerously low and he was referred to an organization called Microgrants by the Metropolitan Economic Development Association (MEDA.net) where he received a microgrant of just $1,000. This enabled him to pay for an opening order to add Florsheim as a brand to XLFeet.com.</p>",
+        "custom_page_width": 1104,
+        "show_pills": true,
+        "grid_columns": 4,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "company_highlights_AzbEGh": {
+      "type": "company-highlights",
+      "blocks": {
+        "pill_CW36nW": {
+          "type": "pill",
+          "settings": {
+            "year": "2012",
+            "description": "",
+            "extra_content_block": "<p>Moved into first physical store</p><p>Became full-time owner at xlfeet store</p>",
+            "block_color_scheme": ""
+          }
+        },
+        "card_gQmrTB": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_40201_4.png",
+            "title": "Inventory room and back office in first store location"
+          }
+        },
+        "card_qLerzL": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_40201_5.png",
+            "title": "Showroom of first store location"
+          }
+        }
+      },
+      "block_order": [
+        "pill_CW36nW",
+        "card_gQmrTB",
+        "card_qLerzL"
+      ],
+      "name": "Company Highlights",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "heading_img": "shopify://shop_images/image_685.png",
+        "company_heading": "PHYSICAL STOREFRONT experience",
+        "heading_block_color_scheme": "scheme-1",
+        "description": "<p>Shortly after this, Adrian quit his job to work full time at XLFeet.com and within a year the company outgrew its first store. XLFeet.com then moved into a neighboring unit in the same building which upgraded the company’s space from 500 to 4,700 square feet.</p>",
+        "custom_page_width": 1104,
+        "show_pills": true,
+        "grid_columns": 2,
+        "padding_top": 70,
+        "padding_bottom": 60
+      }
+    },
+    "company_highlights_w8UyPb": {
+      "type": "company-highlights",
+      "blocks": {
+        "pill_4Ywpxa": {
+          "type": "pill",
+          "settings": {
+            "year": "2013",
+            "description": "Expanded store space by 9x",
+            "extra_content_block": "",
+            "block_color_scheme": ""
+          }
+        },
+        "pill_8CaqV9": {
+          "type": "pill",
+          "settings": {
+            "year": "2015",
+            "description": "His first daughter was born",
+            "extra_content_block": "",
+            "block_color_scheme": ""
+          }
+        },
+        "card_U6fbtw": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_40201_6.png",
+            "title": "Ribbon Cutting at latest location"
+          }
+        },
+        "card_e6VM9C": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_40201_7.png",
+            "title": "Showroom oflatest Store"
+          }
+        },
+        "card_WN3CKC": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_40201_8.png",
+            "title": "Showroom oflatest Store"
+          }
+        },
+        "card_EGdApX": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_40201_9.png",
+            "title": "Part of Warehouse in latest location"
+          }
+        }
+      },
+      "block_order": [
+        "pill_4Ywpxa",
+        "pill_8CaqV9",
+        "card_U6fbtw",
+        "card_e6VM9C",
+        "card_WN3CKC",
+        "card_EGdApX"
+      ],
+      "name": "Company Highlights",
+      "settings": {
+        "color_scheme": "scheme-8c4a1294-8eb7-41fe-b32c-4725426eef9e",
+        "heading_img": "shopify://shop_images/image_686.png",
+        "company_heading": "live & real customer support",
+        "heading_block_color_scheme": "scheme-0e18c6b1-3a88-4af3-8626-eb0927a77401",
+        "description": "<p>In 2017 XLFeet.com pierced $1M in annual sales and had grown to an offering of more than 50 brands of footwear. This enabled Adrian to give back to Microgrants with a donation of more than twice the amount of the grant he received a few years earlier. In 2019 the company migrated to a new website powered by Magento. This was a massive project which brought a wide array of extra functionality and benefits to XLFeet’s customers.</p>",
+        "custom_page_width": 1104,
+        "show_pills": true,
+        "grid_columns": 4,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "featured_in_the_press_ptKPLL": {
+      "type": "featured-in-the-press",
+      "blocks": {
+        "image_with_text_MgrtcJ": {
+          "type": "image_with_text",
+          "settings": {
+            "left_side_img": "shopify://shop_images/image_687.png",
+            "first_image_block": "shopify://shop_images/Rectangle_40226.png",
+            "first_image_text_block": "News article marking the point when XLfeet pierced $1 Million in annual sales Jan 2018.",
+            "second_image_block": "shopify://shop_images/Rectangle_40226_2.png",
+            "second_image_text_block": "Adrian was Keynote Speaker at a Microgrants event where he donated $2,400 (more than doubling the donation from the previous year) to pay it forward for future grantees like himself. He was formerly a recipient of a $1,000 Microgrant in 2011."
+          }
+        },
+        "pill_zPfbBK": {
+          "type": "pill",
+          "settings": {
+            "year": "2017",
+            "description": "Hit our first $1M sales and carried 50+ brands",
+            "extra_content_block": "",
+            "block_color_scheme": ""
+          }
+        },
+        "pill_jMBGdt": {
+          "type": "pill",
+          "settings": {
+            "year": "2019",
+            "description": "Improved our web store to better serve our customers",
+            "extra_content_block": "",
+            "block_color_scheme": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_with_text_MgrtcJ",
+        "pill_zPfbBK",
+        "pill_jMBGdt"
+      ],
+      "name": "Featured In the Press",
+      "settings": {
+        "color_scheme": "scheme-0e18c6b1-3a88-4af3-8626-eb0927a77401",
+        "heading_img": "shopify://shop_images/FEWER_RETURNS.png",
+        "company_heading": "accurate fitting & FEWER RETURNS",
+        "heading_block_color_scheme": "",
+        "description": "<p>If you have large or wide feet, chances are you have already invested years of your life sifting through all kinds of cool boots and shoes on numerous websites and at shoe stores, only to learn the popular styles displayed are not offered in Big and Tall sizes or Wide widths. XLFeet.com offers the most cutting-edge shoes, boots, slippers, socks and insoles in the size and width you are looking for. They are always working to carry as many of the oddball sizes which span 7-13, 14, 15, 16, 17, 18, 19, 20, 21, and extra-wide to EEEEEE as possible.<br/><br/></p>",
+        "show_pills": true,
+        "grid_columns": 4,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_image_with_text_RMGRVV": {
+      "type": "custom-image-with-text",
+      "name": "Custom Image with text",
+      "settings": {
+        "custom_page_width": 1164,
+        "color_scheme": "",
+        "image": "shopify://shop_images/Rectangle_40227_6b7fd087-6367-4c54-8633-61982d7b4aec.png",
+        "image_position": "right",
+        "eyebrow": "Order online or come visit us in person",
+        "heading": "Fitting Extra Large Feet is no Extra Large Feat®",
+        "heading_size": "h2",
+        "text": "",
+        "button_label": "Shop now",
+        "button_link": "shopify://collections",
+        "button_style_secondary": true,
+        "padding_top": 72,
+        "padding_bottom": 72
+      }
+    }
+  },
+  "order": [
+    "main",
+    "page_banner_K4NTqq",
+    "text_with_video_qYrGhJ",
+    "image_feature_grid_Rc9NHK",
+    "company_journey_Qhxntg",
+    "company_highlights_zjbCWe",
+    "company_highlights_AzbEGh",
+    "company_highlights_w8UyPb",
+    "featured_in_the_press_ptKPLL",
+    "custom_image_with_text_RMGRVV"
+  ]
+}

@@ -1,0 +1,93 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "page_banner_XmUKPN": {
+      "type": "page-banner",
+      "name": "Page Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/Customer_Service.png",
+        "mobile_image": "shopify://shop_images/Customer_Service.png",
+        "gradient_angle": "90deg",
+        "gradient_color": "#000000",
+        "gradient_opacity_start": 40,
+        "gradient_opacity_end": 0,
+        "title_color": "#ffffff",
+        "text_transform": "uppercase",
+        "font_size_min": 26,
+        "font_size_max": 48
+      }
+    },
+    "contact_info_7M4rTP": {
+      "type": "contact-info",
+      "blocks": {
+        "info_Dj4wej": {
+          "type": "info",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_1.png",
+            "heading": "CONTACT US",
+            "phone_text": "(651) 797-6000",
+            "phone_link": "+16517976000",
+            "email": "customercare@xlfleet.com",
+            "extra_text": ""
+          }
+        },
+        "info_akt3DA": {
+          "type": "info",
+          "settings": {
+            "icon": "shopify://shop_images/Vector_1.png",
+            "heading": "Address",
+            "phone_text": "",
+            "phone_link": "",
+            "email": "",
+            "extra_text": "<p>XLFEET INC. <br/>242 Fillmore Ave East, St Paul, MN 55107</p>"
+          }
+        },
+        "info_ecEGyX": {
+          "type": "info",
+          "settings": {
+            "icon": "shopify://shop_images/lets-icons_time-light.png",
+            "heading": "Hours",
+            "phone_text": "",
+            "phone_link": "",
+            "email": "",
+            "extra_text": "<p><strong>Physical Store:</strong><br/>12:00-6:00 Mon-Fri, 12:00-5:00 Sat - Central Time<br/><br/><strong>Call Center:</strong><br/>11:00-6:00 Mon-Fri, 12:00-5:00 Sat - Central Time</p>"
+          }
+        }
+      },
+      "block_order": [
+        "info_Dj4wej",
+        "info_akt3DA",
+        "info_ecEGyX"
+      ],
+      "name": "Contact info",
+      "settings": {
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "padding_top_desktop": 52,
+        "padding_bottom_desktop": 52
+      }
+    }
+  },
+  "order": [
+    "main",
+    "page_banner_XmUKPN",
+    "contact_info_7M4rTP"
+  ]
+}

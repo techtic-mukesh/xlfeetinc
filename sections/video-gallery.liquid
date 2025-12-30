@@ -1,0 +1,484 @@
+{% comment %}
+  Video gallery powered by Metaobjects + Fancybox
+  Definition handle default: xl_feet_videos
+  Field handles (exact):
+    - thumbnail (image/file reference)  — optional, falls back to YouTube preview
+    - title      (single_line_text)
+    - video_url  (url) — YouTube/Vimeo/MP4
+    - video_tag  (single_line_text) — comma separated
+{% endcomment %}
+{% style %}
+.section-{{ section.id }} {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+}
+
+@media screen and (min-width: 750px) {
+  .section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_desktop }}px;
+    padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+  }
+}
+button.button.button--tertiary.button--small.tag_tabular {
+  background-color:{{  section.settings.tab_background_clr }};
+  color:{{  section.settings.tab_txt_color }};
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+  padding: 8px 20px;
+}
+button.button.button--tertiary.button--small.tag_tabular.is-active {
+    background-color:{{  section.settings.active_tab_background_clr }};
+    color:{{  section.settings.active_tab_txt_color }};
+}
+#video-metaobject-{{ section.id }} {
+  --grid-desktop-vertical-spacing: 20px;
+  --grid-desktop-horizontal-spacing: 20px;
+}
+{% endstyle %}
+
+
+{%- liquid
+  assign def_handle = section.settings.definition_handle | default: 'xl_feet_videos' | strip
+  assign entries_drop = shop.metaobjects[def_handle]
+  assign entries = nil
+  if entries_drop and entries_drop.values
+    assign entries = entries_drop.values
+  endif
+-%}
+{%- liquid
+  assign bg_opacity = section.settings.bg_opacity | divided_by: 100.0
+-%}
+<section id="video-metaobject-{{ section.id }}" class="section-{{ section.id }} section color-{{ section.settings.color_scheme }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="title {{ section.settings.heading_size }}">{{ section.settings.heading | escape }}</h2>
+    {%- endif -%}
+
+    {%- if entries == blank -%}
+      <div class="color-background-2 gradient content-container">
+        <p>No videos found. Enable Storefront access for the “{{ def_handle }}” metaobject and expose the fields.</p>
+      </div>
+    {%- else -%}
+      {%- comment -%} Build unique tag list {%- endcomment -%}
+      {%- assign unique_tags = '' | split: '' -%}
+      {%- for e in entries -%}
+        {%- assign raw_tag = e.video_tag | default: e.fields.video_tag | default: e.video_tag.value | default: '' -%}
+        {%- assign tokens = raw_tag | replace: ';', ',' | split: ',' -%}
+        {%- for t in tokens -%}
+          {%- assign handle = t | strip | handleize -%}
+          {%- if handle != '' -%}
+            {%- unless unique_tags contains handle -%}
+              {%- assign add = handle | split: ',' -%}
+              {%- assign unique_tags = unique_tags | concat: add -%}
+            {%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endfor -%}
+      {%- assign unique_tags = unique_tags | sort -%}
+
+      <div class="video-filter-buttons" role="tablist" aria-label="Video filters">
+        <button class="button button--tertiary button--small tag_tabular is-active" data-filter="all" role="tab" aria-selected="true">All</button>
+        {%- for tag in unique_tags -%}
+          {%- assign label = tag | replace: '-', ' ' | capitalize -%}
+          <button class="button button--tertiary button--small tag_tabular" data-filter="{{ tag }}" role="tab" aria-selected="false">{{ label }}</button>
+        {%- endfor -%}
+      </div>
+
+      <div class="video-grid grid grid--{{ section.settings.columns_mobile }}-col grid--{{ section.settings.columns_desktop }}-col-desktop">
+        {%- for e in entries -%}
+          {%- comment -%} Tags for filtering {%- endcomment -%}
+          {%- assign raw_tag = e.video_tag | default: e.fields.video_tag | default: e.video_tag.value | default: '' -%}
+          {%- assign tag_tokens = raw_tag | replace: ';', ',' | split: ',' -%}
+          {%- assign tag_handles = '' -%}
+          {%- for t in tag_tokens -%}
+            {%- assign h = t | strip | handleize -%}
+            {%- if h != '' -%}{%- assign tag_handles = tag_handles | append: h | append: ' ' -%}{%- endif -%}
+          {%- endfor -%}
+
+          {%- comment -%} Resolve field values safely {%- endcomment -%}
+          {%- assign title_text = e.title | default: e.fields.title | default: e.title.value | default: '' -%}
+          {%- assign raw_url = '' -%}
+          {%- if e.video_url and e.video_url.value -%}
+            {%- assign raw_url = e.video_url.value | strip -%}
+          {%- elsif e.fields and e.fields.video_url -%}
+            {%- assign raw_url = e.fields.video_url | strip -%}
+          {%- endif -%}
+
+          {%- comment -%} Normalize YouTube/Vimeo/MP4 for Fancybox {%- endcomment -%}
+          {%- assign video_type = 'other' -%}
+          {%- assign video_href = raw_url -%}
+          {%- assign yt_id = '' -%}
+          {%- if raw_url contains 'youtube.com/watch' -%}
+            {%- assign yt_id = raw_url | split: 'v=' | last | split: '&' | first -%}
+          {%- elsif raw_url contains 'youtu.be/' -%}
+            {%- assign yt_id = raw_url | split: 'youtu.be/' | last | split: '?' | first -%}
+          {%- elsif raw_url contains '/shorts/' -%}
+            {%- assign yt_id = raw_url | split: '/shorts/' | last | split: '?' | first -%}
+          {%- elsif raw_url != '' and raw_url.size == 11 -%}
+            {%- assign yt_id = raw_url -%}
+          {%- endif -%}
+          {%- if yt_id != '' -%}
+            {%- assign video_href = 'https://www.youtube.com/embed/' | append: yt_id | append: '?autoplay=1&rel=0&modestbranding=1&playsinline=1' -%}
+            {%- assign video_type = 'iframe' -%}
+          {%- elsif raw_url contains 'vimeo.com/' -%}
+            {%- assign vimeo_id = raw_url | split: 'vimeo.com/' | last | split: '/' | last | split: '?' | first -%}
+            {%- if vimeo_id != '' -%}
+              {%- assign video_href = 'https://player.vimeo.com/video/' | append: vimeo_id | append: '?autoplay=1&byline=0&portrait=0' -%}
+              {%- assign video_type = 'iframe' -%}
+            {%- endif -%}
+          {%- elsif raw_url contains '.mp4' -%}
+            {%- assign video_type = 'html5video' -%}
+          {%- endif -%}
+
+          {%- comment -%} Poster image: prefer metaobject thumbnail, else YouTube preview {%- endcomment -%}
+          {%- capture poster_html -%}{%- endcapture -%}
+          {%- if e.thumbnail and e.thumbnail != blank -%}
+            {%- capture poster_html -%}
+              {{ e.thumbnail | image_url: width: 960 | image_tag: class: 'motion-reduce', loading: 'lazy', decoding: 'async', widths: '400, 600, 800, 960', alt: title_text }}
+            {%- endcapture -%}
+          {%- elsif e.fields and e.fields.thumbnail -%}
+            {%- capture poster_html -%}
+              {{ e.fields.thumbnail | image_url: width: 960 | image_tag: class: 'motion-reduce', loading: 'lazy', decoding: 'async', widths: '400, 600, 800, 960', alt: title_text }}
+            {%- endcapture -%}
+          {%- endif -%}
+          {%- if poster_html == '' and yt_id != '' -%}
+            {%- assign yt_poster = 'https://img.youtube.com/vi/' | append: yt_id | append: '/hqdefault.jpg' -%}
+            {%- capture poster_html -%}
+              <img src="{{ yt_poster }}" alt="{{ title_text | escape }}" loading="lazy" decoding="async" width="960" height="540" class="motion-reduce" referrerpolicy="no-referrer">
+            {%- endcapture -%}
+          {%- endif -%}
+
+          <article class="grid__item video-card" data-tags="{{ tag_handles | strip }}">
+            <div class="card-wrapper underline-links-hover">
+              <div class="card card--media card--text">
+                <div class="card__inner ratio" style="--ratio-percent: 56.25%;">
+                  <div class="media media--transparent media--hover-effect">
+                    {%- if poster_html != '' -%}
+                      {{ poster_html }}
+                    {%- else -%}
+                      <div class="media" style="background:#f2f2f2;"></div>
+                    {%- endif -%}
+                  </div>
+
+                  {%- if video_href != '' -%}
+                  <a
+                    class="card__link full-unstyled-link video-card__link"
+                    data-fancybox="video-{{ section.id }}"
+                    {% if video_type != 'other' %}data-type="{{ video_type }}"{% endif %}
+                    href="{{ video_href }}"
+                    data-caption="{{ title_text | escape }}"
+                    aria-label="{{ title_text | escape }}"
+                  ></a>
+                  {%- endif -%}
+
+                  <span class="video-card__play" aria-hidden="true">
+                    <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M28.75 0C36.375 0 43.6876 3.02901 49.0793 8.42068C54.471 13.8124 57.5 21.125 57.5 28.75C57.5 36.375 54.471 43.6876 49.0793 49.0793C43.6876 54.471 36.375 57.5 28.75 57.5C21.125 57.5 13.8124 54.471 8.42068 49.0793C3.02901 43.6876 0 36.375 0 28.75C0 21.125 3.02901 13.8124 8.42068 8.42068C13.8124 3.02901 21.125 0 28.75 0ZM28.75 53.3929C35.2857 53.3929 41.5537 50.7966 46.1751 46.1751C50.7966 41.5537 53.3929 35.2857 53.3929 28.75C53.3929 22.2143 50.7966 15.9463 46.1751 11.3249C41.5537 6.70344 35.2857 4.10714 28.75 4.10714C22.2143 4.10714 15.9463 6.70344 11.3249 11.3249C6.70344 15.9463 4.10714 22.2143 4.10714 28.75C4.10714 35.2857 6.70344 41.5537 11.3249 46.1751C15.9463 50.7966 22.2143 53.3929 28.75 53.3929Z" fill="white"/>
+                    <path d="M25.9511 18.3183L37.8146 26.4305C38.1273 26.6443 38.3836 26.9339 38.5609 27.2737C38.7382 27.6134 38.8309 27.9928 38.8309 28.3782C38.8309 28.7635 38.7382 29.1429 38.5609 29.4827C38.3836 29.8224 38.1273 30.1121 37.8146 30.3258L25.9511 38.438C25.6073 38.673 25.2078 38.808 24.7952 38.8284C24.3825 38.8489 23.9722 38.7541 23.6079 38.5542C23.2437 38.3543 22.9392 38.0567 22.7268 37.6932C22.5145 37.3298 22.4024 36.914 22.4023 36.4904V20.2628C22.4024 19.8392 22.5145 19.4234 22.7268 19.06C22.9392 18.6965 23.2437 18.399 23.6079 18.199C23.9722 17.9991 24.3825 17.9043 24.7952 17.9248C25.2078 17.9452 25.6073 18.0802 25.9511 18.3152V18.3183Z" fill="white"/>
+                    </svg>
+
+                  </span>
+                </div>
+
+                {% if section.settings.show_card_heading %}
+                  <div class="card__content">
+                    <h3 class="card__heading h3">{{ title_text | escape }}</h3>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </article>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <style>
+    #video-metaobject-{{ section.id }} .video-filter-buttons { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:30px; }
+    #video-metaobject-{{ section.id }} .video-card[hidden] { display: none !important; }
+    #video-metaobject-{{ section.id }} .card--media .media { transition: transform .4s ease; width:100%; }
+    #video-metaobject-{{ section.id }} .card--media img{
+        position:relative;
+    }
+    #video-metaobject-{{ section.id }} .card--media:hover .media { transform: scale(1.04); }
+    #video-metaobject-{{ section.id }} .video-card__link { position:absolute; inset:0; display:block; 
+          transition: transform .4s ease; 
+      background-color: {{ section.settings.bg_color | color_modify: 'alpha', bg_opacity }}; }
+    #video-metaobject-{{ section.id }} .video-card__play { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); pointer-events:none; 
+          line-height: 0;
+    }
+    #video-metaobject-{{ section.id }} .video-filter-buttons .button{
+        border:1px solid {{  section.settings.tab_txt_color }};
+    }
+    #video-metaobject-{{ section.id }} .card--media:hover .video-card__link{
+      transform: scale(1.04);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #video-metaobject-{{ section.id }} .card--media .media { transition: none; }
+    }
+    /* ================================
+   TAB ANIMATIONS (NON-BREAKING)
+================================ */
+#video-metaobject-{{ section.id }} .video-filter-buttons {
+  position: relative;
+}
+
+#video-metaobject-{{ section.id }} .video-filter-buttons .button {
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color .35s ease,
+    color .35s ease,
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+/* Hover lift */
+#video-metaobject-{{ section.id }} .video-filter-buttons .button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+}
+
+/* Active tab pulse */
+#video-metaobject-{{ section.id }} .video-filter-buttons .button.is-active {
+  animation: tabPulse .45s ease-out;
+}
+
+/* Underline animation */
+#video-metaobject-{{ section.id }} .video-filter-buttons .button::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transform: translateX(-50%);
+  transition: width .35s ease;
+}
+
+/* Click ripple */
+#video-metaobject-{{ section.id }} .video-filter-buttons .button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,.25);
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+
+#video-metaobject-{{ section.id }} .video-filter-buttons .button:active::before {
+  opacity: 1;
+}
+
+/* Pulse keyframe */
+@keyframes tabPulse {
+  0% { transform: scale(0.96); }
+  60% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* ================================
+   VIDEO GRID FILTER ANIMATION
+================================ */
+#video-metaobject-{{ section.id }} .video-card {
+  animation: fadeInUp .45s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Reduced motion safety */
+@media (prefers-reduced-motion: reduce) {
+  #video-metaobject-{{ section.id }} .video-filter-buttons .button,
+  #video-metaobject-{{ section.id }} .video-card {
+    animation: none;
+    transition: none;
+  }
+}
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .grid--3-col-desktop .grid__item {
+      width: calc(50% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
+      max-width: calc(50% - var(--grid-desktop-horizontal-spacing) * 2 / 3);
+  }
+}
+@media screen and (min-width: 750px) {
+  #video-metaobject-{{ section.id }} .video-filter-buttons{
+      gap: 8px;
+  }
+  button.button.button--tertiary.button--small.tag_tabular{
+      font-size: 14px;
+  }
+}
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js" defer></script>
+  <script>
+    (function() {
+      const root = document.getElementById('video-metaobject-{{ section.id }}');
+      if (!root) return;
+
+      const buttons = Array.from(root.querySelectorAll('[data-filter]'));
+      const cards = Array.from(root.querySelectorAll('.video-card'));
+
+      function setActive(button) {
+        buttons.forEach(b => b.classList.toggle('is-active', b === button));
+        buttons.forEach(b => b.setAttribute('aria-selected', b === button ? 'true' : 'false'));
+      }
+
+      function applyFilter(filter) {
+        if (filter === 'all') { cards.forEach(el => el.hidden = false); return; }
+        cards.forEach(el => {
+          const tags = (el.dataset.tags || '').split(' ').filter(Boolean);
+          el.hidden = !tags.includes(filter);
+        });
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => { setActive(btn); applyFilter(btn.dataset.filter); });
+      });
+
+      function initFancybox() {
+        if (!window.Fancybox) { setTimeout(initFancybox, 50); return; }
+        Fancybox.bind('[data-fancybox="video-{{ section.id }}"]', {
+          hideScrollbar: false,
+          dragToClose: true,
+          Thumbs: false,
+          Toolbar: { display: ['close'] },
+          Carousel: { transition: 'slide', friction: 0.88 }
+        });
+      }
+      initFancybox();
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Video gallery",
+  "settings": [
+     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "background-1"
+    },
+    { "type": "text", "id": "heading", "label": "Heading" },
+    {
+      "type": "header",
+      "content": "Block Color"
+    },
+    {
+      "type": "color",
+      "id": "tab_background_clr",
+      "label": "Tab Background Color"
+    },
+    {
+      "type": "color",
+      "id":"tab_txt_color",
+      "label": "Tab Text Color"
+    },
+    {
+      "type": "color",
+      "id": "active_tab_background_clr",
+      "label": "Active Tab Background Color"
+    },
+    {
+      "type": "color",
+      "id":"active_tab_txt_color",
+      "label": "Active Tab Text Color"
+    },
+    {
+      "type": "header",
+      "content": "Media Background color"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "bg_opacity",
+      "label": "Background opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Video Title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_heading",
+      "label": "Show video title",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom (mobile)",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top (desktop)",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom (desktop)",
+      "default": 60
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        { "value": "1", "label": "1 Column" },
+        { "value": "2", "label": "2 Columns" }
+      ],
+      "default": "1"
+    },
+    { "type": "range", "id": "columns_desktop", "label": "Columns on desktop", "min": 2, "max": 4, "step": 1, "default": 3 }
+  ],
+  "presets": [{ "name": "Video gallery" }]
+}
+{% endschema %}
