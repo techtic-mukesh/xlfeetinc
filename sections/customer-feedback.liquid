@@ -1,562 +1,467 @@
-    {% comment %}
-    Customer Feedback Section with Schema
-    Responsive design for desktop and mobile
-    {% endcomment %}
+{% comment %}
+Customer Feedback Section with Swiper
+Responsive design for desktop and mobile
+{% endcomment %}
 
-    <style>
-      .section-{{ section.id }}-padding {
-        padding-top: {{ section.settings.padding_top }}px;
-        padding-bottom: {{ section.settings.padding_bottom }}px;
-        padding-left: 20px;
-        padding-right: 20px;
-        background-color: rgba(244, 244, 244, 0.5);
-      }
-      @media screen and (min-width: 750px) {
-        .section-{{ section.id }}-padding {
-          padding-left: {{ section.settings.padding_left }}px;
-          padding-right: {{ section.settings.padding_right }}px;
-        }
-      }
-      .section-{{ section.id }}-padding .page-width {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-      }
-        /* ===============================
-        Customer Feedback Section
-        ================================ */
-            .feedback-header {
-                display: flex;
-                justify-content: space-between;
-                /* align-items: flex-start; */
-                margin-bottom: 50px;
-                flex-wrap: wrap;
-                gap: 20px;
-            }
 
-            .fh-header-left {
-                flex: 1;
-            }
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+   
+    background-color: rgba(244, 244, 244, 0.5);
+  }
+  
 
-            .fh-header-right {
-                display: flex;
-                align-items: center;
-                gap: 15px;
-            }
-            .customer-feedback-section {
-            position: relative;
-            overflow: hidden;
-            }
+  /* ===============================
+  Customer Feedback Section
+  ================================ */
+  .feedback-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
 
-        /* ===============================
-        Background Text - Full Screen Width
-        ================================ */
-     .feedback-bg-text {
-        position: relative;
-        width: 100%;
-        overflow: visible;
-        pointer-events: none;
-        text-align: center;
-        margin-top: 60px;
-        /* padding: 0 20px; */
-        box-sizing: border-box;
-     }
-        .feedback-bg-text span { 
+  .fh-header-left {
+    flex: 1;
+  }
+
+  .fh-header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .customer-feedback-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ===============================
+  Background Text - Full Screen Width
+  ================================ */
+  .feedback-bg-text {
+   position: relative;
+    width: 100%;
+    overflow: visible;
+    pointer-events: none;
+    text-align: center;
+    margin-top: 0;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .feedback-bg-text span { 
+    display: block;
+    font-size: clamp(24px, 8vw, 140px);
+    font-weight: 700;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: transparent;
+    -webkit-text-stroke: 1.5px #e0e0e0;
+    text-stroke: 1.5px #e0e0e0;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1;
+    width: 100%;
+  }
+
+  /* ===============================
+  Container
+  ================================ */
+  .feedback-container {
+    max-width: 1320px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+  }
+
+  .feedback-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ===============================
+  Header
+  ================================ */
+  .feedback-subtitle {
+    font-size: 30px;
+    font-family: 'Instrument Serif';
+    color: #191b1d;
+    text-align: left;
+    margin: 0;
+  }
+
+  .feedback-title {
+    font-size: 46px;
+    font-weight: 500;
+    font-family: 'Helvetica Neue';
+    color: #000;
+    text-align: left;
+    margin: 0;
+  }
+
+  /* ===============================
+  Navigation Buttons
+  ================================ */
+  .feedback-nav .fc-arrows {
+    display: flex;
+    gap: 10px;
+  }
+
+  .feedback-nav .fc-arrow {
+       width: 50px;
+    height: 50px;
+    background: url();
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 25px;
+    border: 1px solid #425365;
+  }
+
+
+  .feedback-nav .fc-arrow.swiper-button-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .feedback-nav .fc-arrow svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* ===============================
+  Swiper Container
+  ================================ */
+  .reviews-swiper {
+    padding-bottom: 20px;
+  }
+
+  .swiper-wrapper {
+    display: flex;
+  }
+
+  /* ===============================
+  Review Card
+  ================================ */
+  .review-card {
+    border-radius: 20px;
+border: 0.5px solid #D8D8D8;
+background: #FFF;
+height: auto;
+padding: 30px;
+  }
+
+  /* ===============================
+  Stars
+  ================================ */
+  .review-stars {
+    display: flex;
+    gap: 0.25rem;
+    margin: 0;
+  }
+
+  .star-icon {
+    width: 18px;
+    height: 18px;
+    color: #e5e5e5;
+  }
+
+  .star-icon.filled {
+    color: #fbbf24;
+  }
+
+  /* ===============================
+  Text Content
+  ================================ */
+  .review-title {
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Helvetica Neue';
+    color: #000;
+    text-align: left;
+    padding: 15px 0;
+    margin: 0;
+  }
+
+  .review-text {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 300;
+    font-family: 'Helvetica Neue';
+    color: #646464;
+    text-align: left;
+    padding: 0 0 20px;
+    margin: 0;
+  }
+
+  .review-author {
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Helvetica Neue';
+    color: #000;
+    text-align: left;
+    margin: 0;
+  }
+
+  /* ===============================
+  Swiper Pagination
+  ================================ */
+  /* ===============================
+  Helpers
+  ================================ */
+  .desktop-only {
+    display: flex;
+    gap: 10px;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  /* ===============================
+  Mobile Styles
+  ================================ */
+  @media (max-width: 768px) {
+    
+
+    .feedback-bg-text {
         display: block;
-        font-size: clamp(24px, 8vw, 140px);
-        font-weight: 700;
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        color: transparent;
-        -webkit-text-stroke: 1.5px #e0e0e0;
-        text-stroke: 1.5px #e0e0e0;
-        letter-spacing: 0.05em;
-        white-space: nowrap;
+        margin-top: 0;
+        left: -25%;
+    }
+
+    .feedback-bg-text span {
+      font-size: 50px;
+        letter-spacing: 0.03em;
         text-align: center;
-        line-height: 1;
-        width: 100%;
-        }
+        -webkit-text-stroke-width: 0.43px;
+        -webkit-text-stroke-color: #E5E5E5;
+        font-family: "Helvetica Neue";
+        font-size: 50px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 50px;
+        letter-spacing: 5px;
+    }
 
-        /* ===============================
-        Container
-        ================================ */
+    .feedback-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
 
-        .feedback-container {
-        max-width: 1320px;
-        margin: 0 auto;
-        position: relative;
-        z-index: 10;
-        }
+    .feedback-title {
+        text-align: center;
+        font-size: 22px;
+        line-height: 22px;
+    }
 
-        .feedback-content {
-        position: relative;
-        z-index: 2;
-        }
+    .fh-header-right {
+    display: none;
+}
 
-        /* ===============================
-        Header
-        ================================ */
+    .desktop-only {
+      display: none;
+    }
 
-        .feedback-header {
-        margin-bottom: 3rem;
-        }
+    .mobile-only {
+      display: flex;
+    }
 
-        .feedback-subtitle {
-        font-size: 30px;
-        font-family: 'Instrument Serif';
-        color: #191b1d;
-        text-align: left;
-        /* line-height: normal; */
-        margin: 0;
-        }
+    .customer-feedback-section {
+      padding-top: 30px;
+    padding-bottom: 66px;
+}
 
-        .feedback-title {
-        font-size: 46px;
-        font-weight: 500;
-        font-family: 'Helvetica Neue';
-        color: #000;
-        text-align: left;
-        /* line-height: normal; */
-        margin: 0  ;
-        }
+.fh-header-left {
+    width: 100%;
+    text-align: center;
+    flex: 0 0 100%;
+}
 
-        /* ===============================
-        Navigation Buttons
-        ================================ */
+.feedback-subtitle {
+    text-align: center;
+    font-size: 22px;
+    line-height: 18px;
+    margin-bottom: 10px;
+}
 
-      .feedback-nav .fc-arrows {
-            display: flex;
-            gap: 10px;
-        }
+    .review-card {
+      padding: 20px;
+    }
 
-        .feedback-nav .fc-arrow {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #ddd;
-            border-radius: 50%;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
+    .review-title {
+    font-size: 14px;
+}
 
-        .feedback-nav .fc-arrow:hover {
-            border-color: #000;
-        }
+.review-text {
+    font-size: 14px;
+    line-height: 20px;
+}
 
-        .feedback-nav .fc-arrow svg {
-            width: 24px;
-            height: 24px;
-        }
+.review-author {
+    font-size: 14px;
+    line-height: 14px;
+}
 
-        /* ===============================
-        Reviews Slider
-        ================================ */
+  }
 
-        .reviews-wrapper {
-        overflow: hidden;
-        }
+  /* ===============================
+  Tablet Styles
+  ================================ */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .feedback-title {
+      font-size: 2rem;
+    }
 
-        .reviews-track {
-        display: flex;
-        gap: 2rem;
-        transition: transform 0.5s ease;
-        }
-
-        /* ===============================
-        Review Card
-        ================================ */
-
-        .review-card {
-        background-color: #ffffff;
-        padding: 3rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-        border: 1px solid #f0f0f0;
-        flex: 0 0 calc(33.333% - 1.5rem);
-        min-width: calc(33.333% - 1.5rem);
-        }
-
-        /* ===============================
-        Stars
-        ================================ */
-
-        .review-stars {
-        display: flex;
-        gap: 0.25rem;
-        margin:0;
-        }
-
-        .star-icon {
-        width: 18px;
-        height: 18px;
-        color: #e5e5e5;
-        }
-
-        .star-icon.filled {
-        color: #fbbf24;
-        }
-
-        /* ===============================
-        Text Content
-        ================================ */
-
-        .review-title {
-        font-size: 20px;
-        font-weight: 500;
-        font-family: 'Helvetica Neue';
-        color: #000;
-        text-align: left;
-        padding: 15px 0;
-        margin: 0;
-        }
-
-        .review-text {
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: 300;
-        font-family: 'Helvetica Neue';
-        color: #646464;
-        text-align: left;
-        padding: 0 0 20px;
-        margin: 0;
-        }
-
-
-        .review-author {
-        font-size: 16px;
-        font-weight: 500;
-        font-family: 'Helvetica Neue';
-        color: #000;
-        text-align: left;
-        margin: 0;
-        }
-
-        /* ===============================
-        Mobile Dots
-        ================================ */
-
-        .mobile-dots {
-        display: none;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-top: 2rem;
-        }
-
-        .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: #d4d4d4;
-        border: none;
-        cursor: pointer;
-        }
-
-        .dot.active {
-        background-color: #525252;
-        }
-
-        /* ===============================
-        Helpers
-        ================================ */
-
-        .desktop-only {
-        display: flex;
-        gap: 10px;
-        }
-
-        .mobile-only {
-        display: none;
-        }
-
-        /* ===============================
-        Mobile Styles
-        ================================ */
-
-        @media (max-width: 768px) {
-        .customer-feedback-section {
-            padding: 3.5rem 1rem 4rem;
-        }
-
-        .feedback-bg-text {
-            display: block;
-            margin-top: 30px;
-        }
-        .feedback-bg-text span {
-            font-size: clamp(20px, 6vw, 40px);
-            letter-spacing: 0.03em;
-        }
-
-        .feedback-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .feedback-title {
-            font-size: 1.75rem;
-        }
-
-        .desktop-only {
-            display: none;
-        }
-
-        .mobile-only {
-            display: flex;
-        }
-
-        .review-card {
-            flex: 0 0 100%;
-            min-width: 100%;
-            padding: 1.75rem;
-        }
-
-        .reviews-track {
-            gap: 1rem;
-        }
-        }
-
-        /* ===============================
-        Tablet Styles
-        ================================ */
-
-        @media (min-width: 769px) and (max-width: 1024px) {
-        .review-card {
-            flex: 0 0 calc(50% - 1rem);
-            min-width: calc(50% - 1rem);
-        }
-
-        .feedback-title {
-            font-size: 2rem;
-        }
-
-        .feedback-bg-text span {
-            font-size: clamp(60px, 8vw, 120px);
-        }
-        }
+    .feedback-bg-text span {
+      font-size: clamp(60px, 8vw, 120px);
+    }
+  }
 </style>
+
 <section class="section-{{ section.id }}-padding customer-feedback-section">
-    <div class="feedback-container ">
+  <div class="page-width">
+    <div class="feedback-content">
+      <!-- Header -->
+      <div class="feedback-header">
+        <div class="fh-header-left">
+          <p class="feedback-subtitle">{{ section.settings.subtitle }}</p>
+          <h2 class="feedback-title">{{ section.settings.title }}</h2>
+        </div>
+        <div class="fh-header-right">
+          <div class="feedback-nav desktop-only fc-arrows">
+            <button type="button" class="fc-arrow fc-arrow-prev swiper-button-prev-{{ section.id }}" aria-label="Previous">
+              <span class="svg-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="9" viewBox="0 0 17 9" fill="none">
+                  <path d="M0.5 4.5H16.5M0.5 4.5L4.5 0.5M0.5 4.5L4.5 8.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </button>
+            <button type="button" class="fc-arrow fc-arrow-next swiper-button-next-{{ section.id }}" aria-label="Next">
+              <span class="svg-wrapper">
+               <svg xmlns="http://www.w3.org/2000/svg" width="17" height="9" viewBox="0 0 17 9" fill="none">
+                <path d="M0.5 4.5H16.5M16.5 4.5L12.5 0.5M16.5 4.5L12.5 8.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-        <div class="feedback-content page-width">
-        <!-- Header -->
-        <div class="feedback-header">
-            <div class="fh-header-left">
-                <p class="feedback-subtitle">{{ section.settings.subtitle }}</p>
-                <h2 class="feedback-title">{{ section.settings.title }}</h2>
+      <!-- Swiper Container -->
+      <div class="swiper reviews-swiper swiper-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="review-card">
+              <!-- Star Rating -->
+              <div class="review-stars">
+                {% for i in (1..5) %}
+                  {% if i <= block.settings.rating %}
+                  <svg class="star-icon filled" width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                    <path d="M9 1.5L11.5 6.5L17 7.5L13 11.5L14 17L9 14.5L4 17L5 11.5L1 7.5L6.5 6.5L9 1.5Z"/>
+                  </svg>
+                  {% else %}
+                  <svg class="star-icon" width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+                    <path d="M9 1.5L11.5 6.5L17 7.5L13 11.5L14 17L9 14.5L4 17L5 11.5L1 7.5L6.5 6.5L9 1.5Z"/>
+                  </svg>
+                  {% endif %}
+                {% endfor %}
+              </div>
+
+              <!-- Review Title -->
+              <h3 class="review-title">{{ block.settings.review_title }}</h3>
+
+              <!-- Review Text -->
+              <p class="review-text">{{ block.settings.review_text }}</p>
+
+              <!-- Author -->
+              <p class="review-author">-{{ block.settings.author_name }}</p>
             </div>
-            <div class="fh-header-right">
-
-                <div class="feedback-nav desktop-only fc-arrows">
-                    <button type="button" class="fc-arrow fc-arrow-prev" aria-label="Previous" data-slider-prev="{{ section.id }}">
-                      <span class="svg-wrapper">
-                    {{ 'icon-arrow-left.svg' | inline_asset_content }}
-                  </span>
-                    </button>
-                    <button type="button" class="fc-arrow fc-arrow-next" aria-label="Next" data-slider-next="{{ section.id }}">
-                      <span class="svg-wrapper">
-                    {{ 'icon-arrow-right.svg' | inline_asset_content }}
-                  </span>
-                    </button>
-                </div>
-            </div>
-
+          </div>
+          {% endfor %}
         </div>
 
+        <!-- Pagination (Mobile) -->
+        <div class="swiper-pagination swiper-pagination-{{ section.id }}"></div>
+      </div>
+    </div>
+  </div>
 
-        <!-- Reviews Container -->
-        <div class="reviews-wrapper">
-            <div class="reviews-track">
-            {% for block in section.blocks %}
-                <div class="review-card" {{ block.shopify_attributes }}>
-                <!-- Star Rating -->
-                <div class="review-stars">
-                    {% for i in (1..5) %}
-                    {% if i <= block.settings.rating %}
-                        <svg class="star-icon filled" width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
-                        <path d="M9 1.5L11.5 6.5L17 7.5L13 11.5L14 17L9 14.5L4 17L5 11.5L1 7.5L6.5 6.5L9 1.5Z"/>
-                        </svg>
-                    {% else %}
-                        <svg class="star-icon" width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
-                        <path d="M9 1.5L11.5 6.5L17 7.5L13 11.5L14 17L9 14.5L4 17L5 11.5L1 7.5L6.5 6.5L9 1.5Z"/>
-                        </svg>
-                    {% endif %}
-                    {% endfor %}
-                </div>
+  <!-- Large Background Text -->
+  <div class="feedback-bg-text">
+    <span>CUSTOMER FEEDBACK</span>
+  </div>
+</section>
 
-                <!-- Review Title -->
-                <h3 class="review-title">{{ block.settings.review_title }}</h3>
-
-                <!-- Review Text -->
-                <p class="review-text">{{ block.settings.review_text }}</p>
-
-                <!-- Author -->
-                <p class="review-author">-{{ block.settings.author_name }}</p>
-                </div>
-            {% endfor %}
-            </div>
-        </div>
-
-        <!-- Mobile Navigation Dots -->
-        <div class="mobile-dots mobile-only">
-            {% comment %} {% for block in section.blocks %}
-            <button class="dot" data-index="{{ forloop.index0 }}" aria-label="Go to review {{ forloop.index }}"></button>
-            {% endfor %} {% endcomment %}
-        </div>
-        </div>
-        </div>
-        <!-- Large Background Text -->
-        </section>
-        <div class="feedback-bg-text">
-        <span>CUSTOMER FEEDBACK</span>
-        </div>
-
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const sectionId = '{{ section.id }}';
-      const section = document.querySelector('.section-' + sectionId + '-padding');
-      if (!section) return;
-      
-      const track = section.querySelector('.reviews-track');
-      const prevBtn = section.querySelector('[data-slider-prev]');
-      const nextBtn = section.querySelector('[data-slider-next]');
-      const dots = section.querySelectorAll('.dot');
-      const cards = section.querySelectorAll('.review-card');
-      
-      if (!track || cards.length === 0) return;
-      
-      let currentIndex = 0;
-      const totalCards = cards.length;
-      
-      function getCardsPerView() {
-        if (window.innerWidth < 769) return 1;
-        if (window.innerWidth < 1025) return 2;
-        return 3;
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sectionId = '{{ section.id }}';
+  
+  const swiper = new Swiper('.swiper-' + sectionId, {
+    slidesPerView: 1,
+    spaceBetween: 16,
+    loop: false,
+    speed: 500,
+    
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next-' + sectionId,
+      prevEl: '.swiper-button-prev-' + sectionId,
+    },
+    
+   
+    
+    // Responsive breakpoints
+    breakpoints: {
+      // Mobile
+      320: {
+        slidesPerView: 1.2,
+        spaceBetween: 16
+      },
+      // Tablet
+      769: {
+        slidesPerView: 2,
+        spaceBetween: 20
+      },
+      // Desktop
+      1025: {
+        slidesPerView: 3,
+        spaceBetween: 20
       }
+    }
+  });
+});
+</script>
 
-      function updateCarousel() {
-        const cardsPerView = getCardsPerView();
-        const maxIndex = Math.max(0, totalCards - cardsPerView);
-        currentIndex = Math.min(currentIndex, maxIndex);
-        
-        const cardWidth = cards[0].offsetWidth;
-        const gap = window.innerWidth < 769 ? 16 : 32;
-        const offset = -(currentIndex * (cardWidth + gap));
-        
-        track.style.transform = `translateX(${offset}px)`;
-        
-        // Update dots
-        dots.forEach((dot, index) => {
-          dot.classList.toggle('active', index === currentIndex);
-        });
-      }
-
-      if (prevBtn) {
-        prevBtn.addEventListener('click', function() {
-          currentIndex = Math.max(0, currentIndex - 1);
-          updateCarousel();
-        });
-      }
-
-      if (nextBtn) {
-        nextBtn.addEventListener('click', function() {
-          const cardsPerView = getCardsPerView();
-          const maxIndex = Math.max(0, totalCards - cardsPerView);
-          currentIndex = Math.min(maxIndex, currentIndex + 1);
-          updateCarousel();
-        });
-      }
-
-      dots.forEach(dot => {
-        dot.addEventListener('click', function() {
-          currentIndex = parseInt(this.dataset.index);
-          updateCarousel();
-        });
-      });
-
-      // Mouse drag functionality
-      let isDown = false;
-      let startX;
-      let scrollLeft;
-      let hasMoved = false;
-      
-      track.style.cursor = 'grab';
-      
-      track.addEventListener('mousedown', (e) => {
-        isDown = true;
-        hasMoved = false;
-        track.style.cursor = 'grabbing';
-        startX = e.pageX;
-        scrollLeft = currentIndex;
-      });
-      
-      document.addEventListener('mouseup', (e) => {
-        if (isDown && hasMoved) {
-          const movedDistance = startX - e.pageX;
-          if (Math.abs(movedDistance) > 50) {
-            const cardsPerView = getCardsPerView();
-            const maxIndex = Math.max(0, totalCards - cardsPerView);
-            if (movedDistance > 0) {
-              currentIndex = Math.min(maxIndex, currentIndex + 1);
-            } else {
-              currentIndex = Math.max(0, currentIndex - 1);
-            }
-            updateCarousel();
-          }
-        }
-        isDown = false;
-        track.style.cursor = 'grab';
-      });
-      
-      track.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX;
-        const walk = x - startX;
-        
-        if (Math.abs(walk) > 10) {
-          hasMoved = true;
-        }
-      });
-      
-      track.addEventListener('mouseleave', () => {
-        if (isDown) {
-          isDown = false;
-          track.style.cursor = 'grab';
-        }
-      });
-
-      let resizeTimer;
-      window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(updateCarousel, 100);
-      });
-      
-      updateCarousel();
-    });
-    </script>
-
-    {% schema %}
+{% schema %}
+{
+  "name": "Customer Feedback",
+  "settings": [
     {
-    "name": "Customer Feedback",
-    "settings": [
-        {
-        "type": "text",
-        "id": "subtitle",
-        "label": "Subtitle",
-        "default": "Customer Feedback"
-        },
-        {
-        "type": "text",
-        "id": "title",
-        "label": "Title",
-        "default": "Real reviews from real customers"
-        },
-           {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Customer Feedback"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Real reviews from real customers"
+    },
+    {
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
+      "max": 200,
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_top",
@@ -566,7 +471,7 @@
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
+      "max": 200,
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
@@ -592,60 +497,60 @@
       "label": "Padding right",
       "default": 80
     }
-    ],
-    "blocks": [
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
         {
-        "type": "review",
-        "name": "Review",
-        "settings": [
-            {
-            "type": "range",
-            "id": "rating",
-            "label": "Star Rating",
-            "min": 1,
-            "max": 5,
-            "step": 1,
-            "default": 5
-            },
-            {
-            "type": "text",
-            "id": "review_title",
-            "label": "Review Title",
-            "default": "Highly Recommended"
-            },
-            {
-            "type": "textarea",
-            "id": "review_text",
-            "label": "Review Text",
-            "default": "Lorem ipsum dolor sit amet consectetur. Pellentesque sit vehicula donec morbi porttitor senectus libero. Morbi interdum eu auctor massa sodales mollis."
-            },
-            {
-            "type": "text",
-            "id": "author_name",
-            "label": "Author Name",
-            "default": "Devon Miles"
-            }
-        ]
-        }
-    ],
-    "presets": [
+          "type": "range",
+          "id": "rating",
+          "label": "Star Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
         {
-        "name": "Customer Feedback",
-        "blocks": [
-            {
-            "type": "review"
-            },
-            {
-            "type": "review"
-            },
-            {
-            "type": "review"
-            },
-            {
-            "type": "review"
-            }
-        ]
+          "type": "text",
+          "id": "review_title",
+          "label": "Review Title",
+          "default": "Highly Recommended"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "Lorem ipsum dolor sit amet consectetur. Pellentesque sit vehicula donec morbi porttitor senectus libero. Morbi interdum eu auctor massa sodales mollis."
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Devon Miles"
         }
-    ]
+      ]
     }
-    {% endschema %}
+  ],
+  "presets": [
+    {
+      "name": "Customer Feedback",
+      "blocks": [
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        },
+        {
+          "type": "review"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

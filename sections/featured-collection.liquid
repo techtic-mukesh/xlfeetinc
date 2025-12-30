@@ -1,14 +1,11 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
-
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 
 {% if section.settings.image_shape == 'blob' %}
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
-
-
 
 {%- unless section.settings.quick_add == 'none' -%}
   {{ 'quick-add.css' | asset_url | stylesheet_tag }}
@@ -28,8 +25,8 @@
 
 {%- style -%}
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: 30px;
+    padding-bottom: 30px;
   }
 
   @media screen and (min-width: 750px) {
@@ -71,16 +68,14 @@
     transition: all 0.3s ease;
   }
 
-  
-
-    .collection-header-with-arrows .swiper-button-prev-{{ section.id }}.swiper-button-disabled,
-    .collection-header-with-arrows .swiper-button-next-{{ section.id }}.swiper-button-disabled {
+  .collection-header-with-arrows .swiper-button-prev-{{ section.id }}.swiper-button-disabled,
+  .collection-header-with-arrows .swiper-button-next-{{ section.id }}.swiper-button-disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
   .collection-subheading {
-       margin-top: 0;
+    margin-top: 0;
     margin-bottom: 0;
     color: #000;
     font-family: "Instrument Serif";
@@ -90,39 +85,162 @@
     line-height: normal;
   }
 
+  .collection-header-top h2.title {
+    margin: 5px 0 0 !important;
+}
+
+
+
   .collection-header-with-arrows h2.title {
     color: #000;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     margin: 0 0;
-     font-size: 46px;
+    font-size: 46px;
     line-height: normal;
-}
+  }
 
-.feature-collection .swiper-horizontal {
+  .feature-collection .swiper-horizontal {
     padding-left: calc(50% - 1280px / 2);
-}
-
-@media only screen and (max-width: 1300px) {
-  .feature-collection .swiper-horizontal {
-    padding-left: 50px;
-  }
-}
-
-@media only screen and (max-width: 750px) {
-  .feature-collection .swiper-horizontal {
-     padding-left: 15px;
   }
 
-  .collection-header-with-arrows h2.title {
-    font-size: 22px;
-}
-.collection-subheading {
-    font-size: 20px;
-}
- }
+  @media only screen and (max-width: 1300px) {
+    .feature-collection .swiper-horizontal {
+      padding-left: 50px;
+    }
+  }
+
+  @media only screen and (max-width: 750px) {
+    .feature-collection .swiper-horizontal {
+      padding-left: 15px;
+    }
+
+    .collection-header-top h2.title {
+      font-size: 22px;
+    }
+
+    .collection-header-with-arrows h2.title {
+      font-size: 22px;
+    }
+    .collection-subheading {
+      font-size: 20px;
+    }
+  }
   {%- endif -%}
+
+  /* View All Button Styles */
+  .collection-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 52px;
+  }
+
+  .collection-view-all-top {
+    margin-left: auto;
+  }
+
+  .collection-view-all-top .button {
+   display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 29px;
+    min-height: 52px;
+    border: 1px solid #000;
+    border-radius: 12px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Helvetica Neue';
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+    .collection-view-all-top .button svg path {
+       transition: all 0.3s ease;
+    }
+
+  .collection-view-all-top .button:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.collection-view-all-top .button:hover svg path {
+  stroke: #fff;
+ }
+
+    .collection-view-all-top .button:after, .collection-view-all-top .button:before {
+      display: none;
+     }
+
+  /* Variant Swatches Styles */
+  .card-variant-swatches {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .variant-swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .variant-swatch:hover,
+  .variant-swatch.active {
+    border-color: #000;
+  }
+
+  .variant-swatch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .variant-swatch-color {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+
+  @media only screen and (max-width: 750px) {
+    .collection-header-top {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .collection-view-all-top {
+      margin-left: 0;
+    }
+
+    .collection-header-top div {
+    text-align: center;
+}
+
+.collection-swiper-navigation {
+  display: none;
+}
+    
+    .collection-view-all-top .button {
+      width: 100%;
+      justify-content: center;
+        font-size: 14px;
+        min-height: 42px;
+    }
+  }
 {%- endstyle -%}
 
 {%- liquid
@@ -151,18 +269,62 @@
   endif
 -%}
 
-<div
-  class="color-{{ section.settings.color_scheme }} isolate gradient"
->
+<div class="color-{{ section.settings.color_scheme }} isolate gradient">
   <div
     class="collection feature-collection {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"
     id="collection-{{ section.id }}"
     data-id="{{ section.id }}"
   >
     <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
+      
       {%- if section.settings.enable_swiper -%}
-        <div class="collection-header-with-arrows">
-          <div class="collection-header-content">
+        <div class="collection-header-top">
+          <div style="flex: 1;">
+            <div class="collection-header-with-arrows">
+              <div class="collection-header-content">
+                {%- if section.settings.subheading != blank -%}
+                  <p class="collection-subheading {{ section.settings.subheading_size }}">
+                    {{ section.settings.subheading }}
+                  </p>
+                {%- endif -%}
+                {%- if section.settings.title != blank -%}
+                  <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+                    {{ section.settings.title }}
+                  </h2>
+                {%- endif -%}
+              </div>
+              <div class="collection-swiper-navigation">
+                <div class="swiper-button-prev-{{ section.id }}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="9" viewBox="0 0 17 9" fill="none">
+                    <path d="M0.5 4.5H16.5M0.5 4.5L4.5 0.5M0.5 4.5L4.5 8.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <div class="swiper-button-next-{{ section.id }}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="9" viewBox="0 0 17 9" fill="none">
+                    <path d="M0.5 4.5H16.5M16.5 4.5L12.5 0.5M16.5 4.5L12.5 8.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          {%- if section.settings.show_view_all_top and section.settings.collection != blank -%}
+            <div class="collection-view-all-top">
+              <a
+                href="{{ section.settings.collection.url }}"
+                class="button button--secondary"
+                aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
+              >
+                {{ 'sections.featured_collection.view_all' | t }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path d="M6.41699 15.5834L15.5837 6.41675M15.5837 6.41675H7.33366M15.5837 6.41675V14.6667" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="collection-header-top">
+          <div style="flex: 1;">
             {%- if section.settings.subheading != blank -%}
               <p class="collection-subheading {{ section.settings.subheading_size }}">
                 {{ section.settings.subheading }}
@@ -174,35 +336,24 @@
               </h2>
             {%- endif -%}
           </div>
-          <div class="collection-swiper-navigation">
-            <div class="swiper-button-prev-{{ section.id }}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="9" viewBox="0 0 17 9" fill="none">
-                <path d="M0.5 4.5H16.5M0.5 4.5L4.5 0.5M0.5 4.5L4.5 8.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+          {%- if section.settings.show_view_all_top and section.settings.collection != blank -%}
+            <div class="collection-view-all-top">
+              <a
+                href="{{ section.settings.collection.url }}"
+                class="button button--secondary"
+                aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
+              >
+                {{ 'sections.featured_collection.view_all' | t }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path d="M6.41699 15.5834L15.5837 6.41675M15.5837 6.41675H7.33366M15.5837 6.41675V14.6667" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
             </div>
-            <div class="swiper-button-next-{{ section.id }}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="9" viewBox="0 0 17 9" fill="none">
-                <path d="M0.5 4.5H16.5M16.5 4.5L12.5 0.5M16.5 4.5L12.5 8.5" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </div>
+          {%- endif -%}
         </div>
-      {%- else -%}
-        {%- if section.settings.subheading != blank -%}
-          <p class="collection-subheading {{ section.settings.subheading_size }}">
-            {{ section.settings.subheading }}
-          </p>
-        {%- endif -%}
-        {%- if section.settings.title != blank -%}
-          <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-            {{ section.settings.title }}
-          </h2>
-        {%- endif -%}
       {%- endif -%}
-      {%- if section.settings.description != blank
-        or section.settings.show_description
-        and section.settings.collection.description != empty
-      -%}
+
+      {%- if section.settings.description != blank or section.settings.show_description and section.settings.collection.description != empty -%}
         <div class="collection__description {{ section.settings.description_style }} rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           {%- if section.settings.show_description -%}
             {{ section.settings.collection.description }}
@@ -231,6 +382,7 @@
                   show_secondary_image: section.settings.show_secondary_image,
                   show_vendor: section.settings.show_vendor,
                   show_rating: section.settings.show_rating,
+                  show_variant_swatches: section.settings.show_variant_swatches,
                   section_id: section.id,
                   quick_add: section.settings.quick_add
                 %}
@@ -287,7 +439,6 @@
             }
           });
         });
-
       </script>
     {%- else -%}
       <slider-component class="slider-mobile-gutter{% if section.settings.full_width %} slider-component-full-width{% endif %}{% if show_mobile_slider == false %} page-width{% endif %}{% if show_desktop_slider == false and section.settings.full_width == false %} page-width-desktop{% endif %}{% if show_desktop_slider %} slider-component-desktop{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -323,6 +474,7 @@
                     show_secondary_image: section.settings.show_secondary_image,
                     show_vendor: section.settings.show_vendor,
                     show_rating: section.settings.show_rating,
+                    show_variant_swatches: section.settings.show_variant_swatches,
                     skip_styles: skip_card_product_styles,
                     section_id: section.id,
                     quick_add: section.settings.quick_add
@@ -396,17 +548,7 @@
       </slider-component>
     {%- endif -%}
 
-    {%- if section.settings.show_view_all and more_in_collection -%}
-      <div class="center collection__view-all{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-        <a
-          href="{{ section.settings.collection.url }}"
-          class="{% if section.settings.view_all_style == 'link' %}link underlined-link{% elsif section.settings.view_all_style == 'solid' %}button{% else %}button button--secondary{% endif %}"
-          aria-label="{{ 'sections.featured_collection.view_all_label' | t: collection_name: section.settings.collection.title | escape }}"
-        >
-          {{ 'sections.featured_collection.view_all' | t }}
-        </a>
-      </div>
-    {%- endif -%}
+
     {% if section.settings.image_shape == 'arch' %}
       {{ 'mask-arch.svg' | inline_asset_content }}
     {%- endif -%}
@@ -531,6 +673,17 @@
         }
       ],
       "default": "body"
+    },
+    {
+      "type": "header",
+      "content": "View All Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all_top",
+      "label": "Show View All button on top",
+      "default": true,
+      "info": "Display View All button next to the title"
     },
     {
       "type": "header",
@@ -684,6 +837,13 @@
       "default": false,
       "label": "t:sections.featured-collection.settings.show_rating.label",
       "info": "t:sections.featured-collection.settings.show_rating.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_variant_swatches",
+      "default": false,
+      "label": "Show Variant Swatches",
+      "info": "Display color/variant swatches on product cards with clickable image switching"
     },
     {
       "type": "select",

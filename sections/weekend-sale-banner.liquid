@@ -23,7 +23,7 @@
     right: 0;
     height: 1px;
     background-color: rgba(25, 27, 29, 0.25);
-    z-index: 10;
+    z-index: 1;
     pointer-events: none;
   }
 
@@ -225,6 +225,7 @@
 
     .banner-text-group {
       gap: 10px;
+      align-items: center;
     }
 
     .banner-subtitle {
@@ -257,7 +258,12 @@
       width: 100%;
       height: 350px;
       order: 2;
+      display: none;
     }
+
+    .banner-image-wrapper.for-mobile {
+    display: block !important;
+}
     
   }
 
@@ -318,6 +324,19 @@
         >
       </div>
     {% endif %}
+
+     {% if section.settings.product_mobile %}
+      <div class="banner-image-wrapper for-mobile" style="display: none;">
+        <img 
+          src="{{ section.settings.product_mobile | image_url: width: 1200 }}" 
+          alt="{{ section.settings.product_mobile.alt | default: section.settings.title | escape }}"
+          class="banner-product-image"
+          loading="lazy"
+          width="1200"
+          height="800"
+        >
+      </div>
+    {% endif %}
   </div>
 </section>
 
@@ -370,6 +389,11 @@
       "type": "image_picker",
       "id": "product_image",
       "label": "Product Image (Right Side)"
+    },
+     {
+      "type": "image_picker",
+      "id": "product_mobile",
+      "label": "Product Image (Mobile)"
     },
     {
       "type": "header",

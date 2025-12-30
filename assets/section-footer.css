@@ -448,6 +448,7 @@ font-style: normal;
 font-weight: 300;
 line-height: 26px; /* 185.714% */
 padding: 0;
+white-space: nowrap;
 }
 
 .footer-block__details-content .list-menu__item--active {

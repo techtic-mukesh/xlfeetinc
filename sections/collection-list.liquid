@@ -4,18 +4,11 @@
 
 {%- style -%}
   .section-{{ section.id }}-padding {
-    padding:30px 10px;
+    padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
   }
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-left: {{ section.settings.padding_left }}px;
-      padding-right: {{ section.settings.padding_right }}px;
-    }
-  }
-  .section-{{ section.id }}-padding .page-width {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
+ 
+  
   /* Custom Collection List Styles */
   .cl-section-{{ section.id }} .cl-header {
     display: flex;
@@ -60,7 +53,8 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 15px 50px;
+    padding: 0 30px;
+        min-height: 52px;
     border: 1px solid #000;
     border-radius: 12px;
     background: #fff;
@@ -74,10 +68,14 @@
     transition: all 0.3s ease;
   }
 
+  .cl-section-{{ section.id }} .cl-view-all-btn svg path {transition: all 0.3s ease; }
+
   .cl-section-{{ section.id }} .cl-view-all-btn:hover {
     background: #000;
     color: #fff;
   }
+
+  .cl-section-{{ section.id }} .cl-view-all-btn:hover  svg path { stroke: #fff;}
 
   .cl-section-{{ section.id }} .cl-arrows {
     display: flex;
@@ -124,6 +122,7 @@
     -ms-overflow-style: none;
     cursor: grab;
     user-select: none;
+        padding-left: calc(50% - 1280px / 2);
   }
 
   .cl-section-{{ section.id }} .cl-collections-slider::-webkit-scrollbar {
@@ -175,6 +174,7 @@
     bottom: 0;
     background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
     pointer-events: none;
+    display:block;
   }
 
   /* Collection Title - Top Left */
@@ -230,6 +230,13 @@
     transform: translate(3px, -3px);
   }
 
+    @media screen and (max-width: 1300px) {
+      
+    .cl-section-{{ section.id }} .cl-collections-slider {
+      padding-left:50px;
+    }
+    }
+
   /* Responsive */
   @media screen and (max-width: 989px) {
     .cl-section-{{ section.id }} .cl-collections-grid {
@@ -270,6 +277,12 @@
       gap: 15px;
       overflow-x: visible;
       cursor: default;
+              padding: 0 15px;
+
+    }
+
+    .section-{{ section.id }}-padding {
+      padding: 30px 0;
     }
 
     .cl-section-{{ section.id }} .cl-collections-slider .cl-collection-card {
@@ -362,10 +375,9 @@
           {%- if section.settings.header_button_type == 'view_all' -%}
             <a href="{{ routes.collections_url }}" class="cl-view-all-btn">
               VIEW ALL
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
+             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <path d="M6.41699 15.5834L15.5837 6.41675M15.5837 6.41675H7.33366M15.5837 6.41675V14.6667" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </a>
           {%- elsif section.settings.header_button_type == 'arrows' and section.settings.enable_carousel -%}
             <div class="cl-arrows">
@@ -385,7 +397,9 @@
       </div>
   
       <!-- Collections Grid or Slider -->
-      <div class="{% if section.settings.enable_carousel %}cl-collections-slider{% else %}cl-collections-grid{% endif %}" id="cl-container-{{ section.id }}">
+     
+    </div>
+     <div class="{% if section.settings.enable_carousel %}cl-collections-slider{% else %}cl-collections-grid{% endif %}" id="cl-container-{{ section.id }}">
         {%- for block in section.blocks -%}
           {%- assign collection = block.settings.collection -%}
           <div class="cl-collection-card" {{ block.shopify_attributes }}>
@@ -445,7 +459,6 @@
           {%- endfor -%}
         {%- endif -%}
       </div>
-    </div>
   </div>
 </div>
 
