@@ -1,0 +1,172 @@
+{% style %}
+.page-banner-{{ section.id }} {
+  position: relative;
+}
+
+.page-banner-{{ section.id }} picture,
+.page-banner-{{ section.id }} img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.page-banner-{{ section.id }} .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    {{ section.settings.gradient_angle }},
+    rgba(
+      {{ section.settings.gradient_color.red }},
+      {{ section.settings.gradient_color.green }},
+      {{ section.settings.gradient_color.blue }},
+      {{ section.settings.gradient_opacity_start | divided_by: 100.0 }}
+    ) 0%,
+    rgba(
+      {{ section.settings.gradient_color.red }},
+      {{ section.settings.gradient_color.green }},
+      {{ section.settings.gradient_color.blue }},
+      {{ section.settings.gradient_opacity_end | divided_by: 100.0 }}
+    ) 100%
+  );
+}
+
+.page-banner-{{ section.id }} .content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+}
+
+.page-banner-{{ section.id }} h1 {
+  color: {{ section.settings.title_color }};
+  font-size: clamp(
+    {{ section.settings.font_size_min }}px,
+    5vw,
+    {{ section.settings.font_size_max }}px
+  );
+  font-weight: 900;
+  text-transform: {{ section.settings.text_transform }};
+  margin: 0;
+  line-height:1.4;
+}
+
+{% endstyle %}
+
+<section class="page-banner-{{ section.id }}">
+  <picture>
+    {% if section.settings.mobile_image %}
+      <source
+        media="(max-width: 749px)"
+        srcset="{{ section.settings.mobile_image |  img_url : 'master' }}">
+    {% endif %}
+
+    <img
+      src="{{ section.settings.desktop_image | img_url : 'master' }}"
+      alt="{{ page.title }}"
+      loading="lazy">
+  </picture>
+
+  <div class="overlay"> </div>
+
+  <div class="content page-width">
+    <div class="">
+      <h1>{{ page.title | default: collection.title | default: product.title }}</h1>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "select",
+      "id": "gradient_angle",
+      "label": "Gradient Direction",
+      "options": [
+        { "value": "0deg", "label": "Top → Bottom" },
+        { "value": "90deg", "label": "Left → Right" },
+        { "value": "180deg", "label": "Bottom → Top" },
+        { "value": "270deg", "label": "Right → Left" }
+      ],
+      "default": "90deg"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color",
+      "label": "Gradient Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "gradient_opacity_start",
+      "label": "Start Opacity (%)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "gradient_opacity_end",
+      "label": "End Opacity (%)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title Color",
+      "default": "#ffffff"
+    },
+    {
+    "type": "select",
+    "id": "text_transform",
+    "label": "Title Text Transform",
+    "options": [
+        { "value": "none", "label": "Normal" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "capitalize", "label": "Capitalize" },
+        { "value": "lowercase", "label": "lowercase" }
+    ],
+    "default": "uppercase"
+    },
+    {
+        "type": "range",
+        "id": "font_size_min",
+        "label": "Title Font Size (Min px)",
+        "min": 16,
+        "max": 40,
+        "step": 1,
+        "default": 26
+    },
+    {
+        "type": "range",
+        "id": "font_size_max",
+        "label": "Title Font Size (Max px)",
+        "min": 28,
+        "max": 80,
+        "step": 1,
+        "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Banner"
+    }
+  ]
+}
+
+{% endschema %}

@@ -2,3 +2,35 @@ h2 {
     font-size: 46px;
     line-height: normal;
 }
+.comp_heighlight_description p {
+    margin: 30px 0;
+    letter-spacing: 0;
+}
+.comp_heighlight_heading {
+    max-width: max-content;
+    margin: auto auto 30px;
+    border-radius: 20px;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-weight: 500;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.comp_heighlight_heading img{
+    max-width:50px;
+    width:100%;
+}
+
+@media screen and (max-width: 749px) {
+.comp_heighlight_heading{
+    font-size: 12px;
+    gap: 10px;
+    padding: 15px 10px;
+}
+.comp_heighlight_heading img {
+    max-width: 30px;
+    width: 100%;
+}
+}

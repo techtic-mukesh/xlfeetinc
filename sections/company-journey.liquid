@@ -1,0 +1,314 @@
+{% style %}
+.timeline-section-{{ section.id }} {
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+ .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+}
+
+@media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+}
+/* Text */
+.timeline-content {
+  text-align: center;
+  max-width:{{ section.settings.custom_page_width }}px;
+  width:100%;
+  margin:auto;
+  padding:0 20px;
+}
+.timeline-content p{
+    margin:0 0 30px;
+    line-height: 1.5;
+    letter-spacing: 0;
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+.timeline-item {
+    position: relative;
+    z-index: 1;
+    border: 1px solid #191B1D;
+    border-radius: 999px;
+    padding: 20px 1.75rem;
+    background: rgb(var(--color-background));
+    min-width: 206px;
+    color: rgba(var(--color-foreground), 1);
+    font-size: 16px;
+}
+
+.timeline-item h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.timeline-item strong {
+  display: block;
+  font-size: 16px;
+}
+
+.timeline-item span {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Banner */
+.timeline-banner {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.timeline-banner img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.timeline-banner__overlay {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.timeline-banner__overlay h2 {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+  margin:0;
+}
+/* Custom Timeline Layout */
+.timeline {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0;
+  position: relative;
+}
+
+.custom_timeline_block {
+    position: relative;
+    text-align: center;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Connector line */
+.custom_timeline_block:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 30px; /* aligns with pill center */
+  right: -50%;
+  width: 100%;
+  height: 1px;
+  background: #191B1D;
+  z-index: 0;
+}
+
+/* Pill */
+
+
+.timeline-item strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Description */
+.custom_timeline_block span {
+    display: block;
+    margin-top: 20px;
+    max-width: 230px;
+    margin-left: auto;
+    line-height: 1.5;
+    margin-right: auto;
+}
+.timeline-banner__overlay h2 strong{
+    font-family: var(--font-subheading-family);
+    font-weight: 300;
+}
+/* Mobile */
+@media screen and (max-width: 749px) {
+  .timeline {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .custom_timeline_block {
+    padding: 0;
+  }
+
+  .custom_timeline_block::after {
+    display: none;
+  }
+  .timeline-banner__overlay h2 {
+    font-size: 18px;
+  }
+  .timeline-item{
+    padding: 15px 1.75rem;
+    min-width: 170px;
+}
+}
+{% endstyle %}
+
+<section class="timeline-section-{{ section.id }} color-{{ section.settings.color_scheme }}">
+  <div class="section-{{ section.id }}-padding">
+
+    <!-- TEXT -->
+    <div class="timeline-content ">
+      {{ section.settings.text }}
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="timeline page-width">
+        {% for block in section.blocks %}
+            <div class="custom_timeline_block">
+            <div class="timeline-item color-{{ block.settings.block_color_scheme }}">
+                <h2>{{ block.settings.year }}</h2>
+            </div>
+            <span>{{ block.settings.description }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- IMAGE BANNER -->
+    {% if section.settings.image != blank %}
+    <div class="page-width">
+      <div class="timeline-banner ">
+        <img src="{{ section.settings.image | img_url : 'master' }}">
+        <div class="timeline-banner__overlay">
+          <h2>{{ section.settings.banner_text }}</h2>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Our Story Timeline",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Top text",
+      "default": "<p>Add your brand story or description here.</p>"
+    },
+    {
+    "type": "range",
+    "id": "custom_page_width",
+    "min": 1000,
+    "max": 1400,
+    "step": 4,
+    "default": 1200,
+    "unit": "px",
+    "label": "Content Page Width"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner image"
+    },
+    {
+      "type": "richtext",
+      "id": "banner_text",
+      "label": "Banner overlay text",
+    "info": "Use bold (strong) text to apply the Instrument Serif font."
+    },
+    {
+      "type": "color",
+      "id": "banner_text_color",
+      "label": "Banner Text Color",
+      "default":"#fff"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+     {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "timeline",
+      "name": "Timeline item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Year",
+          "default": "1990"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Age 7, Size 7"
+        },
+        {
+            "type": "color_scheme",
+            "id": "block_color_scheme",
+            "label": "Block Color Scheme"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Our Story Timeline",
+      "blocks": [
+        { "type": "timeline" },
+        { "type": "timeline" },
+        { "type": "timeline" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,336 @@
+{% style %}
+ .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+}
+
+@media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+}
+.bottom-feature-grid-{{ section.id }} {
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+}
+
+.feature_in_press_blocks {
+    display: flex;
+    gap:20px;
+}
+.feature_in_press_blocks_left img{
+    max-width:100%;
+    width:100%;
+}
+.custom_top_header_section{
+text-align: center;
+}
+
+.bottom-feature-grid-{{ section.id }} .pill-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.bottom-feature-grid-{{ section.id }} .pill {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  font-size: 14px;
+  font-weight: 500;
+}
+.feature_in_press_blocks_right {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+{% for block in section.blocks %}
+    .block-grid-{{ block.id }} .feature_in_press_blocks_right_img {
+        max-width: 263px;
+        width: 100%;
+        min-width:263px;
+    }
+    .block-grid-{{ block.id }} .feature_in_press_blocks_right_img img{
+        max-width:100%;
+        width:100%;
+    }
+{% endfor %}
+.feature_in_press_blocks_right_content {
+    font-family: var( --font-heading-family);
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 20px;
+    letter-spacing: 0.1em;
+}
+
+.feature_in_press_blocks_left {
+    max-width: 32.5%;
+    width: 100%;
+}
+.feature_in_press_blocks_right_grid{
+    max-width: 68%;
+    width: 100%;
+}
+@media screen and (max-width: 989px) {
+ .feature_in_press_blocks_right{
+    gap: 20px;
+    padding: 20px;
+ }
+ {% for block in section.blocks %}
+    .block-grid-{{ block.id }} .feature_in_press_blocks_right_img {
+        max-width: 180px;
+        width: 100%;
+        min-width:180px;
+    }
+ {% endfor %}
+}
+@media screen and (max-width: 749px) {
+.feature_in_press_blocks{
+    flex-direction: column;
+}
+ {% for block in section.blocks %}
+    .block-grid-{{ block.id }} .feature_in_press_blocks_right_img {
+        max-width: 150px;
+        width: 100%;
+        min-width:150px;
+    }
+ {% endfor %}
+ .feature_in_press_blocks_right_content{
+    font-size: 12px;
+ }
+ .feature_in_press_blocks_right_grid , .feature_in_press_blocks_left{
+    max-width:100%;
+    width:100%;
+ }
+}
+@media screen and (max-width: 450px) {
+.feature_in_press_blocks_right{
+    flex-direction:column;
+}
+}
+{% endstyle %}
+
+<section class="bottom-feature-grid-{{ section.id }} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+  <div class="page-width">
+ 
+    <div class="section-header custom_top_header_section">
+    <div>
+        <div class="comp_heighlight_heading color-{{ section.settings.heading_block_color_scheme }}">
+           {% if section.settings.heading_img !=blank %} <img src="{{ section.settings.heading_img | img_url  : 'master' }}"> {% endif %}
+            <span>
+                {{ section.settings.company_heading }}
+            </span>
+        </div>
+    </div>
+      {% if section.settings.show_pills %}
+        <div class="pill-buttons">
+          {% for block in section.blocks %}
+            {% if block.settings.year  %}
+            <div class="block-{{block.id }} custom_timeline_block">
+                <div class="timeline-item color-{{ block.settings.block_color_scheme }}">
+                    <h2>{{ block.settings.year }}</h2>
+                </div>
+                <span>{{ block.settings.description }}</span>
+                <div class="time_line_extra_content"> {{ block.settings.extra_content_block }}</div>
+                </div>
+              
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      <div class="comp_heighlight_description">
+        {% if section.settings.description != blank %}
+            <div>{{ section.settings.description }}</div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="feature_in_press_blocks">
+        {% for block in section.blocks %}
+            {% if block.settings.left_side_img != blank %}
+                <div class="feature_in_press_blocks_left">
+                    <img src="{{ block.settings.left_side_img | img_url : 'master' }}"> 
+                </div>
+            {% endif %}
+            {% if block.settings.first_image_block  != blank or block.settings.first_image_text_block != blank or block.settings.second_image_block  != blank or block.settings.second_image_text_block != blank  %}
+            <div class="block-grid-{{ block.id }} feature_in_press_blocks_right_grid">
+                <div class="feature_in_press_blocks_right">
+                    <div class="feature_in_press_blocks_right_img">
+                    {% if block.settings.first_image_block  != blank %} <img src="{{ block.settings.first_image_block  | img_url : 'master' }}"> {% endif %}
+                    </div> 
+                    <div class="feature_in_press_blocks_right_content">
+                        {{ block.settings.first_image_text_block }}
+                    </div>
+                </div>
+                <div class="feature_in_press_blocks_right">
+                    <div class="feature_in_press_blocks_right_img">
+                    {% if block.settings.second_image_block  != blank %} <img src="{{ block.settings.second_image_block  | img_url : 'master' }}"> {% endif %}
+                    </div> 
+                    <div class="feature_in_press_blocks_right_content">
+                        {{ block.settings.second_image_text_block }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured In the Press",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "background-1"
+    },
+    {
+      "type": "image_picker",
+      "id": "heading_img",
+      "label": "Heading Image"
+    },
+    {
+      "type": "text",
+      "id": "company_heading",
+      "label": "Heading",
+      "default": "Our Journey & Presence"
+    },
+    {
+     "type":"color_scheme",
+     "id": "heading_block_color_scheme",
+     "label": "Heading Color Scheme"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pills",
+      "label": "Show pill buttons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Image Grid"
+    },
+    {
+    "type": "range",
+    "id": "grid_columns",
+    "label": "Desktop columns",
+    "min": 1,
+    "max": 4,
+    "step": 1,
+    "default": 4
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pill",
+      "name": "Pill Button",
+      "settings": [
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Year",
+          "default": "1990"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Age 7, Size 7"
+        },
+        {
+            "type": "richtext",
+            "id": "extra_content_block",
+            "label": "Extra Content"
+        },
+        {
+            "type": "color_scheme",
+            "id": "block_color_scheme",
+           "label": "Block Color Scheme"
+        }
+      ]
+    },
+    {
+      "type": "image_with_text",
+      "name": "Image With Text",
+      "settings": [
+        {
+            "type": "image_picker",
+            "id": "left_side_img",
+            "label": "Left Side Image"
+        },
+        {
+            "type": "header",
+            "content": "Right Side Image With Text Block"
+        },
+        {
+            "type": "image_picker",
+            "id": "first_image_block",
+            "label": "First Image"
+        },
+        {
+            "type":"text",
+            "id": "first_image_text_block",
+            "label": "First Image Block"
+        },
+        {
+            "type": "image_picker",
+            "id": "second_image_block",
+            "label": "Second Image"
+        },
+        {
+            "type":"text",
+            "id": "second_image_text_block",
+            "label": "Second Image Block"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured In the Press",
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,67 @@
+
+/* CSS (add to assets/section-contact-info-grid.css) */
+.contact-info-grid__wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+ color: rgba(var(--color-foreground), 1);
+}
+
+.contact-info-grid__content p a{
+    color: currentColor;
+    text-decoration: none;
+    cursor: pointer;
+}
+.contact-info-grid__wrapper p strong{
+    font-weight:700;
+}
+@media screen and (min-width: 750px) {
+  .contact-info-grid__wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.contact-info-grid__item {
+    text-align: center;
+    background: #F4F4F480;
+    padding: 30px 15px;
+}
+
+.contact-info-grid__icon {
+  margin-bottom: 1rem;
+  line-height:normal;
+}
+
+.contact-info-grid__heading {
+    margin: 0 0 .5rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.contact-info-grid__content p {
+    margin: .25rem 0;
+    font-size: 16px;
+    line-height: 24px;
+}
+.contact-info-grid__icon img {
+    max-width: 28px;
+    width: 100%;
+    height: 28px;
+}
+@media screen and (max-width: 989px) {
+.contact-info-grid__item{
+    padding: 20px 10px;
+}
+.contact-info-grid__content p{
+    font-size: 12px;
+    line-height: 20px;
+}
+.contact-info-grid__heading{
+    font-size: 14px;
+    line-height: 18px;
+}
+}
