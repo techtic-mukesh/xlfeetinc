@@ -43,7 +43,6 @@ border: 1px solid #ECECEC;
 background: #F4F4F4;
 overflow: hidden;
     height: 100%;
-    padding: 20px;
 }
 
   .product__gallery button.wishlist_button {
@@ -155,7 +154,7 @@ overflow: hidden;
   .gallery-main .swiper-slide img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     background: transparent;
     mix-blend-mode: multiply;
   }
@@ -178,7 +177,7 @@ overflow: hidden;
   .gallery-main .swiper-slide a {
     display: inline-block;
     width: 100%;
-   aspect-ratio: 4 / 3.7;
+   aspect-ratio: 4 / 4;
 }
   
   .gallery-thumbs .swiper-slide {
@@ -289,13 +288,33 @@ overflow: hidden;
     margin: 0;
 }
 
-   @media (max-width: 990px) {
-    product-info {
-    background: linear-gradient(to right, #fff 50.2%, #f7f9ff 50%) !important;
+  @media (max-width: 1280px) { 
+    .slider__col {
+    width: 110px;
+    min-width: 110px;
+}
+
+.gallery-thumbs {
+    height: 300px;
+    margin: 0;
 }
 
 .gallery-thumbs .swiper-slide {
+    height: 110px !important;
+}
+
+
+  }
+
+   @media (max-width: 990px) {
+   
+
+.gallery-thumbs .swiper-slide {
   height: auto !important;
+}
+
+.slider__col .button-pdp-descripton {
+  display: none;
 }
 
 .swiper.gallery-thumbs.gallery-thumbs--arrowble {
@@ -310,6 +329,7 @@ overflow: hidden;
 
 .product__gallery {
   flex-direction: column-reverse;
+      top: 80px;
 }
 
 .slider__images .swiper-button-next svg, .slider__images .swiper-button-prev svg {
@@ -354,18 +374,12 @@ overflow: hidden;
       height: auto;
     }
   
-    .swiper-button-next,
-    .swiper-button-prev {
-      display: none;
-    }
+    
   }
 
 
 @media (max-width: 750px) { 
-      product-info {
-        background:  #f7f9ff !important;
-    }
-
+    
     .product__media-wrapper .Accordions {
       display: none;
     }
@@ -373,5 +387,36 @@ overflow: hidden;
     .product__info-wrapper.grid__item {
     padding-top: 20px;
 }
+
+    .slider__images .swiper-button-next svg, .slider__images .swiper-button-prev svg {
+        height: 15px;
+    }
+
+    .swiper-main-g__wrap {
+    padding: 6px 15px;
+}
+.zoom-globle__img {
+    padding: 6px 15px;
+}
+
+.zoom-globle__img a svg {
+    width: 16px;
+    height: 16px;
+}
 }
   
+@media (max-width: 460px) {
+      .gallery-thumbs {
+        height: 70px;
+        padding-right: 10px;
+        padding: 0 !important;
+    }
+  }
+
+
+@media (max-width: 410px) {
+    .gallery-thumbs {
+        height: 62px;
+       
+    }
+}

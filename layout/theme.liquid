@@ -28,7 +28,7 @@
 
     {% render 'meta-tags' %}
 
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="{{ 'jquery.min.js' | asset_url }}"></script>
 
     {%  render 'header-fonts' %}
 
@@ -45,8 +45,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer="defer"></script>
     {{ content_for_header }}
 
     {%- liquid

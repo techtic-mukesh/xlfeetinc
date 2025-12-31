@@ -1,109 +1,153 @@
 {% comment %}
   Renders icon with text block
-
-  Accepts:
-  - block: {Object} passes in the block information.
-
-
-  Usage:
-  {% render 'icon-with-text',
-    block: block
-  %}
 {% endcomment %}
+
 {%- liquid
   assign heading_1_empty = false
   assign heading_2_empty = false
   assign heading_3_empty = false
-  assign text_only_all_items = true
 
-  if block.settings.heading_1 == empty
+  if block.settings.heading_1 == blank
     assign heading_1_empty = true
   endif
 
-  if block.settings.heading_2 == empty
+  if block.settings.heading_2 == blank
     assign heading_2_empty = true
   endif
 
-  if block.settings.heading_3 == empty
+  if block.settings.heading_3 == blank
     assign heading_3_empty = true
   endif
-
-  if heading_1_empty == false and block.settings.icon_1 != 'none' or block.settings.image_1 != null
-    assign text_only_all_items = false
-  elsif heading_2_empty == false and block.settings.icon_2 != 'none' or block.settings.image_2 != null
-    assign text_only_all_items = false
-  elsif heading_3_empty == false and block.settings.icon_3 != 'none' or block.settings.image_3 != null
-    assign text_only_all_items = false
-  endif
 -%}
+
 <ul
-  class="icon-with-text icon-with-text--{{ block.settings.layout }} list-unstyled{% if text_only_all_items %} icon-with-text--text-only{% endif %}"
+  class="icon-with-text icon-with-text--{{ block.settings.layout }} list-unstyled"
   {{ block.shopify_attributes }}
 >
+
   {%- unless heading_1_empty -%}
     <li class="icon-with-text__item">
-      {%- if block.settings.image_1 == null -%}
-        {%- render 'icon-accordion', icon: block.settings.icon_1 -%}
-      {%- else -%}
-        <img
-          src="{{ block.settings.image_1 | image_url }}"
-          {% if block.settings.image_1.alt != blank %}
-            alt="{{ block.settings.image_1.alt | escape }}"
-          {% else %}
-            role="presentation"
-          {% endif %}
-          height="auto"
-          width="auto"
-          loading="lazy"
-        >
-      {%- endif -%}
-      <span class="h4 inline-richtext">
-        {{- block.settings.heading_1 -}}
+      <span class="icon-with-text__icon">
+        {%- if block.settings.custom_svg_1 != blank -%}
+          {{ block.settings.custom_svg_1 }}
+        {%- elsif block.settings.image_1 != blank -%}
+          <img src="{{ block.settings.image_1 | image_url }}" alt="" loading="lazy">
+        {%- endif -%}
       </span>
+
+      <span class="h4 inline-richtext">
+        {{ block.settings.heading_1 }}
+      </span>
+
+      {%- if block.settings.tooltip_1 != blank -%}
+        <div class="icon-with-text__tooltip">
+          {{ block.settings.tooltip_1 }}
+        </div>
+      {%- endif -%}
     </li>
   {%- endunless -%}
+
   {%- unless heading_2_empty -%}
     <li class="icon-with-text__item">
-      {%- if block.settings.image_2 == null -%}
-        {% render 'icon-accordion', icon: block.settings.icon_2 -%}
-      {%- else -%}
-        <img
-          src="{{ block.settings.image_2 | image_url }}"
-          {% if block.settings.image_2.alt != blank %}
-            alt="{{ block.settings.image_2.alt | escape }}"
-          {% else %}
-            role="presentation"
-          {% endif %}
-          height="auto"
-          width="auto"
-          loading="lazy"
-        >
-      {%- endif -%}
-      <span class="h4 inline-richtext">
-        {{- block.settings.heading_2 -}}
+      <span class="icon-with-text__icon">
+        {%- if block.settings.custom_svg_2 != blank -%}
+          {{ block.settings.custom_svg_2 }}
+        {%- elsif block.settings.image_2 != blank -%}
+          <img src="{{ block.settings.image_2 | image_url }}" alt="" loading="lazy">
+        {%- endif -%}
       </span>
+
+      <span class="h4 inline-richtext">
+        {{ block.settings.heading_2 }}
+      </span>
+
+      {%- if block.settings.tooltip_2 != blank -%}
+        <div class="icon-with-text__tooltip">
+          {{ block.settings.tooltip_2 }}
+        </div>
+      {%- endif -%}
     </li>
   {%- endunless -%}
+
   {%- unless heading_3_empty -%}
     <li class="icon-with-text__item">
-      {%- if block.settings.image_3 == null -%}
-        {% render 'icon-accordion', icon: block.settings.icon_3 -%}
-      {%- else -%}
-        <img
-          src="{{ block.settings.image_3 | image_url }}"
-          {% if block.settings.image_3.alt != blank %}
-            alt="{{ block.settings.image_3.alt | escape }}"
-          {% else %}
-            role="presentation"
-          {% endif %}
-          height="auto"
-          width="auto"
-          loading="lazy"
-        >
-      {%- endif -%}
-      <span class="h4 inline-richtext">
-        {{- block.settings.heading_3 -}}
+      <span class="icon-with-text__icon">
+        {%- if block.settings.custom_svg_3 != blank -%}
+          {{ block.settings.custom_svg_3 }}
+        {%- elsif block.settings.image_3 != blank -%}
+          <img src="{{ block.settings.image_3 | image_url }}" alt="" loading="lazy">
+        {%- endif -%}
       </span>
+
+      <span class="h4 inline-richtext">
+        {{ block.settings.heading_3 }}
+      </span>
+
+      {%- if block.settings.tooltip_3 != blank -%}
+        <div class="icon-with-text__tooltip">
+          {{ block.settings.tooltip_3 }}
+        </div>
+      {%- endif -%}
     </li>
   {%- endunless -%}
+
 </ul>
+
+
+<style>
+  .icon-with-text__item {
+  position: relative;
+}
+
+.icon-with-text__tooltip {
+ position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #646464;
+    padding: 7px 10px;
+    border-radius: 6px;
+    min-width: 350px;
+    max-width: 320px;
+    font-size: 12px;
+    line-height: 1.4;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    font-weight: 300;
+    font-family: "Helvetica Neue";
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.25));
+}
+
+.icon-with-text__tooltip ul {
+    padding-left: 18px;
+    list-style: circle;
+}
+
+.icon-with-text__tooltip p {
+    margin: 5px 0;
+    font-size: 10px;
+}
+.icon-with-text__item:hover .icon-with-text__tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.icon-with-text__tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #fff;
+}
+
+</style>

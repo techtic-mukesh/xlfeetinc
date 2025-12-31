@@ -27,7 +27,7 @@
 
   {%- style -%}
     .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-top: 20px;
       padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     }
 
@@ -105,6 +105,42 @@
                     </h2>
                   </a>
                 </div>
+              {%- when 'availability_info' -%}
+  {%- if block.settings.show_only_when_available == false or product.available -%}
+    <div class="product-availability" {{ block.shopify_attributes }}>
+      <div class="availability-left">
+        {% if block.settings.icon_svg != blank %}
+          <div class="availability-icon">
+            {{ block.settings.icon_svg }}
+          </div>
+        {% endif %}
+
+        <div class="availability-text">
+          {% if block.settings.title != blank %}
+            <div class="availability-title">
+              {{ block.settings.title }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.content != blank %}
+            <div class="availability-content">
+              {{ block.settings.content }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if block.settings.button_label != blank and block.settings.button_url != blank %}
+        <a
+          href="{{ block.settings.button_url }}"
+          class="availability-link"
+        >
+          {{ block.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+  {%- endif -%}
+
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                   {%- render 'price',
@@ -1690,6 +1726,17 @@
           "info": "t:sections.main-product.blocks.icon_with_text.settings.heading.info"
         },
         {
+          "type": "textarea",
+          "id": "custom_svg_1",
+          "label": "Custom SVG (Item 1)",
+          "info": "Paste raw SVG code here. This will override icon & image."
+        },
+        {
+          "type": "richtext",
+          "id": "tooltip_1",
+          "label": "Tooltip text (Item 1)"
+        },
+        {
           "type": "header",
           "content": "t:sections.main-product.blocks.icon_with_text.settings.pairing_2.label"
         },
@@ -1890,6 +1937,17 @@
           "info": "t:sections.main-product.blocks.icon_with_text.settings.heading.info"
         },
         {
+          "type": "textarea",
+          "id": "custom_svg_2",
+          "label": "Custom SVG (Item 2)",
+          "info": "Paste raw SVG code here. This will override icon & image."
+        },
+        {
+          "type": "richtext",
+          "id": "tooltip_2",
+          "label": "Tooltip text (Item 1)"
+        },
+        {
           "type": "header",
           "content": "t:sections.main-product.blocks.icon_with_text.settings.pairing_3.label"
         },
@@ -2088,9 +2146,62 @@
           "default": "t:sections.main-product.blocks.icon_with_text.settings.heading_3.default",
           "label": "t:sections.main-product.blocks.icon_with_text.settings.heading_3.label",
           "info": "t:sections.main-product.blocks.icon_with_text.settings.heading.info"
+        },
+        {
+          "type": "textarea",
+          "id": "custom_svg_3",
+          "label": "Custom SVG (Item 3)",
+          "info": "Paste raw SVG code here. This will override icon & image."
+        },
+        {
+          "type": "richtext",
+          "id": "tooltip_3",
+          "label": "Tooltip text (Item 3)"
         }
       ]
+    },
+    {
+  "type": "availability_info",
+  "name": "Availability info",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "icon_svg",
+      "label": "Icon SVG",
+      "info": "Paste raw SVG code here"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Pickup available at XLfeet"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "default": "<p>Usually ready in 4 hours</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Right button text",
+      "default": "View store information's"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Right button URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_only_when_available",
+      "label": "Show only when product is available",
+      "default": true
     }
+  ]
+}
+
   ],
   "settings": [
     {
@@ -2274,3 +2385,29 @@
   ]
 }
 {% endschema %}
+
+
+
+<script>
+  $(document).ready(function () {
+
+  $('.accordion details').attr('open', true);
+  
+  $('.button-pdp-descripton a').on('click', function (e) {
+    e.preventDefault();
+
+    var $target = $('.pds-grid');
+
+    if ($target.length) {
+      $('html, body').stop().animate(
+        {
+          scrollTop: $target.offset().top - 130
+        },
+        900,
+        'swing'
+      );
+    }
+  });
+});
+
+</script>

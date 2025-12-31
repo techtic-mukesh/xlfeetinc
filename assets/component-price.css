@@ -77,6 +77,10 @@
   display: initial;
   flex-direction: row;
   flex-wrap: wrap;
+      display: inline-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .price--center {

@@ -96,12 +96,17 @@ header.header.header--two-row .header__icons {
 }
 
 .header__icons-new .cart-count-bubble {
-    font-family: "Helvetica Neue";
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     margin-left: -6px;
+    background-color: #191B1D;
+    color: #fff;
+}
+
+.header__logo-section, .header__heading-link, .header__heading-logo-wrapper {
+    display: inline-flex;
 }
 
 account-icon {
