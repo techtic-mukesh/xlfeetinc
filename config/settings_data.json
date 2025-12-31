@@ -38,7 +38,7 @@
     "variant_pills_shadow_blur": 5,
     "inputs_border_thickness": 1,
     "inputs_border_opacity": 55,
-    "inputs_radius": 0,
+    "inputs_radius": 12,
     "inputs_shadow_opacity": 0,
     "inputs_shadow_horizontal_offset": 0,
     "inputs_shadow_vertical_offset": 4,
@@ -248,6 +248,17 @@
           "button_label": "#ffffff",
           "secondary_button_label": "#1f1f1f",
           "shadow": "#1f1f1f"
+        }
+      },
+      "scheme-290470d7-d10b-485e-a665-f3b64745a480": {
+        "settings": {
+          "background": "#f4f4f4",
+          "background_gradient": "",
+          "text": "#1f1f1f",
+          "button": "#191b1d",
+          "button_label": "#ffffff",
+          "secondary_button_label": "#191b1d",
+          "shadow": "#191b1d"
         }
       }
     }

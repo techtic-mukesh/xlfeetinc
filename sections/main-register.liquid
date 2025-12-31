@@ -1,142 +1,334 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'show-password.js' | asset_url | script_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
-
+  .customer:not(.account):not(.order){
+      margin-top:30px;
+      margin-bottom:30px;
+  }
+  .customer{
+    border-radius:20px;
+  }
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
+    .customer:not(.account):not(.order){
+      margin-top:50px;
+      margin-bottom:30px;
+    }
   }
-{%- endstyle -%}
 
-<div class="customer register section-{{ section.id }}-padding">
-  <h1>
-    {{ 'customer.register.title' | t }}
-  </h1>
-  {%- form 'create_customer', novalidate: 'novalidate' -%}
-    {%- if form.errors -%}
-      <h2 class="form__message" tabindex="-1" autofocus>
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
-        </span>
-        {{ 'templates.contact.form.error_heading' | t }}
-      </h2>
-      <ul>
-        {%- for field in form.errors -%}
-          <li>
-            {%- if field == 'form' -%}
-              {{ form.errors.messages[field] }}
-            {%- else -%}
-              <a href="#RegisterForm-{{ field }}">
-                {{ form.errors.translated_fields[field] | capitalize }}
+  /* toggles */
+.field{ position:relative; }
+.password-field-wrapper{ position:relative; }
+.password-toggle-button{
+  position:absolute; right:12px; top:50%; transform:translateY(-50%);
+  width:28px; height:28px; padding:0; border:0; background:transparent;
+  cursor:pointer; display:grid; place-items:center; z-index:1;
+}
+.password-toggle-button .icon{ display:none; }
+.password-toggle-button[aria-pressed="false"] .icon-show{ display:block; }
+.password-toggle-button[aria-pressed="true"] .icon-hide{ display:block; }
+.password-toggle-button:focus-visible{ outline:2px solid currentColor; outline-offset:2px; }
+.password-field-wrapper input[type="password"], .password-field-wrapper input[type="text"]{ padding-right:44px; }
+.password-toggle-button[aria-pressed="false"] .icon-show path,
+.password-toggle-button[aria-pressed="true"] .icon-hide path{ stroke:rgba(var(--color-button),var(--alpha-button-background)); }
+.field.password-field-wrapper button:after{ box-shadow:unset; }
+
+/* actions row */
+.register-actions{
+  display:flex; justify-content:space-between; align-items:center;
+  margin:10px 0 12px;
+}
+.remember-me{ display:inline-flex; align-items:center; gap:8px; font-size:12px; line-height:1; }
+.remember-me input{
+  appearance:none; width:16px; height:16px; border:1.5px solid rgba(0,0,0,.35);
+  border-radius:4px; background:#fff; display:inline-grid; place-items:center;
+}
+.remember-me input:checked{
+  background:rgba(var(--color-button),var(--alpha-button-background));
+  border-color:rgba(var(--color-button),var(--alpha-button-background));
+}
+.remember-me input:checked::after{
+  content:''; width:8px; height:8px; background:#fff;
+  clip-path:polygon(14% 54%,0 68%,38% 100%,100% 28%,86% 14%,38% 62%);
+}
+.forgot-link{ font-size:12px; font-weight:600; text-decoration:none; }
+.forgot-link:hover{ text-decoration:underline; }
+
+/* inline error for confirm */
+#RegisterForm-password-confirm-error.form__message{ display:block; margin-top:6px; }
+
+.field { position: relative; }
+.password-field-wrapper { position: relative; }
+
+.password-toggle-button{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  width:28px;
+  height:28px;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  z-index:1;
+}
+
+.password-toggle-button .icon{ display:none; }
+.password-toggle-button[aria-pressed="false"] .icon-show{ display:block; }
+.password-toggle-button[aria-pressed="true"] .icon-hide{ display:block; }
+
+.password-toggle-button:focus-visible{
+  outline:2px solid currentColor;
+  outline-offset:2px;
+}
+
+/* make room for the toggle inside the input */
+.password-field-wrapper input[type="password"],
+.password-field-wrapper input[type="text"]{
+  padding-right:44px;
+}
+.password-toggle-button[aria-pressed="false"] .icon-show path , 
+.password-toggle-button[aria-pressed="true"] .icon-hide path {
+    stroke: rgba(var(--color-button),var(--alpha-button-background));
+}
+button.password-toggle-button {
+    width: min-content;
+    position: absolute;
+    top: 50%;
+    border: none;
+    border-radius: 0;
+    min-height: unset;
+    background: unset;
+    margin: 0;
+    padding: 0;
+    min-width: unset;
+}
+.field.password-field-wrapper button:after{
+  box-shadow:unset;
+}
+.login-actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:20px 0 12px;
+}
+
+.remember-me{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+  line-height:1;
+  color:currentColor;
+}
+
+.remember-me input {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid rgba(0,0,0,.35);
+    border-radius: 4px;
+    background: #fff;
+    display: inline-grid;
+    place-items: center;
+    margin: 0 .5rem 0 .5rem;
+}
+
+.remember-me input:checked{
+  background:rgba(var(--color-button),var(--alpha-button-background));
+  border-color:rgba(var(--color-button),var(--alpha-button-background));
+}
+
+.remember-me input:checked::after{
+  content:'';
+  width:8px;
+  height:8px;
+  background:#fff;
+  clip-path:polygon(14% 54%,0 68%,38% 100%,100% 28%,86% 14%,38% 62%);
+}
+
+.forgot-link{
+  font-size:12px;
+  font-weight:600;
+  color:currentColor;
+  text-decoration:none;
+}
+
+.forgot-link:hover{ text-decoration:underline; }
+{%- endstyle -%}
+<div class="custom_login_page_width">
+  <div class="customer register section-{{ section.id }}-padding color-{{ section.settings.color_scheme }}">
+    <h1>
+      {{ 'customer.register.title' | t }}
+    </h1>
+    {%- form 'create_customer', novalidate: 'novalidate' -%}
+      {%- if form.errors -%}
+        <h2 class="form__message" tabindex="-1" autofocus>
+          <span class="svg-wrapper">
+            {{- 'icon-error.svg' | inline_asset_content -}}
+          </span>
+          {{ 'templates.contact.form.error_heading' | t }}
+        </h2>
+        <ul>
+          {%- for field in form.errors -%}
+            <li>
+              {%- if field == 'form' -%}
                 {{ form.errors.messages[field] }}
-              </a>
-            {%- endif -%}
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
-    <div class="field">
-      <input
-        type="text"
-        name="customer[first_name]"
-        id="RegisterForm-FirstName"
-        {% if form.first_name %}
-          value="{{ form.first_name }}"
-        {% endif %}
-        autocomplete="given-name"
-        placeholder="{{ 'customer.register.first_name' | t }}"
-      >
-      <label for="RegisterForm-FirstName">
-        {{ 'customer.register.first_name' | t }}
-      </label>
-    </div>
-    <div class="field">
-      <input
-        type="text"
-        name="customer[last_name]"
-        id="RegisterForm-LastName"
-        {% if form.last_name %}
-          value="{{ form.last_name }}"
-        {% endif %}
-        autocomplete="family-name"
-        placeholder="{{ 'customer.register.last_name' | t }}"
-      >
-      <label for="RegisterForm-LastName">
-        {{ 'customer.register.last_name' | t }}
-      </label>
-    </div>
-    <div class="field">
-      <input
-        type="email"
-        name="customer[email]"
-        id="RegisterForm-email"
-        {% if form.email %}
-          value="{{ form.email }}"
-        {% endif %}
-        spellcheck="false"
-        autocapitalize="off"
-        autocomplete="email"
-        aria-required="true"
-        {% if form.errors contains 'email' %}
-          aria-invalid="true"
-          aria-describedby="RegisterForm-email-error"
-        {% endif %}
-        placeholder="{{ 'customer.register.email' | t }}"
-      >
-      <label for="RegisterForm-email">
-        {{ 'customer.register.email' | t }}
-      </label>
-    </div>
-    {%- if form.errors contains 'email' -%}
-      <span id="RegisterForm-email-error" class="form__message">
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
+              {%- else -%}
+                <a href="#RegisterForm-{{ field }}">
+                  {{ form.errors.translated_fields[field] | capitalize }}
+                  {{ form.errors.messages[field] }}
+                </a>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      <div class="field">
+        <input
+          type="text"
+          name="customer[first_name]"
+          id="RegisterForm-FirstName"
+          {% if form.first_name %}
+            value="{{ form.first_name }}"
+          {% endif %}
+          autocomplete="given-name"
+          placeholder="{{ 'customer.register.first_name' | t }}"
+        >
+        <label for="RegisterForm-FirstName">
+          {{ 'customer.register.first_name' | t }}
+        </label>
+      </div>
+      <div class="field">
+        <input
+          type="text"
+          name="customer[last_name]"
+          id="RegisterForm-LastName"
+          {% if form.last_name %}
+            value="{{ form.last_name }}"
+          {% endif %}
+          autocomplete="family-name"
+          placeholder="{{ 'customer.register.last_name' | t }}"
+        >
+        <label for="RegisterForm-LastName">
+          {{ 'customer.register.last_name' | t }}
+        </label>
+      </div>
+      <div class="field">
+        <input
+          type="email"
+          name="customer[email]"
+          id="RegisterForm-email"
+          {% if form.email %}
+            value="{{ form.email }}"
+          {% endif %}
+          spellcheck="false"
+          autocapitalize="off"
+          autocomplete="email"
+          aria-required="true"
+          {% if form.errors contains 'email' %}
+            aria-invalid="true"
+            aria-describedby="RegisterForm-email-error"
+          {% endif %}
+          placeholder="{{ 'customer.register.email' | t }}"
+        >
+        <label for="RegisterForm-email">
+          {{ 'customer.register.email' | t }}
+        </label>
+      </div>
+      {%- if form.errors contains 'email' -%}
+        <span id="RegisterForm-email-error" class="form__message">
+          <span class="svg-wrapper">
+            {{- 'icon-error.svg' | inline_asset_content -}}
+          </span>
+          {{ form.errors.translated_fields.email | capitalize }}
+          {{ form.errors.messages.email }}.
         </span>
-        {{ form.errors.translated_fields.email | capitalize }}
-        {{ form.errors.messages.email }}.
-      </span>
-    {%- endif -%}
-    <div class="field">
-      <input
-        type="password"
-        name="customer[password]"
-        id="RegisterForm-password"
-        aria-required="true"
-        {% if form.errors contains 'password' %}
-          aria-invalid="true"
-          aria-describedby="RegisterForm-password-error"
-        {% endif %}
-        placeholder="{{ 'customer.register.password' | t }}"
-      >
-      <label for="RegisterForm-password">
-        {{ 'customer.register.password' | t }}
-      </label>
-    </div>
-    {%- if form.errors contains 'password' -%}
-      <span id="RegisterForm-password-error" class="form__message">
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
+      {%- endif -%}
+      <div class="field">
+        <input
+          type="password"
+          name="customer[password]"
+          id="RegisterForm-password"
+          aria-required="true"
+          {% if form.errors contains 'password' %}
+            aria-invalid="true"
+            aria-describedby="RegisterForm-password-error"
+          {% endif %}
+          autocomplete="new-password"
+          placeholder="{{ 'customer.register.password' | t }}"
+        >
+        <label for="RegisterForm-password">
+          {{ 'customer.register.password' | t }}
+        </label>
+      </div>
+      {%- if form.errors contains 'password' -%}
+        <span id="RegisterForm-password-error" class="form__message">
+          <span class="svg-wrapper">
+            {{- 'icon-error.svg' | inline_asset_content -}}
+          </span>
+          {{ form.errors.translated_fields.password | capitalize }}
+          {{ form.errors.messages.password }}.
         </span>
-        {{ form.errors.translated_fields.password | capitalize }}
-        {{ form.errors.messages.password }}.
-      </span>
-    {%- endif -%}
-    <button>
-      {{ 'customer.register.submit' | t }}
-    </button>
-  {%- endform -%}
+      {%- endif -%}
+
+      <!-- Confirm Password (client-side validated) -->
+      <div class="field">
+        <input
+          type="password"
+          name="customer[password_confirmation]"
+          id="RegisterForm-password-confirm"
+          autocomplete="new-password"
+          placeholder="Confirm password"
+        >
+        <label for="RegisterForm-password-confirm">Confirm password</label>
+      </div>
+      <small id="RegisterForm-password-confirm-error" class="form__message" style="display:none;"></small>
+
+      <!-- Actions row -->
+      <div class="register-actions">
+        <label for="RegisterRemember" class="remember-me">
+          <input type="checkbox" id="RegisterRemember">
+          <span>Remember me</span>
+        </label>
+        <a class="forgot-link" href="{{ routes.account_login_url }}#recover">Forgot password?</a>
+      </div>
+      {%- if form.errors contains 'password' -%}
+        <span id="RegisterForm-password-error" class="form__message">
+          <span class="svg-wrapper">
+            {{- 'icon-error.svg' | inline_asset_content -}}
+          </span>
+          {{ form.errors.translated_fields.password | capitalize }}
+          {{ form.errors.messages.password }}.
+        </span>
+      {%- endif -%}
+      <button>
+        {{ 'customer.register.submit' | t }}
+      </button>
+    {%- endform -%}
+  </div>
 </div>
 
 {% schema %}
 {
   "name": "t:sections.main-register.name",
   "settings": [
+    {
+      "type":"color_scheme",
+      "id":"color_scheme",
+      "label":"Color Scheme"
+    },
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"

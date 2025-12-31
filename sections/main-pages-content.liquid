@@ -1,0 +1,191 @@
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .privacy-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 63px;
+  }
+
+.privacy-column h2 {
+    margin-bottom: 10px;
+    margin-top: 0;
+    font-size: 37px;
+}
+
+  .privacy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .privacy-list li {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .privacy-list li::before {
+    content: "→";
+    flex-shrink: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .privacy-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .privacy-column h2{
+      font-size: 28px;
+    }
+  }
+{% endstyle %}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="section-{{ section.id }}-padding">
+    <div class="privacy-info page-width">
+      <div class="privacy-grid">
+
+        <!-- Left Column -->
+        <div class="privacy-column">
+          <h2>{{ section.settings.left_heading }}</h2>
+          <div>{{ section.settings.left_side_content }} </div>
+          <ul class="privacy-list">
+            {% for block in section.blocks %}
+              {% if block.type == 'left_item' %}
+                <li {{ block.shopify_attributes }}>
+                  {{ block.settings.text }}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+          <div>
+            {{ block.settings.left_bottom_content }}
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="privacy-column">
+          <h2>{{ section.settings.right_heading }}</h2>
+          <ul class="privacy-list">
+            {% for block in section.blocks %}
+              {% if block.type == 'right_item' %}
+                <li {{ block.shopify_attributes }}>
+                  {{ block.settings.text }}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Main Pages Content",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "left_heading",
+      "label": "Left column heading",
+      "default": "What we collect"
+    },
+    {
+        "type": "text",
+        "id":"left_side_content",
+        "label":"Left Side Content"
+    },
+    {
+        "type":"richtext",
+        "id":"left_bottom_content",
+        "label":"Left Side Bottom Content"
+    },
+    {
+      "type": "text",
+      "id": "right_heading",
+      "label": "Right column heading",
+      "default": "What we do with the information we gather"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "background-1",
+      "options": [
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Content width",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "left_item",
+      "name": "Left column item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Name"
+        }
+      ]
+    },
+    {
+      "type": "right_item",
+      "name": "Right column item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Internal record keeping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Pages Content"
+    }
+  ]
+}
+{% endschema %}
