@@ -283,7 +283,6 @@
       "announcement": "Announcement",
       "announcement_bar": "Announcement bar"
     },
-
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",
@@ -443,7 +442,7 @@
       "guest_continue": "Continue",
       "guest_title": "Continue as a guest",
       "password": "Password",
-      "title": "Login",
+      "title": "Login To Your Account",
       "sign_in": "Sign in",
       "submit": "Submit",
       "alternate_provider_separator": "or"
