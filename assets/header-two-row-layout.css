@@ -69,9 +69,39 @@ header.header.header--two-row .header__icons {
     position: absolute;
     background-color: #fff;
     top: 100%;
-        left: 50%;
+    left: 50%;
     transform: translateX(-50%);
+    width: 100%;
+    max-width: 1280px;
 }
+
+.search-results__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  display: none;
+}
+
+.search-results__overlay.active {
+  opacity: 1;
+  visibility: visible;
+  display: flex;
+}
+
+.predictive-search__item-content .price__sale, .predictive-search__item .price {
+    color: #000;
+    font-family: Helvetica Neue;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 12px;
+    margin-top: 5px;
+}
+
 
 .header__icons-new {
     display: flex;
@@ -105,7 +135,7 @@ header.header.header--two-row .header__icons {
     color: #fff;
 }
 
-.header__logo-section, .header__heading-link, .header__heading-logo-wrapper {
+.header__logo-section, .header__heading-link, .header__heading-logo-wrapper.header__search-section .predictive-search-results {
     display: inline-flex;
 }
 

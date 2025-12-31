@@ -95,6 +95,14 @@ predictive-search[loading] .predictive-search {
   margin: 0 2rem;
   padding: 1.5rem 0 0.75rem;
   color: rgba(var(--color-foreground), 0.7);
+  color: #191B1D;
+    font-family: "Helvetica Neue";
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+        font-family: "Instrument Serif";
 }
 
 predictive-search .spinner {
@@ -136,7 +144,6 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
 
 .predictive-search__list-item[aria-selected='true'] .predictive-search__item-heading,
 .predictive-search__list-item:hover .predictive-search__item-heading {
-  text-decoration: underline;
   text-underline-offset: 0.3rem;
 }
 
@@ -149,10 +156,11 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
 }
 
 .predictive-search__item--link-with-thumbnail {
-  display: grid;
-  grid-template-columns: 5rem 1fr;
-  grid-column-gap: 2rem;
-  grid-template-areas: 'product-image product-content';
+     display: grid;
+    grid-template-columns: 8rem 1fr;
+    grid-column-gap: 2rem;
+    grid-template-areas: "product-image product-content";
+    align-items: center;
 }
 
 .predictive-search__item-content {
@@ -171,6 +179,16 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
 
 .predictive-search__item-heading {
   margin: 0;
+      color: #646464;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+ul#predictive-search-results-products-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .predictive-search__item-query-result *:not(mark) {
@@ -222,4 +240,6 @@ predictive-search[loading] .predictive-search__results-groups-wrapper ~ .predict
   grid-area: product-image;
   object-fit: contain;
   font-family: 'object-fit: contain';
+      width: 100%;
+    height: 100%;
 }

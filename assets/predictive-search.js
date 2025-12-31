@@ -156,6 +156,7 @@ class PredictiveSearch extends SearchForm {
     this.setAttribute('open', 'true');
     this.input.setAttribute('aria-expanded', 'true');
     this.isOpen = true;
+     document.querySelector('.search-results__overlay')?.classList.add('active');
   }
 
   close(clearSearchTerm = false) {
@@ -178,6 +179,7 @@ class PredictiveSearch extends SearchForm {
 
     this.input.setAttribute('aria-expanded', 'false');
     this.input.setAttribute('aria-activedescendant', '');
+    document.querySelector('.search-results__overlay')?.classList.remove('active');
   }
 
   switchOption(direction) {
