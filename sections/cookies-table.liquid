@@ -1,0 +1,215 @@
+{% style %}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+.cookies-table-wrapper h2{
+    margin:0 0 20px 0;
+    font-size:37px;
+}
+.cookies-table thead tr{
+    border: 1px solid black;
+}
+  .cookies-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid rgba(0,0,0,0.15);
+  }
+
+  .cookies-table th,
+  .cookies-table td {
+    padding: 14px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    vertical-align: top;
+  }
+
+  .cookies-table th {
+    background: {{ section.settings.header_bg }};
+    color: {{ section.settings.header_text }};
+    font-weight: 600;
+  }
+
+  .cookies-table td {
+    font-size: 14px;
+    line-height: 1.6;
+    border-left: 1px solid #2B2020;
+  }
+  @media screen and (max-width: 749px) {
+  .cookies-table-wrapper h2{
+    font-size: 28px;
+  }
+  .cookies-table,
+  .cookies-table thead,
+  .cookies-table tbody,
+  .cookies-table th,
+  .cookies-table td,
+  .cookies-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .cookies-table thead {
+    display: none;
+  }
+
+  .cookies-table tr {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin-bottom: 16px;
+    padding: 8px;
+    border-radius: 5px;
+  }
+  .cookies-table{
+    border:none;
+  }
+  .cookies-table td {
+    border: none;
+    padding: 8px 0;
+    font-size: 14px;
+  }
+
+  .cookies-table td:first-child {
+    font-weight: 500 !important;
+    margin-bottom: 6px;
+  }
+
+  .cookies-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    background: #000;
+    padding: 5px;
+    color: #fff;
+  }
+}
+{% endstyle %}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="section-{{ section.id }}-padding">
+    <div class="cookies-table-wrapper page-width">
+
+      {% if section.settings.heading != blank %}
+        <h2>{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      <table class="cookies-table">
+        <thead>
+          <tr>
+            <th>{{ section.settings.column_1 }}</th>
+            <th>{{ section.settings.column_2 }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for block in section.blocks %}
+            <tr {{ block.shopify_attributes }}>
+            <td data-label="{{ section.settings.column_1 }}">
+                <strong>{{ block.settings.cookie_name }}</strong>
+                </td>
+                <td data-label="{{ section.settings.column_2 }}">
+                {{ block.settings.cookie_description }}
+                </td>
+
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cookies table",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "List of cookies we collect"
+    },
+    {
+      "type": "text",
+      "id": "column_1",
+      "label": "First column title",
+      "default": "Cookie Name"
+    },
+    {
+      "type": "text",
+      "id": "column_2",
+      "label": "Second column title",
+      "default": "Cookie Description"
+    },
+    {
+      "type": "color",
+      "id": "header_bg",
+      "label": "Header background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "header_text",
+      "label": "Header text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "background-1",
+      "options": [
+        { "value": "background-1", "label": "Background 1" },
+        { "value": "background-2", "label": "Background 2" },
+        { "value": "inverse", "label": "Inverse" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cookie_row",
+      "name": "Cookie row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "cookie_name",
+          "label": "Cookie name",
+          "default": "FORM_KEY"
+        },
+        {
+          "type": "text",
+          "id": "cookie_description",
+          "label": "Cookie description",
+          "default": "Stores randomly generated key used to prevent forged requests."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cookies table"
+    }
+  ]
+}
+{% endschema %}
