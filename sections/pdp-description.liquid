@@ -1,0 +1,217 @@
+{% comment %}
+  Product Description Split Section
+  Left: Product image
+  Right: Product description + features
+{% endcomment %}
+
+{% if product %}
+<section class="product-description-split section-{{ section.id }}">
+  <div class="page-width-nws">
+    <div class="pds-grid">
+
+      <!-- LEFT IMAGE -->
+      <div class="pds-image">
+        {% if section.settings.image != blank %}
+          <img
+            src="{{ section.settings.image | image_url: width: 1000 }}"
+            alt="{{ product.title }}"
+            loading="lazy"
+          >
+        {% else %}
+          {{ product.featured_image | image_url: width: 1000 | image_tag }}
+        {% endif %}
+      </div>
+
+      <!-- RIGHT CONTENT -->
+      <div class="pds-content">
+        <h2 class="pds-heading">
+          {{ section.settings.heading }}
+        </h2>
+
+        <div class="pds-description">
+          {{ product.description }}
+        </div>
+
+        {% if product.metafields.custom.key_features != blank %}
+          <div class="pds-features">
+            <h3>{{ section.settings.features_heading }}</h3>
+
+            <ul>
+              {% for feature in product.metafields.custom.key_features.value %}
+                <li>
+                  <span class="feature-icon">↗</span>
+                  <div>
+                    {{ feature }}
+                  </div>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<style>
+.section-{{ section.id }} {
+  padding: 60px 0 0;
+}
+
+.pds-grid {
+  display: flex;
+  flex-flow: row wrap;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  border-top: 1px solid #191B1D;
+background: rgba(217, 217, 217, 0.15);
+}
+
+.pds-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.pds-image {
+    max-width: 600px;
+}
+
+.pds-content {
+    flex: 1;
+    padding-right: calc(50% - 1280px / 2);
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+
+
+
+.pds-heading {
+     margin: 0 0 10px;
+    color: #000;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 26px;
+}
+
+.pds-description {
+    color: #646464;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 24px; /* 150% */
+}
+
+.pds-content h3 {
+    margin: 10px 0 30px;
+    color: #000;
+    font-family: "Helvetica Neue";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px; /* 83.333% */
+}
+
+.pds-features h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.pds-description ul {
+    list-style: none;
+    margin: 0;
+}
+
+.pds-description ul li {
+    color: #646464;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 24px; /* 150% */
+    margin: 0 0 20px;
+    position: relative;
+}
+
+.pds-description ul li:before {
+    content: '';
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36' fill='none'%3E%3Cpath d='M10.5 25.5001L25.5 10.5001M25.5 10.5001H12M25.5 10.5001V24.0001' stroke='black' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: -42px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.pds-description ul li:last-child {
+    margin-bottom: 0;
+ }
+
+.pds-description ul li strong {
+    color: #000;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px; /* 100% */
+    display: block;
+    margin-bottom: 10px;
+}
+.pds-features li {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.feature-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .pds-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Product Description Split",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Description"
+    },
+    {
+      "type": "text",
+      "id": "features_heading",
+      "label": "Features Heading",
+      "default": "Key Features"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Left Image (optional)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Description Split"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,159 @@
+{% comment %}
+  Contact Assistance Banner Section
+{% endcomment %}
+
+<section class="contact-assistance section-{{ section.id }}">
+  <div class="page-width-none">
+    <div class="contact-assistance__wrapper">
+
+      <!-- LEFT CONTENT -->
+      <div class="contact-assistance__left">
+        <h2>{{ section.settings.heading }}</h2>
+
+        <p>{{ section.settings.description }}</p>
+
+        {% if section.settings.phone != blank %}
+          <a href="tel:{{ section.settings.phone | remove: ' ' }}" class="contact-phone">
+            <span class="phone-icon"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+  <rect width="35.7143" height="35.7143" fill="black"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.73226 7.44063C9.82154 8.76503 10.0448 10.0597 10.4019 11.2948L8.61618 13.0805C8.00607 11.2948 7.61916 9.40491 7.48523 7.44063H9.73226ZM24.4039 25.3274C25.6688 25.6845 26.9634 25.9077 28.2729 25.997V28.2143C26.3086 28.0804 24.4188 27.6935 22.6182 27.0982L24.4039 25.3274ZM11.1603 4.46436H5.95196C5.13351 4.46436 4.46387 5.134 4.46387 5.95245C4.46387 19.9257 15.7883 31.2501 29.7615 31.2501C30.5799 31.2501 31.2496 30.5804 31.2496 29.762V24.5685C31.2496 23.7501 30.5799 23.0804 29.7615 23.0804C27.9162 23.0804 26.1157 22.7828 24.449 22.2322C24.3002 22.1727 24.1365 22.1578 23.9877 22.1578C23.6008 22.1578 23.2287 22.3066 22.9311 22.5894L19.6573 25.8632C15.446 23.7054 11.9936 20.2679 9.85077 16.0566L13.1246 12.7828C13.5412 12.3661 13.6603 11.7858 13.4966 11.265C12.946 9.59828 12.6484 7.81257 12.6484 5.95245C12.6484 5.134 11.9787 4.46436 11.1603 4.46436Z" fill="white"/>
+</svg></span>
+            {{ section.settings.phone }}
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- RIGHT CONTENT -->
+      <div class="contact-assistance__right">
+        <h3>{{ section.settings.hours_heading }}</h3>
+        <div class="business-hours">
+          {{ section.settings.business_hours }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.section-{{ section.id }} {
+  padding: 10px 0;
+  background: #191B1D;
+}
+
+.contact-assistance__wrapper {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  background: linear-gradient(110deg, #111 60%, #fff 60%);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.contact-assistance__left {
+  padding: 40px;
+  color: #fff;
+  width: 50%;
+}
+
+.contact-assistance__left h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.contact-assistance__left p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  max-width: 520px;
+}
+
+.contact-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  color: #000;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.phone-icon {
+  font-size: 18px;
+}
+
+.contact-assistance__right {
+  padding: 40px;
+  background: #fff;
+}
+
+.contact-assistance__right h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.business-hours {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .contact-assistance__wrapper {
+    grid-template-columns: 1fr;
+    background: #111;
+  }
+
+  .contact-assistance__right {
+    background: #fff;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Contact Assistance Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Assistance With Sizing? Call Us"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "We specialize in helping men with XL, Extra Wide, or Narrow feet find the perfect fit over the phone. If you're unsure about your size, please call us—customers who call have far fewer returns."
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "(651)-797-6000"
+    },
+    {
+      "type": "text",
+      "id": "hours_heading",
+      "label": "Business Hours Heading",
+      "default": "Our business hours are:"
+    },
+    {
+      "type": "richtext",
+      "id": "business_hours",
+      "label": "Business Hours",
+      "default": "<p><strong>Monday through Friday:</strong><br>11am – 6pm Central Time USA</p><p><strong>Saturdays:</strong><br>12pm – 5pm Central Time USA</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Assistance Banner"
+    }
+  ]
+}
+{% endschema %}
