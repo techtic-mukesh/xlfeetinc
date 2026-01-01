@@ -71,7 +71,7 @@
     "blog_card_color_scheme": "scheme-2",
     "blog_card_border_thickness": 0,
     "blog_card_border_opacity": 10,
-    "blog_card_corner_radius": 0,
+    "blog_card_corner_radius": 20,
     "blog_card_shadow_opacity": 0,
     "blog_card_shadow_horizontal_offset": 0,
     "blog_card_shadow_vertical_offset": 4,
@@ -257,6 +257,28 @@
           "text": "#1f1f1f",
           "button": "#191b1d",
           "button_label": "#ffffff",
+          "secondary_button_label": "#191b1d",
+          "shadow": "#191b1d"
+        }
+      },
+      "scheme-c78e2409-39bc-4a8f-a4b0-941986fb6e01": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#000000",
+          "button": "#ffffff",
+          "button_label": "#000000",
+          "secondary_button_label": "#191b1d",
+          "shadow": "#191b1d"
+        }
+      },
+      "scheme-5ce89a8f-a0c7-452c-baae-2fea85722b41": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#191b1d",
+          "button": "#ffffff",
+          "button_label": "#191b1d",
           "secondary_button_label": "#191b1d",
           "shadow": "#191b1d"
         }

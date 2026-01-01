@@ -9,20 +9,48 @@
  */
 {
   "sections": {
+    "page_banner_fMEHyA": {
+      "type": "page-banner",
+      "name": "Page Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/Rectangle_40219.png",
+        "mobile_image": "shopify://shop_images/Rectangle_40219.png",
+        "gradient_angle": "90deg",
+        "gradient_color": "#000000",
+        "gradient_opacity_start": 40,
+        "gradient_opacity_end": 0,
+        "page_title": "Blog",
+        "title_color": "#ffffff",
+        "text_transform": "uppercase",
+        "font_size_min": 26,
+        "font_size_max": 48
+      }
+    },
     "main": {
       "type": "main-blog",
       "settings": {
-        "layout": "collage",
+        "color_scheme": "scheme-5ce89a8f-a0c7-452c-baae-2fea85722b41",
+        "layout": "grid",
+        "custom_heading": "",
+        "title_align": "center",
         "show_image": true,
         "image_height": "medium",
         "show_date": true,
         "show_author": false,
+        "items_per_load": 3,
+        "columns_desktop": 3,
+        "columns_mobile": "1",
+        "show_custom_read_more": true,
+        "read_more_label": "READ MORE",
+        "show_tag_badge": false,
+        "load_more_label": "LOAD MORE",
         "padding_top": 36,
         "padding_bottom": 36
       }
     }
   },
   "order": [
+    "page_banner_fMEHyA",
     "main"
   ]
 }
