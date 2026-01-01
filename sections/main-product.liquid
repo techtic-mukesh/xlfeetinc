@@ -204,7 +204,7 @@
                   role="status"
                   {{ block.shopify_attributes }}
                 >
-                  <span class="visually-hidden">{{ 'products.product.sku' | t }}:</span>
+                  <span>{{ 'products.product.sku' | t }}:</span>
                   {{- product.selected_or_first_available_variant.sku -}}
                 </p>
               {%- when 'custom_liquid' -%}
@@ -681,6 +681,10 @@
             {{- 'icon-arrow.svg' | inline_asset_content -}}
           </a>
         </section>
+
+        <div class="logo-pdpSide">
+          <img src="https://cdn.shopify.com/s/files/1/0674/9437/9594/files/d59e26e617e70fe03a98715825a962a49d6f2997.png?v=1767095097" alt="">
+        </div> 
       </div>
     </div>
 
@@ -2166,6 +2170,10 @@
         {
           "value": "thumbnail_slider",
           "label": "t:sections.main-product.settings.gallery_layout.options__4.label"
+        },
+         {
+          "value": "slider",
+          "label": "Vertical Slider"
         }
       ],
       "default": "stacked",

@@ -64,7 +64,7 @@ variant-selects {
   border-radius: var(--variant-pills-radius);
   color: rgb(var(--color-foreground));
   display: inline-block;
-  margin: 0.7rem 0.5rem 0.2rem 0;
+  margin: 0.7rem 4px 0.2rem 0;
   padding: 1rem 2rem;
   font-size: 1.4rem;
   letter-spacing: 0.1rem;
@@ -148,5 +148,19 @@ variant-selects {
   .product-form__input--swatch .swatch-input__input + .swatch-input__label {
     --swatch-input--size: 2.8rem;
   }
+}
+
+.product-form__input--pill input[type=radio]+label {
+    padding: 8px 20px;
+    border-radius: 12px;
+    border: 1px solid #666;
+    background: rgba(255, 255, 255, 0.29);
+    backdrop-filter: blur(13px);
+    color: #666;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 114.286% */
 }
 /* End custom styles for Swatch display type */
