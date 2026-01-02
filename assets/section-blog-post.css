@@ -54,14 +54,14 @@
 }
 
 .article-template header {
-  margin-top: 4.4rem;
+  /* margin-top: 4.4rem; */
   margin-bottom: 2rem;
   line-height: calc(0.8 / var(--font-body-scale));
 }
 
 @media screen and (min-width: 750px) {
   .article-template header {
-    margin-top: 5rem;
+    /* margin-top: 5rem; */
   }
 }
 
@@ -205,23 +205,34 @@
 
 .article-layout__aside {
   position: sticky;
-  top: 2rem;
+  top: 140px;
 }
-
-@media (max-width: 990px) {
-  .article-layout {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 1080px) {
   .article-layout__aside {
-    position: static;
-    margin-top: 2rem;
+    top:100px;
   }
+}
+@media (max-width: 990px) {
+ .article-template__title {
+    font-size: 27px;
+    line-height: 32px;
+}
+.article-template__content h2 {
+    font-size: 20px;
+    line-height: 28px;
+}
+.artical_layout_aside_top, .blog-sidebar__widget.blog-sidebar__widget--tags{
+  padding: 14px;
+}
+.blog-sidebar__text .blog-sidebar__title{
+  font-size:12px;
+}
 }
 
 /* Sidebar widgets */
 .blog-sidebar__widget + .blog-sidebar__widget { margin-top: 2rem; }
 .blog-sidebar__title { 
-      font-weight: 700;
+      font-weight: 500;
     margin: 0 0 24px;
     font-size: 20px;
  }
@@ -307,7 +318,7 @@
 .blog-sidebar__thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .blog-sidebar__placeholder{width:64px;height:64px;display:block}
 .blog-sidebar__text{min-width:0}
-.blog-sidebar__title{display:block;font-weight:600;line-height:1.3}
+.blog-sidebar__title{display:block;   line-height:20px}
 .blog-sidebar__meta{display:block;font-size:12px;color: #646464; text-transform: capitalize;} 
 .blog-sidebar__text .blog-sidebar__title{
     font-size: 14px;
@@ -324,4 +335,31 @@ li.blog-sidebar__item.blog-sidebar__item--last {
 .blog-sidebar__widget.blog-sidebar__widget--tags{
   margin-top: 20px;
   margin-bottom: 30px;
+}
+@media (max-width: 769px) {
+  .article-template__title {
+    font-size: 25px; 
+    line-height: 35px;
+  }
+  .article-template header{
+    margin-top: 0;
+  }
+  .article-template>*:first-child:not(.article-template__hero-container){
+    margin-top:30px;
+  }
+  .article-template header time {
+    font-size: 12px;
+  }
+  .article-template__content h2 {
+    font-size: 20px;
+    line-height: 28px;
+    margin: 0;
+  }
+   .article-layout {
+    grid-template-columns: 1fr;
+  }
+  .article-layout__aside {
+    position: static;
+    margin-top: 2rem;
+  }
 }

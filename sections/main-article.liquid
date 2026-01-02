@@ -1,5 +1,23 @@
 {{ 'section-blog-post.css' | asset_url | stylesheet_tag }}
 
+<style>
+  .article-content-wrapper {
+  overflow: hidden;
+  position: relative;
+  transition: max-height 480ms cubic-bezier(.4, 0, .2, 1);
+  will-change: max-height;
+  }
+  .article-content-wrapper.is-expanded {
+    max-height: none !important;
+  }
+
+ 
+  .article-content__load-more {
+    
+    margin-top: 1.5rem;
+  }
+</style>
+
 <article class="article-template">
 
   {%- comment -%} HERO / FEATURED IMAGE (full width) {%- endcomment -%}
@@ -38,6 +56,7 @@
                 </span>
               {%- endif -%}
             </header>
+
           {%- when 'featured_image' -%}
         {%- if article.image -%}
           <div
@@ -71,12 +90,25 @@
             </div>
           </div>
         {%- endif -%}
+
           {%- when 'content' -%}
             <div
               class="article-template__content rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
               {{ block.shopify_attributes }}
             >
-              {{ article.content }}
+              <div id="ArticleContent-{{ section.id }}" class="article-content-wrapper">
+                {{ article.content }}
+              </div>
+              <button
+                id="ArticleLoadMore-{{ section.id }}"
+                class="button article-content__load-more button--secondary"
+                type="button"
+                aria-controls="ArticleContent-{{ section.id }}"
+                aria-expanded="false"
+              >
+                Load More
+              </button>
+              <noscript></noscript>
             </div>
 
           {%- when 'share' -%}
@@ -374,6 +406,95 @@
   </div>
 </article>
 
+<script>
+  (function() {
+    var content = document.getElementById('ArticleContent-{{ section.id }}');
+    var btn = document.getElementById('ArticleLoadMore-{{ section.id }}');
+    if (!content || !btn) return;
+
+    function clampToHalfMinus() {
+      content.classList.remove('is-expanded', 'is-expanding', 'has-more');
+      content.style.maxHeight = '';
+
+      var full = content.scrollHeight;
+      if (!full || full < 200) {
+        btn.style.display = 'none';
+        return;
+      }
+
+      // Use ~49% and shave a few pixels to avoid cutting a heading
+      var initial = Math.max(120, Math.floor(full * 0.49) - 0);
+      content.style.maxHeight = initial + 'px';
+      content.classList.add('has-more');
+      btn.style.display = '';
+      btn.setAttribute('aria-expanded', 'false');
+    }
+
+    function expandSmooth() {
+      btn.disabled = true;
+      content.classList.add('is-expanding'); // fades overlay
+      // Animate to the full pixel height first
+      content.style.maxHeight = content.scrollHeight + 'px';
+
+      var onEnd = function(e) {
+        if (e.propertyName !== 'max-height') return;
+        content.removeEventListener('transitionend', onEnd);
+        // After animation completes, let it be natural height
+        content.classList.add('is-expanded');
+        content.classList.remove('is-expanding', 'has-more');
+        content.style.maxHeight = '';
+        btn.style.display = 'none';
+        btn.disabled = false;
+        btn.setAttribute('aria-expanded', 'true');
+      };
+      content.addEventListener('transitionend', onEnd);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', clampToHalfMinus);
+    } else {
+      clampToHalfMinus();
+    }
+
+    // Recalculate after resources load and on resize
+    window.addEventListener('load', function() {
+      if (!content.classList.contains('is-expanded')) clampToHalfMinus();
+    });
+    window.addEventListener('resize', function() {
+      if (!content.classList.contains('is-expanded')) {
+        clampToHalfMinus();
+      } else {
+        // keep inline height natural after expansion
+        content.style.maxHeight = '';
+      }
+    });
+
+    btn.addEventListener('click', expandSmooth);
+  })();
+</script>
+<script>
+  (function() {
+    function updateArticleStickyTop() {
+      // Detect your store header (supports Dawn variants); adjust selectors if needed
+      var header =
+        document.querySelector('.shopify-section-header') ||
+        document.querySelector('header[role="banner"]') ||
+        document.querySelector('.header-wrapper');
+
+      var offset = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
+
+      // If you truly want to stick at absolute viewport top, force: offset = 0;
+      document.documentElement.style.setProperty('--article-sticky-top', offset + 'px');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updateArticleStickyTop);
+    } else {
+      updateArticleStickyTop();
+    }
+    window.addEventListener('resize', updateArticleStickyTop);
+  })();
+</script>
 <script type="application/ld+json">
   {{ article | structured_data }}
 </script>

@@ -3,8 +3,8 @@
 {% style %}
 
 .text-video-{{ section.id }} .wrapper{
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: {{ section.settings.mpadding_top }}px;
+    padding-bottom: {{ section.settings.mpadding_bottom }}px;
 }
 
 @media screen and (min-width: 750px) {
@@ -23,6 +23,7 @@
 @media (max-width: 749px) {
   .text-video-{{ section.id }} .grid {
     grid-template-columns: 1fr;
+    gap:20px;
   }
 }
 
@@ -221,6 +222,28 @@
       "max": 120,
       "step": 2,
       "default": 60
+    },
+    {
+      "type":"header",
+      "content":"Moblie Padding"
+    },
+    {
+      "type": "range",
+      "id": "mpadding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mpadding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "default": 30
     }
   ],
   "presets": [

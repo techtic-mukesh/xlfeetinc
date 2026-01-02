@@ -74,7 +74,7 @@
 {%- endstyle -%}
 
 {%- paginate blog.articles by section.settings.items_per_load -%}
-  <div
+  <div 
     id="BlogSection-{{ section.id }}"
     class="main-blog page-width section-{{ section.id }}-padding blog--{{ section.settings.title_align }}{% if section.settings.card_shadow %} has-shadow{% endif %} color-{{ section.settings.color_scheme}}"
     data-section-id="{{ section.id }}"

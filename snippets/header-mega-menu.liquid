@@ -1,6 +1,5 @@
 {% comment %}
   Renders a megamenu for the header.
-
   Usage:
   {% render 'header-mega-menu' %}
 {% endcomment %}
@@ -12,51 +11,86 @@
         {%- if link.links != blank -%}
           <header-menu>
             <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
+
+              <!-- TOP LEVEL -->
               <summary
                 id="HeaderMenu-{{ link.handle }}"
                 class="header__menu-item list-menu__item link focus-inset"
               >
-                <span
-                  {%- if link.child_active %}
-                    class="header__active-menu-item"
-                  {% endif %}
-                >
-                  {{- link.title | escape -}}
+                <span {% if link.child_active %}class="header__active-menu-item"{% endif %}>
+                  {{ link.title | escape }}
                 </span>
-                {{- 'icon-caret.svg' | inline_asset_content -}}
+
+                {%- assign has_grandchildren = false -%}
+                {%- for childlink in link.links -%}
+                  {%- if childlink.links.size > 0 -%}
+                    {%- assign has_grandchildren = true -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+
+                {%- if has_grandchildren -%}
+                  {{ 'icon-caret.svg' | inline_asset_content }}
+                {%- endif -%}
               </summary>
+
+              <!-- MEGA MENU CONTENT -->
               <div
                 id="MegaMenu-Content-{{ forloop.index }}"
                 class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
                 tabindex="-1"
               >
-                <ul
-                  class="mega-menu__list page-width{% if link.levels == 1 %} mega-menu__list--condensed{% endif %}"
-                  role="list"
-                >
-                  {%- for childlink in link.links -%}
-                    <li>
-                      <a
-                        id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
-                        href="{{ childlink.url }}"
-                        class="mega-menu__link mega-menu__link--level-2 link{% if childlink.current %} mega-menu__link--active{% endif %}"
-                        {% if childlink.current %}
-                          aria-current="page"
-                        {% endif %}
-                      >
-                        {{ childlink.title | escape }}
-                      </a>
-                      {%- if childlink.links != blank -%}
-                        <ul class="list-unstyled" role="list">
+                <div class="mega-menu__two-col page-width">
+
+                  <!-- LEFT COLUMN -->
+                  <nav class="mega-menu__children" aria-label="{{ link.title | escape }} subcategories">
+                    <ul class="list-unstyled" role="list">
+                      {%- for childlink in link.links -%}
+                        <li>
+                          <a
+                            href="{{ childlink.url }}"
+                            class="mega-menu__child-trigger link{% if childlink.current %} mega-menu__link--active{% endif %}"
+                            data-child="{{ childlink.handle }}"
+                            data-has-children="{% if childlink.links.size > 0 %}true{% else %}false{% endif %}"
+                            {% if childlink.links.size > 0 %}
+                              aria-controls="Grandchildren-{{ forloop.parentloop.index }}-{{ childlink.handle }}"
+                              aria-expanded="false"
+                            {% endif %}
+                          >
+                            <span class="child-title">
+                              {{ childlink.title | escape }}
+                            </span>
+
+                            {% if childlink.links.size > 0 %}
+                              <span class="child-caret" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="9" height="14" viewBox="0 0 9 14" fill="none">
+                                <path d="M1.5 1L7.5 7L1.5 13" stroke="#161616" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                              </svg>
+                              </span>
+                            {% endif %}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </nav>
+
+                  <!-- RIGHT COLUMN -->
+                  <div class="mega-menu__grandchildren-area">
+                    {%- for childlink in link.links -%}
+                      {%- if childlink.links.size > 0 -%}
+                        <ul
+                          id="Grandchildren-{{ forloop.parentloop.index }}-{{ childlink.handle }}"
+                          class="mega-menu__grandchildren-panel list-unstyled"
+                          data-child="{{ childlink.handle }}"
+                          hidden
+                          role="list"
+                        >
                           {%- for grandchildlink in childlink.links -%}
                             <li>
                               <a
                                 id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
                                 href="{{ grandchildlink.url }}"
                                 class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
-                                {% if grandchildlink.current %}
-                                  aria-current="page"
-                                {% endif %}
+                                {% if grandchildlink.current %}aria-current="page"{% endif %}
                               >
                                 {{ grandchildlink.title | escape }}
                               </a>
@@ -64,27 +98,119 @@
                           {%- endfor -%}
                         </ul>
                       {%- endif -%}
-                    </li>
-                  {%- endfor -%}
-                </ul>
+                    {%- endfor -%}
+                  </div>
+              
+                </div>
               </div>
+
+              <!-- STYLES -->
+              <style>
+                .mega-menu__two-col {
+                  display: grid;
+                  grid-template-columns: 260px 1fr;
+                  gap: 2rem;
+                  align-items: start;
+                }
+                .mega-menu__children a.is-active {
+                  font-weight: 600;
+                }
+                .mega-menu__grandchildren-panel[hidden] {
+                  display: none !important;
+                }
+                a.mega-menu__child-trigger.link {
+                  text-decoration: none;
+                }
+                .mega-menu__child-trigger {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                }
+
+                .child-caret {
+                  font-size: 18px;
+                  opacity: 0.6;
+                  transition: transform 0.2s ease;
+                }
+
+                /* Active child */
+                .mega-menu__child-trigger.is-active .child-caret {
+                  transform: rotate(90deg);
+                  opacity: 1;
+                }
+
+              </style>
+
+              <!-- SCRIPT -->
+              <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.mega-menu__two-col').forEach(function (container) {
+                  const triggers = container.querySelectorAll('.mega-menu__child-trigger');
+                  const panels = container.querySelectorAll('.mega-menu__grandchildren-panel');
+
+                  let activeHandle = null;
+
+                  function openPanel(handle) {
+                    activeHandle = handle;
+
+                    triggers.forEach(t => {
+                      const active = t.dataset.child === handle;
+                      t.classList.toggle('is-active', active);
+                      t.setAttribute('aria-expanded', active ? 'true' : 'false');
+                    });
+
+                    panels.forEach(p => {
+                      p.hidden = p.dataset.child !== handle;
+                    });
+                  }
+
+                  function closeAll() {
+                    activeHandle = null;
+
+                    triggers.forEach(t => {
+                      t.classList.remove('is-active');
+                      t.setAttribute('aria-expanded', 'false');
+                    });
+
+                    panels.forEach(p => {
+                      p.hidden = true;
+                    });
+                  }
+
+                  triggers.forEach(t => {
+                    t.addEventListener('click', function (e) {
+                      if (t.dataset.hasChildren !== 'true') return;
+
+                      e.preventDefault();
+                      const handle = t.dataset.child;
+
+                      if (activeHandle === handle) {
+                        // 🔁 Toggle OFF
+                        closeAll();
+                      } else {
+                        // ▶ Toggle ON
+                        openPanel(handle);
+                      }
+                    });
+                  });
+                });
+              });
+              </script>
+
+
             </details>
           </header-menu>
+
         {%- else -%}
+          <!-- NORMAL LINK -->
           <a
             id="HeaderMenu-{{ link.handle }}"
             href="{{ link.url }}"
             class="header__menu-item list-menu__item link link--text focus-inset"
-            {% if link.current %}
-              aria-current="page"
-            {% endif %}
+            {% if link.current %}aria-current="page"{% endif %}
           >
-            <span
-              {%- if link.current %}
-                class="header__active-menu-item"
-              {% endif %}
-            >
-              {{- link.title | escape -}}
+            <span {% if link.current %}class="header__active-menu-item"{% endif %}>
+              {{ link.title | escape }}
             </span>
           </a>
         {%- endif -%}

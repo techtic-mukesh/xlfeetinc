@@ -60,7 +60,18 @@
         "share",
         "content"
       ],
-      "settings": {}
+      "settings": {
+        "show_back_to_blog": false,
+        "show_sidebar_search": true,
+        "search_heading": "Search",
+        "search_placeholder": "Search articles",
+        "search_button_label": "Search",
+        "show_sidebar_recent_posts": true,
+        "recent_posts_heading": "Recent posts",
+        "recent_posts_count": 5,
+        "show_sidebar_tags": true,
+        "tags_heading": "Tags"
+      }
     }
   },
   "order": [
