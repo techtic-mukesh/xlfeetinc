@@ -15,6 +15,51 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Shipping summary styles */
+  .cart-summary {
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+  }
+
+  .cart-summary h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .cart-summary p {
+    font-size: 13px;
+    margin-bottom: 16px;
+    color: #666;
+  }
+
+  .cart-summary .field {
+    margin-bottom: 12px;
+  }
+
+  .cart-summary label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .cart-summary select,
+  .cart-summary input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  .shipping-rate-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-top: 12px;
+  }
 {%- endstyle -%}
 
 <div
@@ -24,7 +69,8 @@
 >
   <div class="page-width">
     <div class="cart__footer isolate section-{{ section.id }}-padding">
-      {%- if settings.show_cart_note -%}
+
+      {% if settings.show_cart_note %}
         <cart-note class="cart__note field">
           <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>
           <textarea
@@ -32,106 +78,103 @@
             name="note"
             form="cart"
             id="Cart-note"
-            placeholder="{{ 'sections.cart.note' | t }}"
           >{{ cart.note }}</textarea>
         </cart-note>
-      {%- endif -%}
+      {% endif %}
 
       <div class="cart__blocks">
+
+        <!-- 🔹 SHIPPING SUMMARY START -->
+        <div class="cart-summary">
+          <h3>SUMMARY</h3>
+          <p>Estimate Shipping and Tax</p>
+
+          <div class="field">
+            <label for="cart-country">Country</label>
+            <select id="cart-country">
+              {{ all_country_option_tags }}
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="cart-province">State / Province</label>
+            <select id="cart-province">
+              <option value="">Please select a region</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="cart-zip">Zip / Postal Code</label>
+            <input type="text" id="cart-zip">
+          </div>
+
+          <div class="shipping-rate-row">
+            <span>Shipping</span>
+            <strong class="shipping-rate-value">—</strong>
+          </div>
+        </div>
+        <!-- 🔹 SHIPPING SUMMARY END -->
+
         {% for block in section.blocks %}
-          {%- case block.type -%}
-            {%- when '@app' -%}
+          {% case block.type %}
+            {% when '@app' %}
               {% render block %}
-            {%- when 'subtotal' -%}
+
+            {% when 'subtotal' %}
               <div class="js-contents" {{ block.shopify_attributes }}>
-                <div>
-                  {%- if cart.cart_level_discount_applications.size > 0 -%}
-                    <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
-                      {%- for discount in cart.cart_level_discount_applications -%}
-                        <li class="discounts__discount discounts__discount--position">
-                          {{- 'icon-discount.svg' | inline_asset_content -}}
-                          {{ discount.title | escape }}
-                          (-{{ discount.total_allocated_amount | money }})
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  {%- endif -%}
-                </div>
+                {% if cart.cart_level_discount_applications.size > 0 %}
+                  <ul class="discounts list-unstyled">
+                    {% for discount in cart.cart_level_discount_applications %}
+                      <li class="discounts__discount">
+                        {{ discount.title }} (-{{ discount.total_allocated_amount | money }})
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
 
                 <div class="totals">
-                  <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-                  <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+                  <h2 class="totals__total">
+                    {{ 'sections.cart.estimated_total' | t }}
+                  </h2>
+                  <p class="totals__total-value">
+                    {{ cart.total_price | money_with_currency }}
+                  </p>
                 </div>
 
                 <small class="tax-note caption-large rte">
-                  {%- if cart.duties_included and cart.taxes_included -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.duties_and_taxes_included_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.duties_and_taxes_included_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- elsif cart.duties_included == false and cart.taxes_included -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.taxes_included_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.taxes_included_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- elsif cart.duties_included and cart.taxes_included == false -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.duties_included_taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- elsif cart.duties_included == false and cart.taxes_included == false -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.taxes_at_checkout_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- endif -%}
+                  {{ 'sections.cart.taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
                 </small>
               </div>
-            {%- else -%}
+
+            {% else %}
               <div class="cart__ctas" {{ block.shopify_attributes }}>
                 <button
                   type="submit"
                   id="checkout"
                   class="cart__checkout-button button"
                   name="checkout"
-                  {% if cart == empty %}
-                    disabled
-                  {% endif %}
                   form="cart"
+                  {% if cart == empty %}disabled{% endif %}
                 >
                   {{ 'sections.cart.checkout' | t }}
                 </button>
               </div>
 
-              {%- if additional_checkout_buttons -%}
-                <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
+              {% if additional_checkout_buttons %}
+                <div class="cart__dynamic-checkout-buttons">
                   {{ content_for_additional_checkout_buttons }}
                 </div>
-              {%- endif -%}
-          {%- endcase -%}
+              {% endif %}
+          {% endcase %}
         {% endfor %}
 
         <div id="cart-errors"></div>
+
       </div>
     </div>
   </div>
 </div>
+
 
 {% schema %}
 {

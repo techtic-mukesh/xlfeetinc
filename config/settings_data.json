@@ -126,9 +126,13 @@
     "cart_type": "drawer",
     "show_vendor": false,
     "show_cart_note": false,
-    "cart_drawer_collection": "",
-    "cart_color_scheme": "scheme-1",
+    "cart_drawer_collection": "boots-copy",
+    "cart_color_scheme": "scheme-d1e5d253-1a37-40b8-a39e-320e5b282a61",
     "free_shipping_threshold": 300,
+    "cart_drawer_upsell_collection": "shoes",
+    "cart_benefit1_icon": "shopify://shop_images/Layer_1.png",
+    "cart_benefit2_icon": "shopify://shop_images/Layer_1_1.png",
+    "cart_benefit3_icon": "shopify://shop_images/Layer_1_2.png",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
@@ -262,6 +266,17 @@
           "text": "#191b1d",
           "button": "#ffffff",
           "button_label": "#191b1d",
+          "secondary_button_label": "#191b1d",
+          "shadow": "#191b1d"
+        }
+      },
+      "scheme-d1e5d253-1a37-40b8-a39e-320e5b282a61": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#231f20",
+          "button": "#191b1d",
+          "button_label": "#ffffff",
           "secondary_button_label": "#191b1d",
           "shadow": "#191b1d"
         }

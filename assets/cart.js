@@ -295,3 +295,68 @@ if (!customElements.get('cart-note')) {
     }
   );
 }
+
+
+window.getShippingRates = function (country, province, zip) {
+  const rateEl = document.querySelector('.shipping-rate-value');
+
+  if (!country || !zip) {
+    if (rateEl) rateEl.innerText = '—';
+    return;
+  }
+
+  fetch('/cart/shipping_rates.json', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      shipping_address: {
+        country: country,
+        province: province,
+        zip: zip
+      }
+    })
+  })
+    .then(response => {
+      if (!response.ok) throw new Error('Failed to fetch shipping rates');
+      return response.json();
+    })
+    .then(data => {
+      console.log('Shipping Rates:', data.shipping_rates);
+
+      if (!data.shipping_rates || data.shipping_rates.length === 0) {
+        if (rateEl) rateEl.innerText = 'No shipping available';
+        return;
+      }
+
+      // ✅ Pick cheapest rate
+      const rate = data.shipping_rates.reduce((prev, curr) =>
+        parseFloat(prev.price) < parseFloat(curr.price) ? prev : curr
+      );
+
+      if (rateEl && window.Shopify && Shopify.formatMoney) {
+        rateEl.innerText = `${rate.name}: ${Shopify.formatMoney(
+          rate.price * 100,
+          Shopify.money_format
+        )}`;
+      }
+    })
+    .catch(error => {
+      console.error('Shipping Error:', error);
+      if (rateEl) rateEl.innerText = 'Error calculating shipping';
+    });
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('change', function () {
+    const country = document.getElementById('cart-country')?.value;
+    const province = document.getElementById('cart-province')?.value;
+    const zip = document.getElementById('cart-zip')?.value;
+
+    if (country && zip && typeof window.getShippingRates === 'function') {
+      window.getShippingRates(country, province, zip);
+    }
+  });
+});
