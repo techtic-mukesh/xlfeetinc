@@ -2543,7 +2543,7 @@ input[type='checkbox'] {
 
 .header__icon:hover .icon,
 .modal__close-button:hover .icon {
-  transform: scale(1.07);
+  transform: scale(0.8);
 }
 
 .header__icon .icon {
@@ -2719,7 +2719,7 @@ details[open] .modal-overlay::after {
   display: block;
   position: absolute;
   opacity: 1;
-  transform: scale(1);
+  transform: scale(0.7);
   transition: transform 150ms ease, opacity 150ms ease;
 }
 
@@ -2737,7 +2737,7 @@ details[open] > .header__icon--menu .icon-hamburger {
 .js details[open]:not(.menu-opening) > .header__icon--menu .icon-hamburger {
   visibility: visible;
   opacity: 1;
-  transform: scale(1.07);
+  transform: scale(0.8);
 }
 
 .js details > .header__submenu {

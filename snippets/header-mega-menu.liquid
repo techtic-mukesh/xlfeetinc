@@ -8,7 +8,39 @@
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}
       <li>
-        {%- if link.links != blank -%}
+
+        {%- comment -%} Find matching blocks for this top-level item {%- endcomment -%}
+        {%- assign custom_block = nil -%}
+        {%- for b in section.blocks -%}
+          {%- if b.type == 'custom_mega_menu' and b.settings.parent_menu_name != blank -%}
+            {%- assign b_parent = b.settings.parent_menu_name | strip | downcase -%}
+            {%- assign top_name = link.title | strip | downcase -%}
+            {%- if b_parent == top_name -%}
+              {%- assign custom_block = b -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- assign brands_block = nil -%}
+        {%- for bb in section.blocks -%}
+          {%- if bb.type == 'mega_menu_brands' and bb.settings.parent_menu_name != blank -%}
+            {%- assign bb_parent = bb.settings.parent_menu_name | strip | downcase -%}
+            {%- assign top_name = link.title | strip | downcase -%}
+            {%- if bb_parent == top_name -%}
+              {%- assign brands_block = bb -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- assign has_children_count = link.links | size -%}
+        {%- assign show_mega = false -%}
+        {%- if has_children_count > 0 or custom_block or brands_block -%}
+          {%- assign show_mega = true -%}
+        {%- endif -%}
+
+        {%- if show_mega -%}
           <header-menu>
             <details id="Details-HeaderMenu-{{ forloop.index }}" class="mega-menu">
 
@@ -20,18 +52,7 @@
                 <span {% if link.child_active %}class="header__active-menu-item"{% endif %}>
                   {{ link.title | escape }}
                 </span>
-
-                {%- assign has_grandchildren = false -%}
-                {%- for childlink in link.links -%}
-                  {%- if childlink.links.size > 0 -%}
-                    {%- assign has_grandchildren = true -%}
-                    {%- break -%}
-                  {%- endif -%}
-                {%- endfor -%}
-
-                {%- if has_grandchildren -%}
-                  {{ 'icon-caret.svg' | inline_asset_content }}
-                {%- endif -%}
+                {{ 'icon-caret.svg' | inline_asset_content }}
               </summary>
 
               <!-- MEGA MENU CONTENT -->
@@ -40,169 +61,140 @@
                 class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
                 tabindex="-1"
               >
-                <div class="mega-menu__two-col page-width">
+                <div class="mega_menu_grid">
 
-                  <!-- LEFT COLUMN -->
-                  <nav class="mega-menu__children" aria-label="{{ link.title | escape }} subcategories">
-                    <ul class="list-unstyled" role="list">
-                      {%- for childlink in link.links -%}
-                        <li>
-                          <a
-                            href="{{ childlink.url }}"
-                            class="mega-menu__child-trigger link{% if childlink.current %} mega-menu__link--active{% endif %}"
-                            data-child="{{ childlink.handle }}"
-                            data-has-children="{% if childlink.links.size > 0 %}true{% else %}false{% endif %}"
-                            {% if childlink.links.size > 0 %}
-                              aria-controls="Grandchildren-{{ forloop.parentloop.index }}-{{ childlink.handle }}"
-                              aria-expanded="false"
-                            {% endif %}
-                          >
-                            <span class="child-title">
-                              {{ childlink.title | escape }}
-                            </span>
-
-                            {% if childlink.links.size > 0 %}
-                              <span class="child-caret" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="9" height="14" viewBox="0 0 9 14" fill="none">
-                                <path d="M1.5 1L7.5 7L1.5 13" stroke="#161616" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                              </svg>
-                              </span>
-                            {% endif %}
-                          </a>
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  </nav>
-
-                  <!-- RIGHT COLUMN -->
-                  <div class="mega-menu__grandchildren-area">
-                    {%- for childlink in link.links -%}
-                      {%- if childlink.links.size > 0 -%}
-                        <ul
-                          id="Grandchildren-{{ forloop.parentloop.index }}-{{ childlink.handle }}"
-                          class="mega-menu__grandchildren-panel list-unstyled"
-                          data-child="{{ childlink.handle }}"
-                          hidden
-                          role="list"
-                        >
-                          {%- for grandchildlink in childlink.links -%}
-                            <li>
+                  <div class="mega-menu__two-col page-width">
+                    {%- if has_children_count > 0 -%}
+                      <!-- LEFT COLUMN -->
+                      <nav class="mega-menu__children" aria-label="{{ link.title | escape }} subcategories">
+                        <ul class="list-unstyled" role="list">
+                          {%- for childlink in link.links -%}
+                            <li{% if forloop.first %} class="is-first"{% endif %}>
                               <a
-                                id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                href="{{ grandchildlink.url }}"
-                                class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
-                                {% if grandchildlink.current %}aria-current="page"{% endif %}
+                                href="{{ childlink.url }}"
+                                class="mega-menu__child-trigger link{% if childlink.current %} mega-menu__link--active{% endif %}"
+                                data-child="{{ childlink.handle }}"
+                                data-has-children="{% if childlink.links.size > 0 %}true{% else %}false{% endif %}"
+                                {% if childlink.links.size > 0 %}
+                                  aria-controls="Grandchildren-{{ forloop.parentloop.index }}-{{ childlink.handle }}"
+                                  aria-expanded="false"
+                                {% endif %}
                               >
-                                {{ grandchildlink.title | escape }}
+                                <span class="child-title">{{ childlink.title | escape }}</span>
+                                {% if childlink.links.size > 0 %}
+                                  <span class="child-caret" aria-hidden="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="9" height="14" viewBox="0 0 9 14" fill="none">
+                                      <path d="M1.5 1L7.5 7L1.5 13" stroke="#161616" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </svg>
+                                  </span>
+                                {% endif %}
                               </a>
                             </li>
                           {%- endfor -%}
                         </ul>
-                      {%- endif -%}
-                    {%- endfor -%}
+                      </nav>
+
+                      <!-- RIGHT COLUMN -->
+                      <div class="mega-menu__grandchildren-area">
+                        {%- for childlink in link.links -%}
+                          {%- if childlink.links.size > 0 -%}
+                            <ul
+                              id="Grandchildren-{{ forloop.parentloop.index }}-{{ childlink.handle }}"
+                              class="mega-menu__grandchildren-panel list-unstyled"
+                              data-child="{{ childlink.handle }}"
+                              hidden
+                              role="list"
+                            >
+                              {%- for grandchildlink in childlink.links -%}
+                                <li>
+                                  <a
+                                    id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                    href="{{ grandchildlink.url }}"
+                                    class="mega-menu__link link{% if grandchildlink.current %} mega-menu__link--active{% endif %}"
+                                    {% if grandchildlink.current %}aria-current="page"{% endif %}
+                                  >
+                                    {{ grandchildlink.title | escape }}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </div>
+                    {%- endif -%}
+
+                    {%- if custom_block -%}
+                      <div class="mega-menu__filters page-width">
+                        {%- assign width_menu = custom_block.settings.shop_by_width -%}
+                        {%- assign size_menu  = custom_block.settings.shop_by_size  -%}
+
+                        {%- if width_menu and width_menu.links.size > 0 -%}
+                          <div class="mm-filter">
+                            <h3 class="mm-filter__title">Shop By Width</h3>
+                            <ul class="mm-filter__list" role="list">
+                              {%- for item in width_menu.links -%}
+                                <li>
+                                  <a href="{{ item.url }}" class="mm-pill{% if item.current %} is-active{% endif %}">{{ item.title | escape }}</a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          </div>
+                        {%- endif -%}
+
+                        {%- if size_menu and size_menu.links.size > 0 -%}
+                          <div class="mm-filter">
+                            <h3 class="mm-filter__title">Shop by size</h3>
+                            <ul class="mm-filter__list" role="list">
+                              {%- for item in size_menu.links -%}
+                                <li>
+                                  <a href="{{ item.url }}" class="mm-pill{% if item.current %} is-active{% endif %}">{{ item.title | escape }}</a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+
+                    {%- if brands_block and brands_block.settings.brand_collections and brands_block.settings.brand_collections.size > 0 -%}
+                      <div class="mega-menu__brands">
+                        {%- if brands_block.settings.brand_title != blank -%}
+                          <h3 class="brands__title">{{ brands_block.settings.brand_title }}</h3>
+                        {%- endif -%}
+                        <ul class="brands__grid" role="list">
+                          {%- for c in brands_block.settings.brand_collections -%}
+                            <li class="brands__item">
+                              <a href="{{ c.url }}" class="brands__link">
+                                {%- if c.image -%}
+                                  {{ c.image | image_url: width: 160 | image_tag: widths: '100,120,160', alt: c.title, class: 'brands__img', sizes: '(max-width: 1200px) 100px, 120px' }}
+                                {%- else -%}
+                                  <span class="brands__text">{{ c.title }}</span>
+                                {%- endif -%}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+
+                        {%- if brands_block.settings.brand_view_all_url != blank -%}
+                          <a class="brands__view-all" href="{{ brands_block.settings.brand_view_all_url }}">
+                            {{ brands_block.settings.brand_view_all_label | default: 'VIEW ALL' }}
+                            <span aria-hidden="true">
+                              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.75 9.91667L9.91667 0.75M9.91667 0.75H1.66667M9.91667 0.75V9" stroke="#111111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            </span>
+                          </a>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+
                   </div>
-              
                 </div>
               </div>
-
-              <!-- STYLES -->
-              <style>
-                .mega-menu__two-col {
-                  display: grid;
-                  grid-template-columns: 260px 1fr;
-                  gap: 2rem;
-                  align-items: start;
-                }
-                .mega-menu__children a.is-active {
-                  font-weight: 600;
-                }
-                .mega-menu__grandchildren-panel[hidden] {
-                  display: none !important;
-                }
-                a.mega-menu__child-trigger.link {
-                  text-decoration: none;
-                }
-                .mega-menu__child-trigger {
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                }
-
-                .child-caret {
-                  font-size: 18px;
-                  opacity: 0.6;
-                  transition: transform 0.2s ease;
-                }
-
-                /* Active child */
-                .mega-menu__child-trigger.is-active .child-caret {
-                  transform: rotate(90deg);
-                  opacity: 1;
-                }
-
-              </style>
-
-              <!-- SCRIPT -->
-              <script>
-              document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('.mega-menu__two-col').forEach(function (container) {
-                  const triggers = container.querySelectorAll('.mega-menu__child-trigger');
-                  const panels = container.querySelectorAll('.mega-menu__grandchildren-panel');
-
-                  let activeHandle = null;
-
-                  function openPanel(handle) {
-                    activeHandle = handle;
-
-                    triggers.forEach(t => {
-                      const active = t.dataset.child === handle;
-                      t.classList.toggle('is-active', active);
-                      t.setAttribute('aria-expanded', active ? 'true' : 'false');
-                    });
-
-                    panels.forEach(p => {
-                      p.hidden = p.dataset.child !== handle;
-                    });
-                  }
-
-                  function closeAll() {
-                    activeHandle = null;
-
-                    triggers.forEach(t => {
-                      t.classList.remove('is-active');
-                      t.setAttribute('aria-expanded', 'false');
-                    });
-
-                    panels.forEach(p => {
-                      p.hidden = true;
-                    });
-                  }
-
-                  triggers.forEach(t => {
-                    t.addEventListener('click', function (e) {
-                      if (t.dataset.hasChildren !== 'true') return;
-
-                      e.preventDefault();
-                      const handle = t.dataset.child;
-
-                      if (activeHandle === handle) {
-                        // 🔁 Toggle OFF
-                        closeAll();
-                      } else {
-                        // ▶ Toggle ON
-                        openPanel(handle);
-                      }
-                    });
-                  });
-                });
-              });
-              </script>
-
-
             </details>
           </header-menu>
-
         {%- else -%}
-          <!-- NORMAL LINK -->
+          <!-- NORMAL LINK (no submenu and no custom/brands blocks) -->
           <a
             id="HeaderMenu-{{ link.handle }}"
             href="{{ link.url }}"
@@ -218,3 +210,148 @@
     {%- endfor -%}
   </ul>
 </nav>
+
+<!-- STYLES -->
+<style>
+  .mega-menu__filters {
+    display: flex;
+    gap: 3rem;
+    padding: 1.6rem 0 0;
+    max-width: 25%;
+    width: 100%;
+    flex-direction: column;
+  }
+  .mm-filter__title, .brands__title{
+    margin: 0 0 20px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: {{ section.settings.menu_title_color }};
+    text-transform: capitalize;
+  }
+  .mm-filter__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mm-pill {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 12px;
+    border: 1px solid #D8D8D8;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 21px;
+    color: rgba(var(--color-foreground), 1);
+    font-weight: 400;
+  }
+  .mm-pill:hover { border-color: rgba(22,22,22,.6); }
+
+  .mega-menu__two-col {
+    align-items: start;
+    padding-top: 1.2rem;
+    display: flex;
+    gap: 50px;
+    max-width: 100%;
+    width: 100%;
+  }
+  .mega-menu__children a.is-active { font-weight: 600; }
+  .mega-menu__grandchildren-panel[hidden] { display: none !important; }
+  a.mega-menu__child-trigger.link { text-decoration: none; }
+  .mega-menu__child-trigger {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 26px;
+    justify-content: space-between;
+    color: rgba(var(--color-foreground), 1);
+  }
+  .child-caret { font-size: 18px; opacity: 0.6; transition: transform 0.2s ease; }
+  .mega-menu__child-trigger.is-active .child-caret { transform: rotate(90deg); opacity: 1; }
+
+  .mega-menu__grandchildren-area, nav.mega-menu__children, .mega-menu__filters, .mega-menu__brands {
+    max-width: 25%;
+    width: 100%;
+  }
+  .mega_menu_grid { display: flex; }
+  .mega-menu__brands { max-width: 25%; width: 100%; padding: 1.6rem 0 0; }
+  .brands__grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; list-style: none; margin: 0 0 10px 0; padding: 0; }
+  .brands__img { width: 100%; height: auto; background: #F5F5F5; border-radius: 0; object-fit: contain; aspect-ratio: 1/1; padding: 8px; }
+  .brands__view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    text-decoration: none;
+    color: {{ section.settings.view_all_txt_color }};
+    font-weight: 500;
+  }
+  .brands__view-all span { line-height: 0; }
+
+  li.is-first a{
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: {{ section.settings.menu_title_color }};
+    margin-bottom: 20px;
+  }
+
+  @media only screen and (max-width: 1300px) {
+    .mm-filter__list{ gap:6px; }
+    .mm-pill{ padding: 4px 6px; font-size: 12px; line-height: 18px; }
+    .mm-filter__title, .brands__title , li.is-first a{ margin: 0 0 16px 0; }
+    .mega-menu__child-trigger{ font-size: 12px; line-height: 24px; }
+    .brands__view-all{ font-size:14px; }
+  }
+</style>
+
+<!-- SCRIPT -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.mega-menu__two-col').forEach(function (container) {
+      const triggers = container.querySelectorAll('.mega-menu__child-trigger');
+      const panels = container.querySelectorAll('.mega-menu__grandchildren-panel');
+
+      let activeHandle = null;
+
+      function openPanel(handle) {
+        activeHandle = handle;
+
+        triggers.forEach(t => {
+          const active = t.dataset.child === handle;
+          t.classList.toggle('is-active', active);
+          t.setAttribute('aria-expanded', active ? 'true' : 'false');
+        });
+
+        panels.forEach(p => {
+          p.hidden = p.dataset.child !== handle;
+        });
+      }
+
+      function closeAll() {
+        activeHandle = null;
+
+        triggers.forEach(t => {
+          t.classList.remove('is-active');
+          t.setAttribute('aria-expanded', 'false');
+        });
+
+        panels.forEach(p => {
+          p.hidden = true;
+        });
+      }
+
+      triggers.forEach(t => {
+        t.addEventListener('click', function (e) {
+          if (t.dataset.hasChildren !== 'true') return;
+          e.preventDefault();
+          const handle = t.dataset.child;
+          if (activeHandle === handle) { closeAll(); } else { openPanel(handle); }
+        });
+      });
+    });
+  });
+</script>

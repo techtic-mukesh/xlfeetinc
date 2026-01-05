@@ -1451,5 +1451,30 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "Cart Shipping",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "default": 700,
+        "info": "Amount in store currency (e.g., 700 = $700)"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_message",
+        "label": "Progress message",
+        "default": "🚚 You’re {remaining} away from Free Shipping! 🚚",
+        "info": "Use {remaining} where the remaining amount should appear"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_success_message",
+        "label": "Success message",
+        "default": "🎉 You’ve unlocked Free Shipping! 🎉"
+      }
+    ]
   }
 ]

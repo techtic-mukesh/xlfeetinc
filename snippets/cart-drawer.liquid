@@ -62,6 +62,7 @@
         </div>
       {%- endif -%}
       <div class="drawer__header">
+      <div class="drawer_heading_content">
         <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
         <button
           class="drawer__close"
@@ -73,7 +74,12 @@
             {{- 'icon-close.svg' | inline_asset_content -}}
           </span>
         </button>
+        <div>
+        <div>
+          {% render 'cart-progress' %}
+        </div>
       </div>
+
       <cart-drawer-items
         {% if cart == empty %}
           class=" is-empty"
