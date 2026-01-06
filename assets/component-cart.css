@@ -42,6 +42,17 @@ cart-items.is-empty .title-wrapper-with-link,
   font-size: inherit;
 }
 
+.cart__footer-wrapper{
+    max-width: calc(30% - 20px);
+    display: inline-block;
+    width: 100%;
+}
+.cart__items-wrapper{
+    max-width: calc(70% - 20px);
+    display: inline-block;
+    width: 100%;
+}
+.cart__items-wrapper .cart-items thead { display: block; }
 @media screen and (min-width: 990px) {
   .cart__warnings {
     padding: 7rem 0 1rem;
@@ -143,7 +154,7 @@ cart-items {
   }
 
   .cart__footer > * {
-    width: 35rem;
+    width: 100%;
   }
 
   .cart__footer > * + * {

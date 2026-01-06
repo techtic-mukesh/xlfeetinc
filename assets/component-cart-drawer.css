@@ -428,8 +428,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   display: grid;
   grid-template-columns: 96px 1fr auto;
   gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid #e9e9eb;
+  padding: 20px 0;
   align-items: flex-start;
 }
 
@@ -663,7 +662,6 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
 
   .cart-items tbody tr.cart-item {
     position: relative;
-    border-bottom: 1px solid #e9e9eb;
   }
   .cart-items td {
     padding: 16px;

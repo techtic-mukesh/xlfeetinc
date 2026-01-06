@@ -55,7 +55,7 @@
         "custom_mega_menu_FB6mzi": {
           "type": "custom_mega_menu",
           "settings": {
-            "parent_menu_name": "Shoes",
+            "parent_menu_name": "Boots",
             "shop_by_size": "shop-by-size",
             "shop_by_width": "shop-by-width"
           }

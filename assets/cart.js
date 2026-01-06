@@ -297,66 +297,200 @@ if (!customElements.get('cart-note')) {
 }
 
 
-window.getShippingRates = function (country, province, zip) {
-  const rateEl = document.querySelector('.shipping-rate-value');
+/**
+ * Shopify Cart Shipping Estimator - Fixed Version
+ * Add this to your theme's assets folder as 'shipping-estimator.js'
+ * OR add directly to cart.js
+ */
 
-  if (!country || !zip) {
-    if (rateEl) rateEl.innerText = '—';
-    return;
+class ShippingEstimator {
+  constructor() {
+    this.countrySelect = document.getElementById('cart-country');
+    this.provinceSelect = document.getElementById('cart-province');
+    this.zipInput = document.getElementById('cart-zip');
+    this.rateDisplay = document.querySelector('.shipping-rate-value');
+    
+    this.provinceData = {
+      'United States': {
+        'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR',
+        'California': 'CA', 'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE',
+        'Florida': 'FL', 'Georgia': 'GA', 'Hawaii': 'HI', 'Idaho': 'ID',
+        'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA', 'Kansas': 'KS',
+        'Kentucky': 'KY', 'Louisiana': 'LA', 'Maine': 'ME', 'Maryland': 'MD',
+        'Massachusetts': 'MA', 'Michigan': 'MI', 'Minnesota': 'MN', 'Mississippi': 'MS',
+        'Missouri': 'MO', 'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV',
+        'New Hampshire': 'NH', 'New Jersey': 'NJ', 'New Mexico': 'NM', 'New York': 'NY',
+        'North Carolina': 'NC', 'North Dakota': 'ND', 'Ohio': 'OH', 'Oklahoma': 'OK',
+        'Oregon': 'OR', 'Pennsylvania': 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC',
+        'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT',
+        'Vermont': 'VT', 'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV',
+        'Wisconsin': 'WI', 'Wyoming': 'WY'
+      },
+      'Canada': {
+        'Alberta': 'AB', 'British Columbia': 'BC', 'Manitoba': 'MB',
+        'New Brunswick': 'NB', 'Newfoundland and Labrador': 'NL',
+        'Northwest Territories': 'NT', 'Nova Scotia': 'NS', 'Nunavut': 'NU',
+        'Ontario': 'ON', 'Prince Edward Island': 'PE', 'Quebec': 'QC',
+        'Saskatchewan': 'SK', 'Yukon': 'YT'
+      },
+      'Australia': {
+        'Australian Capital Territory': 'ACT', 'New South Wales': 'NSW',
+        'Northern Territory': 'NT', 'Queensland': 'QLD', 'South Australia': 'SA',
+        'Tasmania': 'TAS', 'Victoria': 'VIC', 'Western Australia': 'WA'
+      }
+    };
+
+    if (this.countrySelect && this.provinceSelect && this.zipInput) {
+      this.init();
+    }
   }
 
-  fetch('/cart/shipping_rates.json', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      shipping_address: {
-        country: country,
-        province: province,
-        zip: zip
-      }
-    })
-  })
-    .then(response => {
-      if (!response.ok) throw new Error('Failed to fetch shipping rates');
-      return response.json();
-    })
-    .then(data => {
-      console.log('Shipping Rates:', data.shipping_rates);
-
-      if (!data.shipping_rates || data.shipping_rates.length === 0) {
-        if (rateEl) rateEl.innerText = 'No shipping available';
-        return;
-      }
-
-      // ✅ Pick cheapest rate
-      const rate = data.shipping_rates.reduce((prev, curr) =>
-        parseFloat(prev.price) < parseFloat(curr.price) ? prev : curr
-      );
-
-      if (rateEl && window.Shopify && Shopify.formatMoney) {
-        rateEl.innerText = `${rate.name}: ${Shopify.formatMoney(
-          rate.price * 100,
-          Shopify.money_format
-        )}`;
-      }
-    })
-    .catch(error => {
-      console.error('Shipping Error:', error);
-      if (rateEl) rateEl.innerText = 'Error calculating shipping';
+  init() {
+    // Country change
+    this.countrySelect.addEventListener('change', () => {
+      this.updateProvinces();
+      this.calculateShipping();
     });
-};
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.addEventListener('change', function () {
-    const country = document.getElementById('cart-country')?.value;
-    const province = document.getElementById('cart-province')?.value;
-    const zip = document.getElementById('cart-zip')?.value;
+    // Province change
+    this.provinceSelect.addEventListener('change', () => {
+      this.calculateShipping();
+    });
 
-    if (country && zip && typeof window.getShippingRates === 'function') {
-      window.getShippingRates(country, province, zip);
+    // Zip code input with debounce
+    let zipTimeout;
+    this.zipInput.addEventListener('input', () => {
+      clearTimeout(zipTimeout);
+      zipTimeout = setTimeout(() => {
+        this.calculateShipping();
+      }, 800);
+    });
+
+    // Initialize provinces for default country
+    this.updateProvinces();
+  }
+
+  updateProvinces() {
+    const selectedOption = this.countrySelect.options[this.countrySelect.selectedIndex];
+    const countryName = selectedOption ? selectedOption.text : '';
+
+    // Clear existing provinces
+    this.provinceSelect.innerHTML = '<option value="">Select region</option>';
+
+    if (this.provinceData[countryName]) {
+      this.provinceSelect.disabled = false;
+      
+      const provinces = this.provinceData[countryName];
+      Object.keys(provinces).forEach(name => {
+        const option = document.createElement('option');
+        option.value = provinces[name];
+        option.textContent = name;
+        this.provinceSelect.appendChild(option);
+      });
+    } else {
+      this.provinceSelect.disabled = true;
     }
+
+    // Reset shipping display
+    if (this.rateDisplay) {
+      this.rateDisplay.textContent = '—';
+    }
+  }
+
+  async calculateShipping() {
+    const country = this.countrySelect.value;
+    const province = this.provinceSelect.value;
+    const zip = this.zipInput.value.trim();
+
+    // Need at least country and zip
+    if (!country || !zip) {
+      if (this.rateDisplay) {
+        this.rateDisplay.textContent = '—';
+      }
+      return;
+    }
+
+    // Show loading
+    if (this.rateDisplay) {
+      this.rateDisplay.textContent = 'Calculating...';
+    }
+
+    try {
+      const response = await fetch('/cart/shipping_rates.json', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({
+          shipping_address: {
+            zip: zip,
+            country: country,
+            province: province || ''
+          }
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Shipping response:', data);
+
+      if (data.shipping_rates && data.shipping_rates.length > 0) {
+        // Get cheapest rate
+        const cheapest = data.shipping_rates.reduce((min, rate) => {
+          const minPrice = parseFloat(min.price) || 0;
+          const ratePrice = parseFloat(rate.price) || 0;
+          return ratePrice < minPrice ? rate : min;
+        });
+
+        this.displayRate(cheapest);
+      } else {
+        if (this.rateDisplay) {
+          this.rateDisplay.textContent = 'Not available';
+        }
+      }
+    } catch (error) {
+      console.error('Shipping calculation error:', error);
+      if (this.rateDisplay) {
+        this.rateDisplay.textContent = 'Error';
+      }
+    }
+  }
+
+  displayRate(rate) {
+    if (!this.rateDisplay) return;
+
+    const priceInCents = parseFloat(rate.price) * 100;
+    
+    let formatted;
+    if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+      formatted = Shopify.formatMoney(priceInCents, Shopify.money_format || '${{amount}}');
+    } else {
+      formatted = `$${(priceInCents / 100).toFixed(2)}`;
+    }
+
+    // Check if free shipping
+    if (parseFloat(rate.price) === 0) {
+      this.rateDisplay.innerHTML = `<span style="color: #28a745; font-weight: 600;">FREE</span>`;
+    } else {
+      this.rateDisplay.innerHTML = `<strong>${formatted}</strong>`;
+    }
+  }
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    new ShippingEstimator();
   });
+} else {
+  new ShippingEstimator();
+}
+
+// Also reinitialize on Shopify section render (for theme editor)
+document.addEventListener('shopify:section:load', () => {
+  new ShippingEstimator();
 });
