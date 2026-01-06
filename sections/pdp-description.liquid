@@ -57,7 +57,7 @@
 
 <style>
 .section-{{ section.id }} {
-  padding: 60px 0 0;
+  padding: 0 0 0;
 }
 
 .pds-grid {
@@ -74,10 +74,12 @@ background: rgba(217, 217, 217, 0.15);
   width: 100%;
   height: auto;
   object-fit: cover;
+      aspect-ratio: 4 / 5;
 }
 
 .pds-image {
     max-width: 600px;
+    display: flex;
 }
 
 .pds-content {
@@ -178,12 +180,81 @@ background: rgba(217, 217, 217, 0.15);
 }
 
 /* MOBILE */
-@media (max-width: 768px) {
-  .pds-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
+@media (max-width: 1400px) { 
+.pds-image {
+    max-width: 50%;
+    display: flex;
 }
+
+.pds-content {
+  padding-right: 50px;
+          padding-top: 30px;
+        padding-bottom: 30px;
+}
+
+.pds-grid {
+    gap: 30px;
+}
+}
+
+@media (max-width: 1240px) {
+  .pds-grid {
+    flex-direction: column;
+}
+    .pds-image {
+        max-width: 100%;
+        display: flex;
+        width: 100%;
+    }
+
+    .pds-content {
+    padding: 0 50px 30px;
+}
+  }
+
+
+@media (max-width: 750px) {
+  .pds-content {
+    padding: 0 15px 30px;
+}
+
+.pds-content {
+    padding: 0 15px 30px;
+}
+
+.pds-heading {
+    font-size: 24px;
+}
+
+.pds-description {
+    font-size: 14px;
+}
+
+.pds-content h3 {
+    font-size: 22px;
+    margin: 0 0 16px;
+}
+
+.pds-description ul li strong {
+    font-size: 14px;
+}
+
+.pds-description ul li:before {
+    width: 20px;
+    height: 20px;
+    background-size: 25px;
+        left: -30px;
+}
+
+.pds-description ul {
+   
+    padding-left: 30px;
+}
+
+.pds-description ul li {
+    font-size: 14px;
+}
+ }
 </style>
 
 {% schema %}

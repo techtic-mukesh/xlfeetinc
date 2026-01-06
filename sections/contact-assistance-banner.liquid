@@ -3,7 +3,10 @@
 {% endcomment %}
 
 <section class="contact-assistance section-{{ section.id }}">
-  <div class="page-width-none">
+  <div class="contact-assistance-bg">
+
+ 
+  <div class="page-width">
     <div class="contact-assistance__wrapper">
 
       <!-- LEFT CONTENT -->
@@ -12,16 +15,19 @@
 
         <p>{{ section.settings.description }}</p>
 
-        {% if section.settings.phone != blank %}
+        
+      </div>
+
+      {% if section.settings.phone != blank %}
           <a href="tel:{{ section.settings.phone | remove: ' ' }}" class="contact-phone">
-            <span class="phone-icon"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-  <rect width="35.7143" height="35.7143" fill="black"/>
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M9.73226 7.44063C9.82154 8.76503 10.0448 10.0597 10.4019 11.2948L8.61618 13.0805C8.00607 11.2948 7.61916 9.40491 7.48523 7.44063H9.73226ZM24.4039 25.3274C25.6688 25.6845 26.9634 25.9077 28.2729 25.997V28.2143C26.3086 28.0804 24.4188 27.6935 22.6182 27.0982L24.4039 25.3274ZM11.1603 4.46436H5.95196C5.13351 4.46436 4.46387 5.134 4.46387 5.95245C4.46387 19.9257 15.7883 31.2501 29.7615 31.2501C30.5799 31.2501 31.2496 30.5804 31.2496 29.762V24.5685C31.2496 23.7501 30.5799 23.0804 29.7615 23.0804C27.9162 23.0804 26.1157 22.7828 24.449 22.2322C24.3002 22.1727 24.1365 22.1578 23.9877 22.1578C23.6008 22.1578 23.2287 22.3066 22.9311 22.5894L19.6573 25.8632C15.446 23.7054 11.9936 20.2679 9.85077 16.0566L13.1246 12.7828C13.5412 12.3661 13.6603 11.7858 13.4966 11.265C12.946 9.59828 12.6484 7.81257 12.6484 5.95245C12.6484 5.134 11.9787 4.46436 11.1603 4.46436Z" fill="white"/>
-</svg></span>
+            <span class="phone-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.26839 2.97627C5.35767 4.30068 5.58089 5.59532 5.93803 6.83044L4.15232 8.61615C3.5422 6.83044 3.15529 4.94056 3.02136 2.97627H5.26839ZM19.94 20.863C21.2049 21.2202 22.4995 21.4434 23.8091 21.5327V23.7499C21.8448 23.616 19.9549 23.2291 18.1543 22.6339L19.94 20.863ZM6.69643 0H1.4881C0.669643 0 0 0.669643 0 1.4881C0 15.4613 11.3244 26.7857 25.2976 26.7857C26.1161 26.7857 26.7857 26.1161 26.7857 25.2976V20.1042C26.7857 19.2857 26.1161 18.6161 25.2976 18.6161C23.4524 18.6161 21.6518 18.3185 19.9851 17.7679C19.8363 17.7083 19.6726 17.6935 19.5238 17.6935C19.1369 17.6935 18.7649 17.8423 18.4673 18.125L15.1935 21.3988C10.9821 19.2411 7.52976 15.8036 5.3869 11.5923L8.66072 8.31845C9.07738 7.90179 9.19643 7.32143 9.03274 6.8006C8.48214 5.13393 8.18452 3.34821 8.18452 1.4881C8.18452 0.669643 7.51488 0 6.69643 0Z" fill="white"/>
+              </svg>
+            </span>
             {{ section.settings.phone }}
           </a>
         {% endif %}
-      </div>
 
       <!-- RIGHT CONTENT -->
       <div class="contact-assistance__right">
@@ -33,6 +39,7 @@
 
     </div>
   </div>
+   </div>
 </section>
 
 <style>
@@ -41,78 +48,174 @@
   background: #191B1D;
 }
 
+.contact-assistance-bg {
+   background: linear-gradient(110deg, #191B1D 50%, #F4F4F4 50%);
+}
+
 .contact-assistance__wrapper {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  background: linear-gradient(110deg, #111 60%, #fff 60%);
-  border-radius: 6px;
+  grid-template-columns: 1fr 1fr;
+ 
   overflow: hidden;
+      position: relative;
+      align-items: center;
+      padding: 34px 0;
 }
 
 .contact-assistance__left {
-  padding: 40px;
   color: #fff;
-  width: 50%;
+  max-width: 412px;
 }
 
 .contact-assistance__left h2 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 12px;
+     margin-bottom: 20px;
+    color: #FFF;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 24px;
+    margin-top: 0;
 }
 
 .contact-assistance__left p {
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 24px;
-  max-width: 520px;
+      margin: 0;
+    color: #FFF;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 24px;  
 }
 
 .contact-phone {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: #fff;
-  color: #000;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 16px;
+     display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #FAFAFA;
+    color: #000;
+    padding: 17px 29px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 16px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #191B1D;
 }
 
 .phone-icon {
-  font-size: 18px;
+      font-size: 18px;
+    display: inline-flex;
+    width: 50px;
+    height: 50px;
+    border-radius: 1530.612px;
+    border: 1px solid #000;
+    background: #000;
+    align-items: center;
+    justify-content: center;
+}
+
+.phone-icon svg {
+  transition: all .4s ease;
+}
+
+.contact-phone:hover svg {
+    scale: 1.1;
 }
 
 .contact-assistance__right {
-  padding: 40px;
-  background: #fff;
+      max-width: 233px;
+    margin: 0 auto;
 }
 
 .contact-assistance__right h3 {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 12px;
+    margin: 0 0 10px;
+    color: #000;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px;
 }
 
-.business-hours {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #333;
+
+
+.business-hours p {
+    color: #000;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 24px; /* 150% */
+    margin: 0 0 40px;
 }
+
+.business-hours p:last-child { margin: 0; }
+
 
 /* MOBILE */
-@media (max-width: 768px) {
-  .contact-assistance__wrapper {
-    grid-template-columns: 1fr;
-    background: #111;
-  }
-
-  .contact-assistance__right {
-    background: #fff;
-  }
+@media (max-width: 1200px) {
+  .contact-phone {
+    padding: 14px;
+    font-size: 14px;
 }
+
+.phone-icon {
+    width: 30px;
+    height: 30px;
+}
+
+.phone-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.contact-assistance__left {
+    max-width: 78%;
+}
+ }
+
+
+ @media (max-width: 991px) {
+
+ .contact-assistance__wrapper {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+    .contact-phone {
+        padding: 10px;
+        font-size: 14px;
+        position: unset;
+        transform: unset;
+    }
+
+    .contact-assistance-bg {
+    background: linear-gradient(188deg, #191B1D 50%, #F4F4F4 50%);
+}
+
+section.contact-assistance {
+    padding: 0 10px;
+}
+
+.contact-assistance__left {
+    max-width: 100%;
+}
+
+.contact-assistance__right {
+    max-width: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+.contact-assistance__left h2 {
+      margin-bottom: 12px;
+      font-size: 22px;
+}
+
+ }
 </style>
 
 {% schema %}
