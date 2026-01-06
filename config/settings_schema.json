@@ -1451,5 +1451,93 @@
         "default": "scheme-1"
       }
     ]
-  }
+  },
+  {
+    "name": "Cart Shipping",
+    "settings": [
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "default": 700,
+        "info": "Amount in store currency (e.g., 700 = $700)"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_message",
+        "label": "Progress message",
+        "default": "🚚 You’re {remaining} away from Free Shipping! 🚚",
+        "info": "Use {remaining} where the remaining amount should appear"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_success_message",
+        "label": "Success message",
+        "default": "🎉 You’ve unlocked Free Shipping! 🎉"
+      }
+    ]
+  },
+  {
+      "name": "Cart Drawer ",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "cart_drawer_upsell_collection",
+          "label": "Cart drawer upsell collection (override)",
+          "info": "If empty, falls back to Cart drawer collection."
+        },
+        {
+          "type": "range",
+          "id": "cart_drawer_upsell_limit",
+          "label": "Upsell products to show",
+          "min": 4,
+          "max": 24,
+          "step": 1,
+          "default": 12
+        },
+        {
+          "type": "header",
+          "content": "Cart drawer benefits"
+        },
+        {
+          "type": "checkbox",
+          "id": "cart_benefits_enable",
+          "label": "Show benefits in cart drawer",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "cart_benefit1_icon",
+          "label": "Benefit 1 icon"
+        },
+        {
+          "type": "text",
+          "id": "cart_benefit1_label",
+          "label": "Benefit 1 label",
+          "default": "Free Delivery"
+        },
+        {
+          "type": "image_picker",
+          "id": "cart_benefit2_icon",
+          "label": "Benefit 2 icon"
+        },
+        {
+          "type": "text",
+          "id": "cart_benefit2_label",
+          "label": "Benefit 2 label",
+          "default": "Easy Return & Exchange"
+        },
+        {
+          "type": "image_picker",
+          "id": "cart_benefit3_icon",
+          "label": "Benefit 3 icon"
+        },
+        {
+          "type": "text",
+          "id": "cart_benefit3_label",
+          "label": "Benefit 3 label",
+          "default": "Buy now, pay later"
+        }
+      ]
+    }
 ]

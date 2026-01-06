@@ -1,0 +1,65 @@
+{%- comment -%} Free Shipping Progress (uses theme settings) {%- endcomment -%}
+{%- assign goal_major = settings.free_shipping_threshold | default: 700 -%}
+{%- assign goal_cents = goal_major | times: 100 -%}
+{%- if goal_cents > 0 -%}
+  {%- assign total_cents = cart.total_price -%}
+  {%- assign remaining_cents = goal_cents | minus: total_cents -%}
+  {%- if remaining_cents < 0 -%}{%- assign remaining_cents = 0 -%}{%- endif -%}
+  {%- assign percent = total_cents | times: 100 | divided_by: goal_cents | at_most: 100 -%}
+  {%- assign remaining_formatted = remaining_cents | money_without_trailing_zeros -%}
+
+  {%- assign message_template = settings.free_shipping_message | default: "🚚 You’re {remaining} away from Free Shipping! 🚚" -%}
+  {%- assign success_template = settings.free_shipping_success_message | default: "🎉 You’ve unlocked Free Shipping! 🎉" -%}
+  {%- if total_cents >= goal_cents -%}
+    {%- assign banner_text = success_template -%}
+  {%- else -%}
+    {%- assign banner_text = message_template | replace: '{remaining}', remaining_formatted -%}
+  {%- endif -%}
+
+  <div class="fs-banner" role="status" aria-live="polite">
+    <p class="fs-text">{{ banner_text }}</p>
+    <div class="fs-track">
+      <span class="fs-fill" style="width: {{ percent }}%;"></span>
+    </div>
+  </div>
+
+  <style>
+  .fs-banner {
+    background: #F4F4F4;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+ .fs-text {
+    margin: 0 0 15px;
+    text-align: center;
+    font-weight: 500;
+    color: #231F20;
+    font-size: 16px;
+}
+  .fs-track{
+    height:8px;
+    background:#eee;
+    border-radius:999px;
+    overflow:hidden;
+    position:relative;
+  }
+  .fs-fill{
+    display:block;
+    height:100%;
+    width:0;
+    background:#000;
+    border-radius:999px;
+    transition:width .4s ease;
+  }
+  @media (max-width: 450px){
+    .fs-banner{
+    padding: 14px;
+    }
+    .fs-text{
+        font-size: 12px;
+    }
+  }
+  </style>
+{%- endif -%}

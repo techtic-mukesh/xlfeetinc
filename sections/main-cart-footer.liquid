@@ -15,119 +15,486 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Summary card */
+  .cart-summary {
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 24px;
+    background: #fff;
+  }
+  .cart-summary h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .cart-summary > p {
+    font-size: 13px;
+    margin: 0 0 16px;
+    color: #666;
+  }
+
+  /* Inputs */
+  .cart-summary .field { 
+    margin-bottom: 12px;
+    border: none;
+    flex-direction: column; }
+  .cart-summary label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #333;
+  }
+  .cart-summary  .field:after ,   .cart-summary .field:hover.field:after{
+    box-shadow:unset;
+  }
+  
+  .cart-summary select,
+  .cart-summary input {
+    width:auto;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: border-color .2s;
+    background: #fff;
+  }
+  .cart-summary select{
+    width:100%;
+  }
+  .cart-summary select:focus,
+  .cart-summary input:focus { outline: none; border-color: #111; }
+
+  .cart-summary select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: .6;
+  }
+
+  /* Province visibility */
+  .field.province-field { display: none; }
+  .field.province-field.show { display: block; }
+
+  /* Rates header and list (UL) */
+  .rates-header {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+  }
+ .shipping-rates-list {
+    list-style: none;
+    margin: 6px 0 0;
+    padding: 0;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 100%;
+    margin-bottom: 20px;
+    width: 100%;
+}
+  .shipping-rates-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    background: #fff;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+  }
+  .shipping-rates-list li:last-child { border-bottom: 0; }
+  .rate-radio {
+    margin: 0;
+    width: 16px; height: 16px;
+    accent-color: #111;
+    flex: 0 0 auto;
+  }
+  .rate-label { flex: 1 1 auto; font-size: 14px; color: #333; }
+  .rate-price { font-weight: 600; color: #333; font-size: 14px; }
+  .rate-price.free { color: #28a745; }
+
+  /* Divider and rows */
+  .summary-divider {
+    margin: 16px 0;
+    border-top: 1px solid rgba(0,0,0,.08);
+  }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    padding: 6px 0;
+    color: #666;
+  }
+  .summary-row.summary_row_text {
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #D9D9D9;
+}
+  .summary-row--total {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111;
+    padding-top: 10px;
+  }
+
+  /* Inline shipping line */
+  .shipping-rate-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #D9D9D9;
+    margin-bottom: 14px;
+  }
+  .shipping-rate-value { font-weight: 600; color: #333; font-size: 15px; }
+
+  /* Button */
+  .summary-checkout-btn {
+    width: 100%;
+    margin-top: 14px;
+    background: #111;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-weight: 700;
+    letter-spacing: .25px;
+    cursor: pointer;
+  }
+  .summary-checkout-btn:disabled { opacity: .6; cursor: not-allowed; }
+
+  /* Hide duplicated default totals/cta (styled ones are inside card) */
+  .cart__blocks > .js-contents,
+  .cart__blocks > .cart__ctas { display: none; }
+
+  @media screen and (max-width: 749px) {
+    .cart-summary { padding: 16px; }
+    .cart-summary h3 { font-size: 16px; }
+  }
+  @media screen and (max-width: 750px) {
+  .cart__footer-wrapper , .cart__items-wrapper {
+    max-width: 100%;
+    display: block;
+    width: 100%;
+}
+.is-cart-page {
+    display: block;
+}
+}
 {%- endstyle -%}
+
+<script>
+/**
+ * Shipping estimator + Live totals refresh after ANY cart AJAX change
+ */
+(function() {
+  'use strict';
+
+  function debounce(fn, delay) {
+    let t; return function() { clearTimeout(t); t = setTimeout(() => fn.apply(this, arguments), delay); };
+  }
+  function formatMoneyFromCents(cents) {
+    if (typeof Shopify !== 'undefined' && Shopify.formatMoney) {
+      return Shopify.formatMoney(cents, Shopify.money_format || '${{amount}}');
+    }
+    return '$' + (cents / 100).toFixed(2);
+  }
+
+  const PROVINCE_DATA = {
+    'United States': {'Alabama':'AL','Alaska':'AK','Arizona':'AZ','Arkansas':'AR','California':'CA','Colorado':'CO','Connecticut':'CT','Delaware':'DE','Florida':'FL','Georgia':'GA','Hawaii':'HI','Idaho':'ID','Illinois':'IL','Indiana':'IN','Iowa':'IA','Kansas':'KS','Kentucky':'KY','Louisiana':'LA','Maine':'ME','Maryland':'MD','Massachusetts':'MA','Michigan':'MI','Minnesota':'MN','Mississippi':'MS','Missouri':'MO','Montana':'MT','Nebraska':'NE','Nevada':'NV','New Hampshire':'NH','New Jersey':'NJ','New Mexico':'NM','New York':'NY','North Carolina':'NC','North Dakota':'ND','Ohio':'OH','Oklahoma':'OK','Oregon':'OR','Pennsylvania':'PA','Rhode Island':'RI','South Carolina':'SC','South Dakota':'SD','Tennessee':'TN','Texas':'TX','Utah':'UT','Vermont':'VT','Virginia':'VA','Washington':'WA','West Virginia':'WV','Wisconsin':'WI','Wyoming':'WY'},
+    'Canada': {'Alberta':'AB','British Columbia':'BC','Manitoba':'MB','New Brunswick':'NB','Newfoundland and Labrador':'NL','Northwest Territories':'NT','Nova Scotia':'NS','Nunavut':'NU','Ontario':'ON','Prince Edward Island':'PE','Quebec':'QC','Saskatchewan':'SK','Yukon':'YT'},
+    'Australia': {'Australian Capital Territory':'ACT','New South Wales':'NSW','Northern Territory':'NT','Queensland':'QLD','South Australia':'SA','Tasmania':'TAS','Victoria':'VIC','Western Australia':'WA'},
+    'Argentina': {'Buenos Aires':'B','Catamarca':'K','Chaco':'H','Chubut':'U','Ciudad Autónoma de Buenos Aires':'C','Córdoba':'X','Corrientes':'W','Entre Ríos':'E','Formosa':'P','Jujuy':'Y','La Pampa':'L','La Rioja':'F','Mendoza':'M','Misiones':'N','Neuquén':'Q','Río Negro':'R','Salta':'A','San Juan':'J','San Luis':'D','Santa Cruz':'Z','Santa Fe':'S','Santiago del Estero':'G','Tierra del Fuego':'V','Tucumán':'T'},
+    'Brazil': {'Acre':'AC','Alagoas':'AL','Amapá':'AP','Amazonas':'AM','Bahia':'BA','Ceará':'CE','Distrito Federal':'DF','Espírito Santo':'ES','Goiás':'GO','Maranhão':'MA','Mato Grosso':'MT','Mato Grosso do Sul':'MS','Minas Gerais':'MG','Pará':'PA','Paraíba':'PB','Paraná':'PR','Pernambuco':'PE','Piauí':'PI','Rio de Janeiro':'RJ','Rio Grande do Norte':'RN','Rio Grande do Sul':'RS','Rondônia':'RO','Roraima':'RR','Santa Catarina':'SC','São Paulo':'SP','Sergipe':'SE','Tocantins':'TO'},
+    'India': {'Andhra Pradesh':'AP','Arunachal Pradesh':'AR','Assam':'AS','Bihar':'BR','Chhattisgarh':'CG','Goa':'GA','Gujarat':'GJ','Haryana':'HR','Himachal Pradesh':'HP','Jharkhand':'JH','Karnataka':'KA','Kerala':'KL','Madhya Pradesh':'MP','Maharashtra':'MH','Manipur':'MN','Meghalaya':'ML','Mizoram':'MZ','Nagaland':'NL','Odisha':'OR','Punjab':'PB','Rajasthan':'RJ','Sikkim':'SK','Tamil Nadu':'TN','Telangana':'TS','Tripura':'TR','Uttar Pradesh':'UP','Uttarakhand':'UK','West Bengal':'WB'},
+    'Mexico': {'Aguascalientes':'AG','Baja California':'BC','Baja California Sur':'BS','Campeche':'CM','Chiapas':'CS','Chihuahua':'CH','Coahuila':'CO','Colima':'CL','Durango':'DG','Guanajuato':'GT','Guerrero':'GR','Hidalgo':'HG','Jalisco':'JA','México':'EM','Mexico City':'DF','Michoacán':'MI','Morelos':'MO','Nayarit':'NA','Nuevo León':'NL','Oaxaca':'OA','Puebla':'PU','Querétaro':'QT','Quintana Roo':'QR','San Luis Potosí':'SL','Sinaloa':'SI','Sonora':'SO','Tabasco':'TB','Tamaulipas':'TM','Tlaxcala':'TL','Veracruz':'VE','Yucatán':'YU','Zacatecas':'ZA'}
+  };
+
+  class ShippingEstimator {
+    constructor() {
+      this.countrySelect = document.getElementById('cart-country');
+      this.provinceSelect = document.getElementById('cart-province');
+      this.provinceField = document.querySelector('.province-field');
+      this.zipInput = document.getElementById('cart-zip');
+      this.rateDisplay = document.querySelector('.shipping-rate-value');
+      this.ratesList = document.getElementById('shipping-rates-list');
+      if (!this.countrySelect || !this.provinceSelect || !this.zipInput) return;
+      this.init();
+    }
+    init() {
+      this.countrySelect.addEventListener('change', () => { this.updateProvinces(); this.calculateShipping(); });
+      this.provinceSelect.addEventListener('change', () => this.calculateShipping());
+      let zipTimeout;
+      this.zipInput.addEventListener('input', () => { clearTimeout(zipTimeout); zipTimeout = setTimeout(() => this.calculateShipping(), 700); });
+      this.updateProvinces();
+    }
+    updateProvinces() {
+      const selectedOption = this.countrySelect.options[this.countrySelect.selectedIndex];
+      const countryName = selectedOption ? selectedOption.text.trim() : '';
+      this.provinceSelect.innerHTML = '<option value="">Please select a region</option>';
+      if (PROVINCE_DATA[countryName]) {
+        this.provinceField && this.provinceField.classList.add('show');
+        this.provinceSelect.disabled = false;
+        const provinces = PROVINCE_DATA[countryName];
+        Object.keys(provinces).forEach(name => {
+          const opt = document.createElement('option');
+          opt.value = provinces[name]; opt.textContent = name;
+          this.provinceSelect.appendChild(opt);
+        });
+      } else {
+        this.provinceField && this.provinceField.classList.remove('show');
+        this.provinceSelect.disabled = true;
+      }
+      this.rateDisplay && (this.rateDisplay.textContent = '—', this.rateDisplay.style.color = '#333');
+      this.ratesList && (this.ratesList.innerHTML = '', this.ratesList.hidden = true);
+    }
+    async calculateShipping() {
+      const country = this.countrySelect.value;
+      const province = this.provinceSelect.value || '';
+      const zip = this.zipInput.value.trim();
+      if (!country || !zip) { this.rateDisplay && (this.rateDisplay.textContent = '—'); this.ratesList && (this.ratesList.innerHTML = '', this.ratesList.hidden = true); return; }
+      if (zip.length < 3) return;
+      this.rateDisplay && (this.rateDisplay.textContent = 'Calculating...', this.rateDisplay.style.color = '#666');
+      try {
+        const res = await fetch('/cart/shipping_rates.json', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+          body: JSON.stringify({ shipping_address: { zip, country, province } })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data?.message || 'Failed to fetch shipping rates');
+        if (data.shipping_rates?.length) {
+          const cheapest = data.shipping_rates.reduce((min, r) => (parseFloat(r.price) < parseFloat(min.price) ? r : min));
+          this.displayRate(cheapest);
+          this.renderRatesList(data.shipping_rates, cheapest);
+        } else {
+          this.rateDisplay && (this.rateDisplay.textContent = 'Not available', this.rateDisplay.style.color = '#999');
+          this.ratesList && (this.ratesList.innerHTML = '', this.ratesList.hidden = true);
+        }
+      } catch(e) {
+        this.rateDisplay && (this.rateDisplay.textContent = 'Unable to calculate', this.rateDisplay.style.color = '#e74c3c');
+        this.ratesList && (this.ratesList.innerHTML = '', this.ratesList.hidden = true);
+      }
+    }
+    formatMoneyFromFloat(v) {
+      const cents = Math.round(parseFloat(v) * 100);
+      return formatMoneyFromCents(cents);
+    }
+    displayRate(rate) {
+      if (!this.rateDisplay) return;
+      if (parseFloat(rate.price) === 0) {
+        this.rateDisplay.innerHTML = '<strong class="free-shipping">FREE</strong>';
+      } else {
+        this.rateDisplay.innerHTML = '<strong>' + this.formatMoneyFromFloat(rate.price) + '</strong>';
+        this.rateDisplay.style.color = '#333';
+      }
+    }
+    renderRatesList(rates, preselected) {
+      if (!this.ratesList) return;
+      const selectedName = preselected?.name || rates[0]?.name;
+      this.ratesList.innerHTML = '';
+      rates.forEach((rate, idx) => {
+        const li = document.createElement('li');
+        const radio = document.createElement('input');
+        radio.type = 'radio'; radio.name = 'shipping-rate'; radio.className = 'rate-radio'; radio.id = 'rate-' + idx; radio.checked = rate.name === selectedName;
+        const label = document.createElement('label'); label.className = 'rate-label'; label.setAttribute('for', radio.id); label.textContent = rate.name;
+        const price = document.createElement('span'); const isFree = parseFloat(rate.price) === 0;
+        price.className = 'rate-price' + (isFree ? ' free' : ''); price.textContent = isFree ? 'FREE' : this.formatMoneyFromFloat(rate.price);
+        radio.addEventListener('change', () => this.displayRate(rate));
+        li.appendChild(radio); li.appendChild(label); li.appendChild(price);
+        this.ratesList.appendChild(li);
+      });
+      this.ratesList.hidden = false;
+    }
+  }
+
+  async function fetchCartAndUpdateTotals() {
+    try {
+      const res = await fetch('/cart.js', { headers: { 'Accept': 'application/json' } });
+      const cart = await res.json();
+      const subtotalEl = document.getElementById('summary-subtotal');
+      const taxEl = document.getElementById('summary-tax');
+      const totalEl = document.getElementById('summary-total');
+      if (subtotalEl) subtotalEl.textContent = formatMoneyFromCents(cart.items_subtotal_price || 0);
+      if (taxEl)      taxEl.textContent      = formatMoneyFromCents(cart.total_tax ?? 0);
+      if (totalEl)    totalEl.textContent    = formatMoneyFromCents(cart.total_price || 0);
+
+      if (window.__shippingEstimator && typeof window.__shippingEstimator.calculateShipping === 'function') {
+        window.__shippingEstimator.calculateShipping();
+      }
+    } catch(e) { /* no-op */ }
+  }
+  const scheduleCartRefresh = debounce(fetchCartAndUpdateTotals, 300);
+
+  /* Update totals after any quantity interaction (pre-emptive) */
+  document.addEventListener('change', function(e) {
+    if (e.target.matches('input[name="updates[]"], .quantity__input')) scheduleCartRefresh();
+  });
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.quantity__button')) scheduleCartRefresh();
+  });
+
+  /* Critical: refresh AFTER theme AJAX completes by watching /cart/* fetches */
+  (function hookFetch() {
+    if (window.__cartFetchHooked) return; window.__cartFetchHooked = true;
+    const originalFetch = window.fetch;
+    window.fetch = function() {
+      const args = arguments;
+      let url = args[0];
+      if (url && typeof url !== 'string' && url.url) url = url.url;
+      const isCartCall = typeof url === 'string' && /\/cart\/(change|update|add|clear)(\.js)?/i.test(url);
+      return originalFetch.apply(this, args).then((res) => {
+        if (isCartCall) {
+          // wait for Shopify to finish processing, then refresh view
+          setTimeout(scheduleCartRefresh, 80);
+        }
+        return res;
+      });
+    };
+  })();
+
+  function initShippingEstimator() { window.__shippingEstimator = new ShippingEstimator(); }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { initShippingEstimator(); fetchCartAndUpdateTotals(); });
+  } else {
+    initShippingEstimator(); fetchCartAndUpdateTotals();
+  }
+  document.addEventListener('shopify:section:load', function() { fetchCartAndUpdateTotals(); });
+})();
+</script>
 
 <div
   class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"
   id="main-cart-footer"
   data-id="{{ section.id }}"
 >
-  <div class="page-width">
+  <div class="">
     <div class="cart__footer isolate section-{{ section.id }}-padding">
-      {%- if settings.show_cart_note -%}
+
+      {% if settings.show_cart_note %}
         <cart-note class="cart__note field">
           <label for="Cart-note">{{ 'sections.cart.note' | t }}</label>
-          <textarea
-            class="text-area field__input"
-            name="note"
-            form="cart"
-            id="Cart-note"
-            placeholder="{{ 'sections.cart.note' | t }}"
-          >{{ cart.note }}</textarea>
+          <textarea class="text-area field__input" name="note" form="cart" id="Cart-note">{{ cart.note }}</textarea>
         </cart-note>
-      {%- endif -%}
+      {% endif %}
 
       <div class="cart__blocks">
-        {% for block in section.blocks %}
-          {%- case block.type -%}
-            {%- when '@app' -%}
-              {% render block %}
-            {%- when 'subtotal' -%}
-              <div class="js-contents" {{ block.shopify_attributes }}>
-                <div>
-                  {%- if cart.cart_level_discount_applications.size > 0 -%}
-                    <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
-                      {%- for discount in cart.cart_level_discount_applications -%}
-                        <li class="discounts__discount discounts__discount--position">
-                          {{- 'icon-discount.svg' | inline_asset_content -}}
-                          {{ discount.title | escape }}
-                          (-{{ discount.total_allocated_amount | money }})
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  {%- endif -%}
-                </div>
 
+        <!-- SUMMARY CARD -->
+        <div class="cart-summary">
+          <h3>SUMMARY</h3>
+          <p>Estimate Shipping and Tax</p>
+
+          <div class="field">
+            <label for="cart-country">Country *</label>
+            <select id="cart-country" required>
+              <option value="">Select a country</option>
+              {% if localization.available_countries.size > 0 %}
+                {% for country in localization.available_countries %}
+                  <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>{{ country.name }}</option>
+                {% endfor %}
+              {% else %}
+                {{ all_country_option_tags }}
+              {% endif %}
+            </select>
+          </div>
+
+          <div class="field province-field">
+            <label for="cart-province">State / Province</label>
+            <select id="cart-province" disabled>
+              <option value="">Please select a region</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="cart-zip">Zip / Postal Code *</label>
+            <input type="text" id="cart-zip" placeholder="Enter zip code" required>
+          </div>
+
+          <div class="rates-header">Shipping options</div>
+          <ul id="shipping-rates-list" class="shipping-rates-list" hidden></ul>
+
+          <div class="summary-divider"></div>
+
+          <div class="shipping-rate-row">
+            <span>Shipping</span>
+            <span class="shipping-rate-value">—</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="summary-subtotal">{{ cart.items_subtotal_price | money }}</span>
+          </div>
+          <div class="summary-row summary_row_text">
+            <span>Tax</span>
+            <span id="summary-tax">{{ cart.total_tax | default: 0 | money }}</span>
+          </div>
+          <div class="summary-row summary-row--total">
+            <span>Order Total</span>
+            <span id="summary-total">{{ cart.total_price | money }}</span>
+          </div>
+
+          <button
+            type="submit"
+            id="checkout-summary"
+            class="summary-checkout-btn"
+            name="checkout"
+            form="cart"
+            {% if cart == empty %}disabled{% endif %}
+          >
+            {{ 'sections.cart.checkout' | t }}
+          </button>
+        </div>
+        <!-- END SUMMARY CARD -->
+
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when '@app' %}
+              {% render block %}
+
+            {% when 'subtotal' %}
+              <div class="js-contents" {{ block.shopify_attributes }}>
+                {% if cart.cart_level_discount_applications.size > 0 %}
+                  <ul class="discounts list-unstyled">
+                    {% for discount in cart.cart_level_discount_applications %}
+                      <li class="discounts__discount">
+                        {{ discount.title }} (-{{ discount.total_allocated_amount | money }})
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
                 <div class="totals">
                   <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
                   <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
                 </div>
-
                 <small class="tax-note caption-large rte">
-                  {%- if cart.duties_included and cart.taxes_included -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.duties_and_taxes_included_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.duties_and_taxes_included_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- elsif cart.duties_included == false and cart.taxes_included -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.taxes_included_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.taxes_included_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- elsif cart.duties_included and cart.taxes_included == false -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.duties_included_taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- elsif cart.duties_included == false and cart.taxes_included == false -%}
-                    {%- if shop.shipping_policy.body == blank -%}
-                      {{ 'sections.cart.taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
-                    {%- else -%}
-                      {{
-                        'sections.cart.taxes_at_checkout_shipping_at_checkout_with_policy_html'
-                        | t: link: shop.shipping_policy.url
-                      }}
-                    {%- endif -%}
-                  {%- endif -%}
+                  {{ 'sections.cart.taxes_at_checkout_shipping_at_checkout_without_policy' | t }}
                 </small>
               </div>
-            {%- else -%}
+
+            {% else %}
               <div class="cart__ctas" {{ block.shopify_attributes }}>
-                <button
-                  type="submit"
-                  id="checkout"
-                  class="cart__checkout-button button"
-                  name="checkout"
-                  {% if cart == empty %}
-                    disabled
-                  {% endif %}
-                  form="cart"
-                >
+                <button type="submit" id="checkout" class="cart__checkout-button button" name="checkout" form="cart" {% if cart == empty %}disabled{% endif %}>
                   {{ 'sections.cart.checkout' | t }}
                 </button>
               </div>
 
-              {%- if additional_checkout_buttons -%}
-                <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
+              {% if additional_checkout_buttons %}
+                <div class="cart__dynamic-checkout-buttons">
                   {{ content_for_additional_checkout_buttons }}
                 </div>
-              {%- endif -%}
-          {%- endcase -%}
+              {% endif %}
+          {% endcase %}
         {% endfor %}
 
         <div id="cart-errors"></div>
+
       </div>
     </div>
   </div>
@@ -138,51 +505,15 @@
   "name": "t:sections.main-cart-footer.name",
   "class": "cart__footer-wrapper",
   "settings": [
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },    
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 40
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 40
-    }
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-1" },
+    { "type": "header", "content": "t:sections.all.padding.section_padding_heading" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "t:sections.all.padding.padding_top", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "t:sections.all.padding.padding_bottom", "default": 40 }
   ],
   "blocks": [
-    {
-      "type": "subtotal",
-      "name": "t:sections.main-cart-footer.blocks.subtotal.name",
-      "limit": 1
-    },
-    {
-      "type": "buttons",
-      "name": "t:sections.main-cart-footer.blocks.buttons.name",
-      "limit": 1
-    },
-    {
-      "type": "@app"
-    }
+    { "type": "subtotal", "name": "t:sections.main-cart-footer.blocks.subtotal.name", "limit": 1 },
+    { "type": "buttons", "name": "t:sections.main-cart-footer.blocks.buttons.name", "limit": 1 },
+    { "type": "@app" }
   ]
 }
 {% endschema %}

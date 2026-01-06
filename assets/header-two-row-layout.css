@@ -294,7 +294,7 @@ header.header.header--two-row .header__bottom-row nav.header__inline-menu ul.lis
 .header__inline-menu-wrap ul.list-menu.list-menu--inline {
     width: 100%;
     justify-content: space-between;
-    gap: 20px;
+    gap: 16px;
 }
 
 header.header.header--two-row .header__top-row-inner {

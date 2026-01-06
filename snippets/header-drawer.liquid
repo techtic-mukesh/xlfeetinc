@@ -26,7 +26,39 @@
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
                 <li>
-                  {%- if link.links != blank -%}
+
+                  {%- comment -%} Match blocks for this top-level link {%- endcomment -%}
+                  {%- assign mobile_custom_block = nil -%}
+                  {%- for b in section.blocks -%}
+                    {%- if b.type == 'custom_mega_menu' and b.settings.parent_menu_name != blank -%}
+                      {%- assign b_parent = b.settings.parent_menu_name | strip | downcase -%}
+                      {%- assign top_name = link.title | strip | downcase -%}
+                      {%- if b_parent == top_name -%}
+                        {%- assign mobile_custom_block = b -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- assign mobile_brands_block = nil -%}
+                  {%- for bb in section.blocks -%}
+                    {%- if bb.type == 'mega_menu_brands' and bb.settings.parent_menu_name != blank -%}
+                      {%- assign bb_parent = bb.settings.parent_menu_name | strip | downcase -%}
+                      {%- assign top_name = link.title | strip | downcase -%}
+                      {%- if bb_parent == top_name -%}
+                        {%- assign mobile_brands_block = bb -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+
+                  {%- assign has_children_count = link.links | size -%}
+                  {%- assign show_drawer_panel = false -%}
+                  {%- if has_children_count > 0 or mobile_custom_block or mobile_brands_block -%}
+                    {%- assign show_drawer_panel = true -%}
+                  {%- endif -%}
+
+                  {%- if show_drawer_panel -%}
                     <details id="Details-menu-drawer-menu-item-{{ forloop.index }}">
                       <summary
                         id="HeaderDrawer-{{ link.handle }}"
@@ -52,73 +84,135 @@
                             </span>
                             {{ link.title | escape }}
                           </button>
-                          <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
-                            {%- for childlink in link.links -%}
-                              <li>
-                                {%- if childlink.links == blank -%}
-                                  <a
-                                    id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                                    href="{{ childlink.url }}"
-                                    class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
-                                    {% if childlink.current %}
-                                      aria-current="page"
-                                    {% endif %}
-                                  >
-                                    {{ childlink.title | escape }}
-                                  </a>
-                                {%- else -%}
-                                  <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}">
-                                    <summary
+
+                          {%- if has_children_count > 0 -%}
+                            <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                              {%- for childlink in link.links -%}
+                                <li>
+                                  {%- if childlink.links == blank -%}
+                                    <a
                                       id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
-                                      class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                      href="{{ childlink.url }}"
+                                      class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if childlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                      {% if childlink.current %}
+                                        aria-current="page"
+                                      {% endif %}
                                     >
                                       {{ childlink.title | escape }}
-                                      <span class="svg-wrapper">
-                                        {{- 'icon-arrow.svg' | inline_asset_content -}}
-                                      </span>
-                                      <span class="svg-wrapper">
-                                        {{- 'icon-caret.svg' | inline_asset_content -}}
-                                      </span>
-                                    </summary>
-                                    <div
-                                      id="childlink-{{ childlink.handle | escape }}"
-                                      class="menu-drawer__submenu has-submenu gradient motion-reduce"
-                                    >
-                                      <button
-                                        class="menu-drawer__close-button link link--text focus-inset"
-                                        aria-expanded="true"
+                                    </a>
+                                  {%- else -%}
+                                    <details id="Details-menu-drawer-{{ link.handle }}-{{ childlink.handle }}">
+                                      <summary
+                                        id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}"
+                                        class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
                                       >
+                                        {{ childlink.title | escape }}
                                         <span class="svg-wrapper">
                                           {{- 'icon-arrow.svg' | inline_asset_content -}}
                                         </span>
-                                        {{ childlink.title | escape }}
-                                      </button>
-                                      <ul
-                                        class="menu-drawer__menu list-menu"
-                                        role="list"
-                                        tabindex="-1"
+                                        <span class="svg-wrapper">
+                                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                                        </span>
+                                      </summary>
+                                      <div
+                                        id="childlink-{{ childlink.handle | escape }}"
+                                        class="menu-drawer__submenu has-submenu gradient motion-reduce"
                                       >
-                                        {%- for grandchildlink in childlink.links -%}
-                                          <li>
-                                            <a
-                                              id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
-                                              href="{{ grandchildlink.url }}"
-                                              class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
-                                              {% if grandchildlink.current %}
-                                                aria-current="page"
-                                              {% endif %}
-                                            >
-                                              {{ grandchildlink.title | escape }}
-                                            </a>
-                                          </li>
-                                        {%- endfor -%}
-                                      </ul>
-                                    </div>
-                                  </details>
-                                {%- endif -%}
-                              </li>
-                            {%- endfor -%}
-                          </ul>
+                                        <button
+                                          class="menu-drawer__close-button link link--text focus-inset"
+                                          aria-expanded="true"
+                                        >
+                                          <span class="svg-wrapper">
+                                            {{- 'icon-arrow.svg' | inline_asset_content -}}
+                                          </span>
+                                          {{ childlink.title | escape }}
+                                        </button>
+                                        <ul
+                                          class="menu-drawer__menu list-menu"
+                                          role="list"
+                                          tabindex="-1"
+                                        >
+                                          {%- for grandchildlink in childlink.links -%}
+                                            <li>
+                                              <a
+                                                id="HeaderDrawer-{{ link.handle }}-{{ childlink.handle }}-{{ grandchildlink.handle }}"
+                                                href="{{ grandchildlink.url }}"
+                                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset{% if grandchildlink.current %} menu-drawer__menu-item--active{% endif %}"
+                                                {% if grandchildlink.current %}
+                                                  aria-current="page"
+                                                {% endif %}
+                                              >
+                                                {{ grandchildlink.title | escape }}
+                                              </a>
+                                            </li>
+                                          {%- endfor -%}
+                                        </ul>
+                                      </div>
+                                    </details>
+                                  {%- endif -%}
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+
+                          {%- if mobile_custom_block -%}
+                            {%- assign width_menu = mobile_custom_block.settings.shop_by_width -%}
+                            {%- assign size_menu  = mobile_custom_block.settings.shop_by_size  -%}
+                            <div class="drawer-filters">
+                              {%- if width_menu and width_menu.links.size > 0 -%}
+                                <div class="drawer-filter">
+                                  <h3 class="drawer-filter__title">Shop By Width</h3>
+                                  <div class="drawer-pills">
+                                    {%- for item in width_menu.links -%}
+                                      <a href="{{ item.url }}" class="drawer-pill{% if item.current %} is-active{% endif %}">{{ item.title | escape }}</a>
+                                    {%- endfor -%}
+                                  </div>
+                                </div>
+                              {%- endif -%}
+                              {%- if size_menu and size_menu.links.size > 0 -%}
+                                <div class="drawer-filter">
+                                  <h3 class="drawer-filter__title">Shop by size</h3>
+                                  <div class="drawer-pills">
+                                    {%- for item in size_menu.links -%}
+                                      <a href="{{ item.url }}" class="drawer-pill{% if item.current %} is-active{% endif %}">{{ item.title | escape }}</a>
+                                    {%- endfor -%}
+                                  </div>
+                                </div>
+                              {%- endif -%}
+                            </div>
+                          {%- endif -%}
+
+                          {%- if mobile_brands_block and mobile_brands_block.settings.brand_collections and mobile_brands_block.settings.brand_collections.size > 0 -%}
+                            <div class="drawer-brands">
+                              {%- if mobile_brands_block.settings.brand_title != blank -%}
+                                <h3 class="drawer-brands__title">{{ mobile_brands_block.settings.brand_title }}</h3>
+                              {%- endif -%}
+                              <ul class="drawer-brands__grid" role="list">
+                                {%- for c in mobile_brands_block.settings.brand_collections -%}
+                                  <li class="drawer-brands__item">
+                                    <a href="{{ c.url }}" class="drawer-brands__link">
+                                      {%- if c.image -%}
+                                        {{ c.image | image_url: width: 120 | image_tag: widths: '80,120', alt: c.title, class: 'drawer-brands__img', sizes: '(max-width: 480px) 33vw, 120px' }}
+                                      {%- else -%}
+                                        <span class="drawer-brands__text">{{ c.title }}</span>
+                                      {%- endif -%}
+                                    </a>
+                                  </li>
+                                {%- endfor -%}
+                              </ul>
+                              {%- if mobile_brands_block.settings.brand_view_all_url != blank -%}
+                                <a class="drawer-brands__view-all" href="{{ mobile_brands_block.settings.brand_view_all_url }}">
+                                  {{ mobile_brands_block.settings.brand_view_all_label | default: 'VIEW ALL' }}
+                                  <span aria-hidden="true">
+                                    <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                      <path d="M0.75 9.91667L9.91667 0.75M9.91667 0.75H1.66667M9.91667 0.75V9" stroke="#111111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                  </span>
+                                </a>
+                              {%- endif -%}
+                            </div>
+                          {%- endif -%}
+
                         </div>
                       </div>
                     </details>
@@ -296,3 +390,18 @@
     </div>
   </details>
 </header-drawer>
+
+<style>
+@media screen and (max-width: 1080px) {
+  .drawer-filters { padding: 12px 16px 4px; display: grid; gap: 14px; }
+  .drawer-filter__title, .drawer-brands__title { margin: 10px 0 8px; font-size: 14px; font-weight: 600; color:{{ section.settings.menu_title_color}}; }
+  .drawer-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .drawer-pill { border: 1px solid #D8D8D8; border-radius: 12px; padding: 4px 8px; font-size: 12px; text-decoration: none; color: rgba(var(--color-foreground), 1); }
+
+  .drawer-brands { padding: 12px 16px 10px; }
+  .drawer-brands__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; list-style: none; margin: 0; padding: 0; }
+  .drawer-brands__img { width: 100%; height: auto; background: #F5F5F5; border-radius: 0; object-fit: contain; aspect-ratio: 1 / 1; padding: 8px; }
+  .drawer-brands__view-all { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; text-decoration: none; color: {{ section.settings.view_all_txt_color}}; font-weight: 500; margin-top:10px; }
+  .drawer-brands__view-all span{ line-height:0; }
+}
+</style>

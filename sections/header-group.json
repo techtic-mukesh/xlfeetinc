@@ -36,6 +36,35 @@
     },
     "header": {
       "type": "header",
+      "blocks": {
+        "mega_menu_brands_MTN9LB": {
+          "type": "mega_menu_brands",
+          "settings": {
+            "parent_menu_name": "Boots",
+            "brand_title": "Shop By Brand",
+            "brand_collections": [
+              "shoes-copy",
+              "boots-copy",
+              "shoes",
+              "sandals-copy"
+            ],
+            "brand_view_all_url": "shopify://collections",
+            "brand_view_all_label": "VIEW ALL"
+          }
+        },
+        "custom_mega_menu_FB6mzi": {
+          "type": "custom_mega_menu",
+          "settings": {
+            "parent_menu_name": "Boots",
+            "shop_by_size": "shop-by-size",
+            "shop_by_width": "shop-by-width"
+          }
+        }
+      },
+      "block_order": [
+        "mega_menu_brands_MTN9LB",
+        "custom_mega_menu_FB6mzi"
+      ],
       "settings": {
         "logo_position": "two-row-layout",
         "mobile_logo_position": "center",
@@ -44,11 +73,16 @@
         "sticky_header_type": "reduce-logo-size",
         "show_line_separator": true,
         "color_scheme": "scheme-1",
-        "menu_color_scheme": "scheme-1",
+        "menu_color_scheme": "scheme-8c4a1294-8eb7-41fe-b32c-4725426eef9e",
         "enable_country_selector": true,
         "enable_language_selector": true,
         "enable_customer_avatar": true,
         "margin_bottom": 0,
+        "show_button": true,
+        "button_text": "Clearance",
+        "show_icon": true,
+        "menu_title_color": "#191b1d",
+        "view_all_txt_color": "#111111",
         "padding_top": 12,
         "padding_bottom": 12
       }

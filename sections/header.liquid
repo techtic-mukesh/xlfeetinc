@@ -877,6 +877,20 @@
       "default": true
     },
     {
+      "type":"header",
+      "content":"Mega Menu Color"
+    },
+    {
+      "type":"color",
+      "id":"menu_title_color",
+      "label":"Menu Title color" 
+    },
+    {
+      "type":"color",
+      "id":"view_all_txt_color",
+      "label":"View All Text Color" 
+    },
+    {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
     },
@@ -904,6 +918,39 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "custom_mega_menu",
+      "name": "Custom Mega Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "parent_menu_name",
+          "label": "Parent Menu Name",
+          "info": "Must exactly match top-level menu title (example: Boots)"
+        },
+        {
+          "type": "link_list",
+          "id": "shop_by_size",
+          "label": "First Menu"
+        },
+        {
+          "type": "link_list",
+          "id": "shop_by_width",
+          "label": "Second Menu"
+        }
+      ]
+    },
+    {
+      "type": "mega_menu_brands",
+      "name": "Mega Menu • Brands",
+      "settings": [
+        { "type": "text", "id": "parent_menu_name", "label": "Parent Menu Name", "info": "Must exactly match top-level menu title (e.g., Boots)" },
+        { "type": "text", "id": "brand_title", "label": "Brand title", "default": "Shop By Brand" },
+        { "type": "collection_list", "id": "brand_collections", "label": "Brand collections (logos use collection images)" },
+        { "type": "url", "id": "brand_view_all_url", "label": "View all link" },
+        { "type": "text", "id": "brand_view_all_label", "label": "View all label", "default": "VIEW ALL" }
+      ]
     }
   ]
 }

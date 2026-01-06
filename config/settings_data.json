@@ -71,7 +71,7 @@
     "blog_card_color_scheme": "scheme-2",
     "blog_card_border_thickness": 0,
     "blog_card_border_opacity": 10,
-    "blog_card_corner_radius": 0,
+    "blog_card_corner_radius": 20,
     "blog_card_shadow_opacity": 0,
     "blog_card_shadow_horizontal_offset": 0,
     "blog_card_shadow_vertical_offset": 4,
@@ -126,8 +126,13 @@
     "cart_type": "drawer",
     "show_vendor": false,
     "show_cart_note": false,
-    "cart_drawer_collection": "",
-    "cart_color_scheme": "scheme-1",
+    "cart_drawer_collection": "boots-copy",
+    "cart_color_scheme": "scheme-d1e5d253-1a37-40b8-a39e-320e5b282a61",
+    "free_shipping_threshold": 300,
+    "cart_drawer_upsell_collection": "shoes",
+    "cart_benefit1_icon": "shopify://shop_images/Layer_1.png",
+    "cart_benefit2_icon": "shopify://shop_images/Layer_1_1.png",
+    "cart_benefit3_icon": "shopify://shop_images/Layer_1_2.png",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
@@ -143,51 +148,6 @@
       }
     },
     "content_for_index": [],
-    "blocks": {
-      "17670844658694443202": {
-        "type": "shopify://apps/wishlist-plus/blocks/wishlist-app-embed/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
-        "disabled": true,
-        "settings": {
-          "storefront_layout_enabled": false,
-          "storefront_layout_primary_bg_color": "#000000",
-          "storefront_layout_primary_text_color": "#ffffff",
-          "storefront_layout_secondary_bg_color": "#f4f8fe",
-          "storefront_layout_secondary_text_color": "#333333",
-          "storefront_layout_ui_border_radius": 6,
-          "storefront_layout_notification_position": "left",
-          "storefront_layout_action_popup_position": "left",
-          "storefront_layout_drawer_position": "left",
-          "storefront_layout_as_section_page": ""
-        }
-      },
-      "10274264662263595587": {
-        "type": "shopify://apps/wishlist-plus/blocks/wishlist-collections-embed/80c3b1fc-3a8f-407e-8367-ffdeebb8b612",
-        "disabled": true,
-        "settings": {
-          "swym_collections_icon_type": "heart",
-          "swym_collections_icon_thickness": 1.7,
-          "swym_collections_position": "top-right",
-          "swym_collections_vertical_offset": 0,
-          "swym_collections_horizontal_offset": 0,
-          "swym_collections_button_size": 25,
-          "swym_collections_icon_color": "#000000",
-          "swym_collections_product_link_selector": "-",
-          "swym_collections_product_tile_selector": "-",
-          "enable_variant_selector": false,
-          "swym_add_to_wishlist_title_color": "#333",
-          "swym_variant_selector_font_size_1": 14,
-          "swym_variant_selector_popup_bg_color": "#fff",
-          "swym_variant_selector_section_heading_color": "#000",
-          "swym_variant_selector_section_heading_font_size_2": 12,
-          "swym_variant_selector_choose_create_text": "Choose or Create new Wishlist",
-          "swym_variant_selector_wishlist_btn_bg_color": "#292929",
-          "swym_variant_selector_wishlist_btn_color": "#fff",
-          "swym_variant_selector_product_detail_font_color": "#fff",
-          "swym_variant_selector_create_list_placeholder_text": "Enter wishlist name",
-          "swym_variant_selector_create_list_title": "Name Your Wishlist"
-        }
-      }
-    },
     "color_schemes": {
       "scheme-1": {
         "settings": {
@@ -282,6 +242,39 @@
           "background": "#f4f4f4",
           "background_gradient": "",
           "text": "#1f1f1f",
+          "button": "#191b1d",
+          "button_label": "#ffffff",
+          "secondary_button_label": "#191b1d",
+          "shadow": "#191b1d"
+        }
+      },
+      "scheme-c78e2409-39bc-4a8f-a4b0-941986fb6e01": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#000000",
+          "button": "#ffffff",
+          "button_label": "#000000",
+          "secondary_button_label": "#191b1d",
+          "shadow": "#191b1d"
+        }
+      },
+      "scheme-5ce89a8f-a0c7-452c-baae-2fea85722b41": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#191b1d",
+          "button": "#ffffff",
+          "button_label": "#191b1d",
+          "secondary_button_label": "#191b1d",
+          "shadow": "#191b1d"
+        }
+      },
+      "scheme-d1e5d253-1a37-40b8-a39e-320e5b282a61": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#231f20",
           "button": "#191b1d",
           "button_label": "#ffffff",
           "secondary_button_label": "#191b1d",
