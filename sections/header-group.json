@@ -55,9 +55,9 @@
         "custom_mega_menu_k8LpUF": {
           "type": "custom_mega_menu",
           "settings": {
-            "parent_menu_name": "Shop By Brand",
-            "shop_by_size": "",
-            "shop_by_width": ""
+            "parent_menu_name": "Boots",
+            "shop_by_size": "shop-by-size",
+            "shop_by_width": "shop-by-width"
           }
         }
       },
@@ -81,8 +81,8 @@
         "show_button": true,
         "button_text": "Clearance",
         "show_icon": true,
-        "menu_title_color": "",
-        "view_all_txt_color": "",
+        "menu_title_color": "#191b1d",
+        "view_all_txt_color": "#111111",
         "padding_top": 12,
         "padding_bottom": 12
       }
