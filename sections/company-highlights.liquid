@@ -4,7 +4,7 @@
     padding-bottom: {{ section.settings.mpadding_bottom }}px;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 769px) {
     .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
@@ -26,7 +26,7 @@ text-align: center;
 .bottom-feature-grid-{{ section.id }} .pill-buttons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
   margin-bottom: 1.5rem;
 }
 
@@ -79,7 +79,35 @@ text-align: center;
   font-size: 14px;
   opacity: 0.8;
 }
-
+.bottom-feature-grid-{{ section.id }} .comp_heighlight_heading img {
+    max-width: {{ section.settings.heading_img_width }}px;
+    width:100%;
+}
+span.registered{
+    font-size: 30px;
+    vertical-align: super;
+    position: relative;
+    top: 17px;
+    line-height: 0;
+}
+.main_comp_heighlight_heading{
+    color: rgba(var(--color-foreground), 1);
+    font-weight: 500;
+    letter-spacing: 0;
+}
+@media screen and (max-width: 1024px) {
+  .bottom-feature-grid-{{ section.id }} .card-content h3 {
+      font-size: 16px;
+      line-height: 22px;
+  }
+  .main_comp_heighlight_heading{
+    font-size: 14px;
+  }
+  .bottom-feature-grid-{{ section.id }} .comp_heighlight_heading img {
+    max-width: 30px;
+    width:100%;
+  }
+}
 @media screen and (max-width: 989px) {
   .bottom-feature-grid-{{ section.id }} .grid {
     grid-template-columns: repeat(2, 1fr);
@@ -87,6 +115,10 @@ text-align: center;
 }
 
 @media screen and (max-width: 749px) {
+  .bottom-feature-grid-{{ section.id }} .comp_heighlight_heading img {
+    max-width: 30px;
+    width: 100%;
+}
   .bottom-feature-grid-{{ section.id }} .grid {
     grid-template-columns: 1fr;
   }
@@ -94,6 +126,7 @@ text-align: center;
     flex-wrap: wrap;
   }
 }
+
 {% endstyle %}
 
 <section class="bottom-feature-grid-{{ section.id }} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
@@ -103,8 +136,8 @@ text-align: center;
     <div>
         <div class="comp_heighlight_heading color-{{ section.settings.heading_block_color_scheme }}">
            {% if section.settings.heading_img !=blank %} <img src="{{ section.settings.heading_img | img_url  : 'master' }}"> {% endif %}
-            <span>
-                {{ section.settings.company_heading }}
+            <span class="main_comp_heighlight_heading">
+                {{ section.settings.company_heading | replace: "®", "<span class='registered'>®</span>"  }}
             </span>
         </div>
     </div>
@@ -164,6 +197,15 @@ text-align: center;
       "type": "image_picker",
       "id": "heading_img",
       "label": "Heading Image"
+    },
+    {
+      "type": "range",
+      "id": "heading_img_width",
+      "label": "Heading Image Width (px)",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "default": 50
     },
     {
       "type": "text",

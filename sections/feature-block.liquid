@@ -52,15 +52,20 @@
     gap: 8px;
     margin-bottom: 8px;
   }
-
+   .featured_content {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+  }
   /* Desktop: Icon and title inline */
   @media screen and (min-width: 750px) {
     .feature-blocks-{{ section.id }} .feature-header {
       /* flex-direction: row; */
       align-items: center;
-      gap: 10px;
+      gap: 20px;
       margin-bottom: 6px;
     }
+ 
   }
 
   .feature-blocks-{{ section.id }} .feature-icon {
@@ -71,15 +76,11 @@
   }
 
   .feature-blocks-{{ section.id }} .feature-icon svg {
-    width: {{ section.settings.mobile_icon_size }}px;
-    height: {{ section.settings.mobile_icon_size }}px;
     color: {{ section.settings.icon_color }};
   }
 
   @media screen and (min-width: 750px) {
     .feature-blocks-{{ section.id }} .feature-icon svg {
-      width: {{ section.settings.desktop_icon_size }}px;
-      height: {{ section.settings.desktop_icon_size }}px;
     }
   }
 
@@ -171,12 +172,14 @@
                 {%- endif -%}
               </div>
             {%- endif -%}
-            {%- if block.settings.title != blank -%}
+            <div class="featured_content">
+              {%- if block.settings.title != blank -%}
               <h3 class="feature-title">{{ block.settings.title }}</h3>
-            {%- endif -%}
-            {%- if block.settings.text != blank -%}
-              <div class="feature-text">{{ block.settings.text }}</div>
-            {%- endif -%}
+              {%- endif -%}
+              {%- if block.settings.text != blank -%}
+                <div class="feature-text">{{ block.settings.text }}</div>
+              {%- endif -%}
+            </div>
           </div>
         </div>
       {%- endfor -%}
@@ -269,16 +272,6 @@
     },
     {
       "type": "range",
-      "id": "desktop_icon_size",
-      "min": 20,
-      "max": 80,
-      "step": 2,
-      "unit": "px",
-      "label": "Desktop icon size",
-      "default": 24
-    },
-    {
-      "type": "range",
       "id": "desktop_title_size",
       "min": 12,
       "max": 32,
@@ -319,16 +312,6 @@
       "unit": "px",
       "label": "Mobile gap",
       "default": 12
-    },
-    {
-      "type": "range",
-      "id": "mobile_icon_size",
-      "min": 16,
-      "max": 60,
-      "step": 2,
-      "unit": "px",
-      "label": "Mobile icon size",
-      "default": 32
     },
     {
       "type": "range",

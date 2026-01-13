@@ -5,7 +5,7 @@
   }
 
   .privacy-block {
-    margin-bottom: 48px;
+    margin-bottom: 27px;
   }
 
   .privacy-block h2 {
@@ -15,7 +15,10 @@
 
   .privacy-block p {
     margin-bottom: 14px;
-    line-height: 1.7;
+    line-height: 24px;
+    font-size: 16px;
+    font-weight: 300;
+    color:{{ section.settings.content_color}};
   }
 
   .privacy-list {
@@ -77,16 +80,16 @@
   "tag": "section",
   "class": "section",
   "settings": [
-    {
-      "type": "select",
+     {
+      "type": "color_scheme",
       "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "background-1",
-      "options": [
-        { "value": "background-1", "label": "Background 1" },
-        { "value": "background-2", "label": "Background 2" },
-        { "value": "inverse", "label": "Inverse" }
-      ]
+      "label": "Color scheme"
+    },
+    {
+      "type":"color",
+      "id":"content_color",
+      "label":"Content Color",
+      "default":"#646464"
     },
     {
       "type": "range",

@@ -5,6 +5,11 @@ h2 {
 .comp_heighlight_description p {
     margin: 30px 0;
     letter-spacing: 0;
+    font-weight: 300;
+    line-height: 24px;
+}
+.time_line_extra_content {
+    font-weight: 300;
 }
 .comp_heighlight_heading {
     max-width: max-content;
@@ -14,23 +19,36 @@ h2 {
     display: flex;
     align-items: center;
     gap: 20px;
-    font-weight: 500;
+    font-weight: 300;
     font-size: 16px;
     text-transform: uppercase;
 }
-.comp_heighlight_heading img{
+/* .comp_heighlight_heading img{
     max-width:50px;
     width:100%;
+} */
+@media screen and (max-width: 1024px) {
+    .comp_heighlight_description p {
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 10px 0;
+    }
+    .comp_heighlight_heading{
+        padding: 14px 18px;
+        gap: 16px;
+    }
+    .time_line_extra_content p {
+        margin: 0;
+        line-height: 1.4;
+        font-size: 14px;
+    }
 }
-
 @media screen and (max-width: 749px) {
 .comp_heighlight_heading{
     font-size: 12px;
     gap: 10px;
     padding: 15px 10px;
+    margin-bottom: 20px;
 }
-.comp_heighlight_heading img {
-    max-width: 30px;
-    width: 100%;
-}
+
 }

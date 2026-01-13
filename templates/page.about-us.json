@@ -22,11 +22,12 @@
       "name": "Page Banner",
       "settings": {
         "desktop_image": "shopify://shop_images/about-us-banner.png",
-        "mobile_image": "shopify://shop_images/about-us-banner.png",
+        "mobile_image": "shopify://shop_images/Rectangle_40219_1.png",
         "gradient_angle": "90deg",
         "gradient_color": "#000000",
         "gradient_opacity_start": 40,
         "gradient_opacity_end": 0,
+        "page_title": "",
         "title_color": "#ffffff",
         "text_transform": "uppercase",
         "font_size_min": 26,
@@ -45,7 +46,9 @@
         "video_url": "https://youtu.be/AexVgsS74gU",
         "video_radius": 20,
         "padding_top": 70,
-        "padding_bottom": 70
+        "padding_bottom": 70,
+        "mpadding_top": 30,
+        "mpadding_bottom": 30
       }
     },
     "image_feature_grid_Rc9NHK": {
@@ -136,7 +139,9 @@
         "banner_text_color": "#ffffff",
         "color_scheme": "scheme-2",
         "padding_top": 70,
-        "padding_bottom": 70
+        "padding_bottom": 70,
+        "mpadding_top": 30,
+        "mpadding_bottom": 30
       }
     },
     "company_highlights_zjbCWe": {
@@ -211,14 +216,17 @@
       "settings": {
         "color_scheme": "scheme-8c4a1294-8eb7-41fe-b32c-4725426eef9e",
         "heading_img": "shopify://shop_images/heighlight_Icon_6201a5a9-1b65-498f-bbec-423625a4a3d3.png",
-        "company_heading": "Our Journey & Presence",
+        "heading_img_width": 50,
+        "company_heading": "EXPERTfit® CONSULTATION over the net",
         "heading_block_color_scheme": "scheme-0e18c6b1-3a88-4af3-8626-eb0927a77401",
         "description": "<p>As the founder/owner of XLFeet.com, Adrian knew footwear manufacturers were making extra large sizes yet few, if any, stores were stocking them. He did further research and asked around to find a way to connect with those manufacturers. Later at a shoe show in Las Vegas (with no knowledge about shoes, the lingo, or how to run a shoe store) he spoke to over 500 shoe manufacturers. Only one of those 500+ vendors let Adrian sell their shoes. The next year he went back and got three more brands.<br/><br/>He started the company out of his house and thought he would sell online only without a physical store. Adrian was still working full time selling cell phones in a retail store and had started XLFeet.com on the side.<br/><br/>Early in 2010 as sales began to trickle in, he bought a cargo van and put XLFeet.com decals on it thinking he might deliver the shoe store experience to his customers in the Minneapolis / St Paul Twin City area.<br/><br/>In 2012, XLFeet.com moved into its first physical store due to some shoe brands requiring the company to have a brick and mortar location. That year Adrian’s resources became dangerously low and he was referred to an organization called Microgrants by the Metropolitan Economic Development Association (MEDA.net) where he received a microgrant of just $1,000. This enabled him to pay for an opening order to add Florsheim as a brand to XLFeet.com.</p>",
         "custom_page_width": 1104,
         "show_pills": true,
         "grid_columns": 4,
         "padding_top": 60,
-        "padding_bottom": 60
+        "padding_bottom": 60,
+        "mpadding_top": 30,
+        "mpadding_bottom": 30
       }
     },
     "company_highlights_AzbEGh": {
@@ -257,6 +265,7 @@
       "settings": {
         "color_scheme": "scheme-2",
         "heading_img": "shopify://shop_images/image_685.png",
+        "heading_img_width": 62,
         "company_heading": "PHYSICAL STOREFRONT experience",
         "heading_block_color_scheme": "scheme-1",
         "description": "<p>Shortly after this, Adrian quit his job to work full time at XLFeet.com and within a year the company outgrew its first store. XLFeet.com then moved into a neighboring unit in the same building which upgraded the company’s space from 500 to 4,700 square feet.</p>",
@@ -264,7 +273,9 @@
         "show_pills": true,
         "grid_columns": 2,
         "padding_top": 70,
-        "padding_bottom": 60
+        "padding_bottom": 60,
+        "mpadding_top": 30,
+        "mpadding_bottom": 30
       }
     },
     "company_highlights_w8UyPb": {
@@ -329,6 +340,7 @@
       "settings": {
         "color_scheme": "scheme-8c4a1294-8eb7-41fe-b32c-4725426eef9e",
         "heading_img": "shopify://shop_images/image_686.png",
+        "heading_img_width": 50,
         "company_heading": "live & real customer support",
         "heading_block_color_scheme": "scheme-0e18c6b1-3a88-4af3-8626-eb0927a77401",
         "description": "<p>In 2017 XLFeet.com pierced $1M in annual sales and had grown to an offering of more than 50 brands of footwear. This enabled Adrian to give back to Microgrants with a donation of more than twice the amount of the grant he received a few years earlier. In 2019 the company migrated to a new website powered by Magento. This was a massive project which brought a wide array of extra functionality and benefits to XLFeet’s customers.</p>",
@@ -336,7 +348,9 @@
         "show_pills": true,
         "grid_columns": 4,
         "padding_top": 60,
-        "padding_bottom": 60
+        "padding_bottom": 60,
+        "mpadding_top": 30,
+        "mpadding_bottom": 30
       }
     },
     "featured_in_the_press_ptKPLL": {
@@ -378,15 +392,18 @@
       ],
       "name": "Featured In the Press",
       "settings": {
-        "color_scheme": "scheme-0e18c6b1-3a88-4af3-8626-eb0927a77401",
+        "color_scheme": "scheme-2",
         "heading_img": "shopify://shop_images/FEWER_RETURNS.png",
+        "heading_img_width": 50,
         "company_heading": "accurate fitting & FEWER RETURNS",
         "heading_block_color_scheme": "",
         "description": "<p>If you have large or wide feet, chances are you have already invested years of your life sifting through all kinds of cool boots and shoes on numerous websites and at shoe stores, only to learn the popular styles displayed are not offered in Big and Tall sizes or Wide widths. XLFeet.com offers the most cutting-edge shoes, boots, slippers, socks and insoles in the size and width you are looking for. They are always working to carry as many of the oddball sizes which span 7-13, 14, 15, 16, 17, 18, 19, 20, 21, and extra-wide to EEEEEE as possible.<br/><br/></p>",
         "show_pills": true,
         "grid_columns": 4,
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 36,
+        "mpadding_top": 30,
+        "mpadding_bottom": 30
       }
     },
     "custom_image_with_text_RMGRVV": {
@@ -405,7 +422,9 @@
         "button_link": "shopify://collections",
         "button_style_secondary": true,
         "padding_top": 72,
-        "padding_bottom": 72
+        "padding_bottom": 72,
+        "mpadding_top": 30,
+        "mpadding_bottom": 30
       }
     }
   },
