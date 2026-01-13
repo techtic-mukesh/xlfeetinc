@@ -1,133 +1,160 @@
 {% style %}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-  }
-.cookies-table-wrapper h2{
-    margin:0 0 20px 0;
-    font-size:37px;
+.section-{{ section.id }}-padding {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
 }
-.cookies-table thead tr{
-    border: 1px solid black;
+
+.cookies-table-wrapper h2 {
+  margin: 0 0 20px 0;
+  font-size: 37px;
+  color:{{ section.settings.header_bg }};
 }
+
+.cookies-table thead tr {
+  border: 1px solid {{ section.settings.header_bg }};
+}
+
 .cookies_head_content {
-    color: #646464;
-    font-weight: 300;
+  color: #646464;
+  font-weight: 300;
 }
+
 .cookies_heading_text {
-    margin-bottom: 81px;
+  margin-bottom: 81px;
 }
-  .cookies-table {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid rgba(0,0,0,0.15);
+
+.cookies-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid {{ section.settings.header_bg }};
+}
+
+.cookies-table th,
+.cookies-table td {
+  padding: 24px 16px;
+  text-align: left;
+  border-bottom: 1px solid #D9D9D9;
+  vertical-align: top;
+}
+
+.cookies-table td {
+  padding: 20px 16px;
+}
+
+.cookies-table th {
+  background: {{ section.settings.header_bg }};
+  color: {{ section.settings.header_text }};
+  font-weight: 500;
+  text-align: center;
+  font-size: 22px;
+  line-height: 20px;
+}
+
+.cookies-table td {
+  font-size: 16px;
+  line-height: 24px;
+  border-left: 1px solid #2B2020;
+  text-align: center;
+  font-weight: 300;
+  color: rgba(var(--color-foreground), 1);
+}
+
+th.column_1_th {
+  border-right: 1px solid #fff;
+}
+
+td.cokkies_table_column_1.last-row,
+.cookies-table td.last-row {
+  border-bottom: 1px solid {{ section.settings.header_bg }};
+}
+
+.cookies-table td strong {
+  font-weight: 300;
+}
+
+@media screen and (max-width: 1024px) {
+  .cookies_heading_text {
+    margin-bottom: 40px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .cookies-table-wrapper h2{
+      margin: 0 0 10px 0;
+      font-size: 30px;
+  }
+  .cookies_head_content{
+      font-size: 14px;
+  }
+  .cookies-table td{
+      font-size: 14px;
+      line-height: 18px;
+  }
+  .cookies-table td {
+      padding: 15px 16px;
+  }
+  .cookies-table th{
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 749px) {
+  .cookies-table-wrapper h2 {
+    font-size: 28px;
   }
 
-  .cookies-table th,
-  .cookies-table td {
-    padding: 14px 16px;
-    text-align: left;
-    border-bottom: 1px solid rgba(0,0,0,0.15);
-    vertical-align: top;
+  .cookies-table {
+    font-size: 12px;
+    border: 1px solid {{ section.settings.header_bg }};
   }
 
   .cookies-table th {
-    background: {{ section.settings.header_bg }};
-    color: {{ section.settings.header_text }};
-    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 8px;
+    line-height: 16px;
   }
 
   .cookies-table td {
-    font-size: 14px;
-    line-height: 1.6;
-    border-left: 1px solid #2B2020;
-  }
-  @media screen and (max-width: 749px) {
-  .cookies-table-wrapper h2{
-    font-size: 28px;
-  }
-  .cookies-table,
-  .cookies-table thead,
-  .cookies-table tbody,
-  .cookies-table th,
-  .cookies-table td,
-  .cookies-table tr {
-    display: block;
-    width: 100%;
+    font-size: 11px;
+    padding: 12px 8px;
+    line-height: 16px;
+    word-break: break-word;
   }
 
-  .cookies-table thead {
-    display: none;
-  }
-
-  .cookies-table tr {
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    margin-bottom: 16px;
-    padding: 8px;
-    border-radius: 5px;
-  }
-  .cookies-table{
-    border:none;
-  }
-  .cookies-table td {
-    border: none;
-    padding: 8px 0;
-    font-size: 14px;
-  }
-
-  .cookies-table td:first-child {
-    font-weight: 500 !important;
-    margin-bottom: 6px;
-  }
-
-  .cookies-table td::before {
-    content: attr(data-label);
-    display: block;
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 2px;
-    background: #000;
-    padding: 5px;
-    color: #fff;
+  .cookies_heading_text {
+    margin-bottom: 20px;
   }
 }
 {% endstyle %}
 
 <div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="section-{{ section.id }}-padding">
-    <div class="cookies-table-wrapper page-width">
-      <div class="cookies_heading_text">
+  <div class="page-width section-{{ section.id }}-padding cookies-table-wrapper">
+    <div class="cookies_heading_text">
         {% if section.settings.heading != blank %}
           <h2>{{ section.settings.heading }}</h2>
         {% endif %}
         <div class="cookies_head_content">
           {{ section.settings.content }}
-        </div>
-      </div>
-
-      <table class="cookies-table">
-        <thead>
-          <tr>
-            <th>{{ section.settings.column_1 }}</th>
-            <th>{{ section.settings.column_2 }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for block in section.blocks %}
-            <tr {{ block.shopify_attributes }}>
-            <td data-label="{{ section.settings.column_1 }}">
-                <strong>{{ block.settings.cookie_name }}</strong>
-                </td>
-                <td data-label="{{ section.settings.column_2 }}">
-                {{ block.settings.cookie_description }}
-                </td>
-
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-
     </div>
+    </div>
+    <table class="cookies-table">
+      <thead>
+        <tr>
+          <th class="column_1_th">{{ section.settings.column_1 }}</th>
+          <th>{{ section.settings.column_2 }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for block in section.blocks %}
+          <tr>
+            <td class="cokkies_table_column_1 {% if forloop.last %}last-row{% endif %}">
+              {{ block.settings.cookie_name }}
+            </td>
+            <td class="{% if forloop.last %}last-row{% endif %}">
+              {{ block.settings.cookie_description }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -144,9 +171,9 @@
       "default": "List of cookies we collect"
     },
     {
-      "type":"text",
-      "id":"content",
-      "label":"Content"
+      "type": "text",
+      "id": "content",
+      "label": "Content"
     },
     {
       "type": "text",
@@ -173,15 +200,10 @@
       "default": "#ffffff"
     },
     {
-      "type": "select",
+      "type": "color_scheme",
       "id": "color_scheme",
       "label": "Color scheme",
-      "default": "background-1",
-      "options": [
-        { "value": "background-1", "label": "Background 1" },
-        { "value": "background-2", "label": "Background 2" },
-        { "value": "inverse", "label": "Inverse" }
-      ]
+      "default": "background-1"
     },
     {
       "type": "range",
