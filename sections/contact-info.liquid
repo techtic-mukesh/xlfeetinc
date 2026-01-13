@@ -56,6 +56,10 @@
     padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
   }
 }
+.contact-info-grid__content{
+  color:{{ section.settings.content_color }};
+  font-weight: 300;
+}
 {% endstyle %}
 
 {% schema %}
@@ -69,6 +73,12 @@
       "id": "color_scheme",
       "label": "Color scheme",
       "default": "background-1"
+    },
+    {
+      "type":"color",
+      "id":"content_color",
+      "label":"Content Color",
+      "default":"#646464"
     },
     {
       "type": "range",

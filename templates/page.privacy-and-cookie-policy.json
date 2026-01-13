@@ -85,6 +85,7 @@
         "left_bottom_content": "<p>For the exhaustive list of cookies we collect see the List of <a href=\"#\" title=\"#\">cookies we collect section</a>.</p>",
         "right_heading": "What we do with the information we gather",
         "color_scheme": "background-1",
+        "content_color": "#646464",
         "max_width": 1200,
         "padding_top": 24,
         "padding_bottom": 24
@@ -170,6 +171,7 @@
       "name": "Privacy policy – text content",
       "settings": {
         "color_scheme": "background-1",
+        "content_color": "#646464",
         "padding_top": 0,
         "padding_bottom": 0
       }
@@ -303,12 +305,13 @@
       "name": "Cookies table",
       "settings": {
         "heading": "List of cookies we collect",
+        "content": "The table below lists the cookies we collect and what information they store.",
         "column_1": "Cookie Name",
         "column_2": "Cookie Description",
         "header_bg": "#000000",
         "header_text": "#ffffff",
         "color_scheme": "background-1",
-        "padding_top": 20,
+        "padding_top": 12,
         "padding_bottom": 20
       }
     }

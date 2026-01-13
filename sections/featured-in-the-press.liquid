@@ -4,7 +4,7 @@
     padding-bottom: {{ section.settings.mpadding_bottom }}px;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 769px) {
     .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
@@ -30,7 +30,7 @@ text-align: center;
 .bottom-feature-grid-{{ section.id }} .pill-buttons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 2rem;
   margin-bottom: 1.5rem;
   flex-wrap: wrap;
 }
@@ -50,6 +50,16 @@ text-align: center;
     border-radius: 20px;
     margin-bottom: 20px;
     align-items: center;
+}
+.bottom-feature-grid-{{ section.id }} .comp_heighlight_heading img {
+    max-width: {{ section.settings.heading_img_width }}px;
+    width:100%;
+}
+@media screen and (max-width: 749px) {
+.bottom-feature-grid-{{ section.id }} .comp_heighlight_heading img {
+    max-width: 30px;
+    width: 100%;
+}
 }
 {% for block in section.blocks %}
     .block-grid-{{ block.id }} .feature_in_press_blocks_right_img {
@@ -79,10 +89,36 @@ text-align: center;
     max-width: 68%;
     width: 100%;
 }
+.main_comp_heighlight_heading{
+    color: rgba(var(--color-foreground), 1);
+    font-weight: 500;
+    letter-spacing: 0;
+}
+@media screen and (max-width: 1024px) {
+  .bottom-feature-grid-{{ section.id }} .card-content h3 {
+      font-size: 16px;
+      line-height: 22px;
+  }
+  .main_comp_heighlight_heading{
+    font-size: 14px;
+  }
+  .bottom-feature-grid-{{ section.id }} .comp_heighlight_heading img {
+    max-width: 30px;
+    width:100%;
+  }
+}
 @media screen and (max-width: 989px) {
  .feature_in_press_blocks_right{
-    gap: 20px;
-    padding: 20px;
+    gap: 15px;
+    padding: 10px;
+    margin:0;
+ }
+ .feature_in_press_blocks_right_content{
+    font-size: 12px;
+ }
+ .feature_in_press_blocks_left img{
+      height: 100%;
+    object-fit: contain;
  }
  {% for block in section.blocks %}
     .block-grid-{{ block.id }} .feature_in_press_blocks_right_img {
@@ -114,8 +150,11 @@ text-align: center;
 @media screen and (max-width: 450px) {
 .feature_in_press_blocks_right{
     flex-direction:column;
+    margin-bottom: 15px;
+    gap: 5px;
 }
 }
+
 {% endstyle %}
 
 <section class="bottom-feature-grid-{{ section.id }} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
@@ -125,7 +164,7 @@ text-align: center;
     <div>
         <div class="comp_heighlight_heading color-{{ section.settings.heading_block_color_scheme }}">
            {% if section.settings.heading_img !=blank %} <img src="{{ section.settings.heading_img | img_url  : 'master' }}"> {% endif %}
-            <span>
+            <span class="main_comp_heighlight_heading">
                 {{ section.settings.company_heading }}
             </span>
         </div>
@@ -199,6 +238,15 @@ text-align: center;
       "type": "image_picker",
       "id": "heading_img",
       "label": "Heading Image"
+    },
+    {
+      "type": "range",
+      "id": "heading_img_width",
+      "label": "Heading Image Width (px)",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "default": 50
     },
     {
       "type": "text",
