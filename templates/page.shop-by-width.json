@@ -27,6 +27,7 @@
         "gradient_color": "#000000",
         "gradient_opacity_start": 40,
         "gradient_opacity_end": 0,
+        "page_title": "",
         "title_color": "#ffffff",
         "text_transform": "uppercase",
         "font_size_min": 26,
@@ -100,7 +101,7 @@
         "heading": "",
         "text": "<p>Without question, the best place for<strong> wide width</strong> and<strong> large size men's boots</strong> is<strong> XLfeet</strong>. We specialize in <strong>boots, socks, shoes, sandals</strong>, and <strong>slippers</strong>.<br/></p><p>Founded by Adrian Coulter, a guy who wears a size <strong>16 EE Wide</strong>, XLfeet was born out of necessity. Men like Adrian have struggled since the age of 13 to find sizes <strong>13, 14, 15, 16, 17, 18, 19, 20, and 21</strong> in stores.<br/></p><p>If you're a man with <strong>big feet </strong>needing <strong>large size boots</strong> and shoes, XLfeet is as important to your feet as <strong>oxygen </strong>is to your body.<br/><br/>We offer the biggest selection of <strong>wide men's socks, boots</strong>, and <strong>shoes </strong>up to EEEEEE width. Whether you have <strong>EE wide</strong> feet or <strong>6E wide</strong> feet, we've got you covered.<br/></p><p>We also cater to men with <strong>narrow feet </strong>with sizes down to <strong>B, A, and AA narrow</strong>. Whether you need 6E wide slip-resistant shoes or steel toe work boots up to size 18, we’ve got you covered.<br/><br/>Don't forget our super comfortable socks for <strong>wide feet</strong>—rumor has it, even Bigfoot couldn’t resist them!</p>",
         "image": "shopify://shop_images/Frame_1321318998_1.png",
-        "color_scheme": "",
+        "color_scheme": "scheme-8c4a1294-8eb7-41fe-b32c-4725426eef9e",
         "pill_min_width": 116,
         "pill_bg": "#f5f5f5",
         "pill_text": "#000000",
@@ -108,7 +109,9 @@
         "pill_hover_bg": "#000000",
         "pill_hover_text": "#ffffff",
         "padding_top": 48,
-        "padding_bottom": 48
+        "padding_bottom": 48,
+        "mpadding_top": 30,
+        "mpadding_bottom": 30
       }
     }
   },
