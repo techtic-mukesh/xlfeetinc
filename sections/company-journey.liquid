@@ -177,24 +177,32 @@
 /* Mobile */
 @media screen and (max-width: 749px) {
   .timeline {
-    flex-direction: column;
     gap: 1.5rem;
-    align-items: center;
   }
-
+.timeline-item h2{
+    font-size: 12px;
+}
+.custom_timeline_block:not(:last-child)::after{
+  top:20px;
+}
   .custom_timeline_block {
     padding: 0;
+    max-width: calc(33.33% - 15px);
+    width: 100%;
+    min-width: unset;
   }
 
-  .custom_timeline_block::after {
-    display: none;
+  .custom_timeline_block span{
+    line-height: 15px;
+    font-size: 12px;
+    max-width: 100%;
   }
   .timeline-banner__overlay h2 {
     font-size: 18px;
   }
   .timeline-item{
-    padding: 15px 1.75rem;
-    min-width: 170px;
+      padding: 10px;
+      min-width: 100%;
 }
 }
 {% endstyle %}
