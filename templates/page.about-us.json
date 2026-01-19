@@ -232,7 +232,7 @@
     "company_highlights_AzbEGh": {
       "type": "company-highlights",
       "blocks": {
-        "pill_CW36nW": {
+        "pill_rLBand": {
           "type": "pill",
           "settings": {
             "year": "2012",
@@ -257,7 +257,7 @@
         }
       },
       "block_order": [
-        "pill_CW36nW",
+        "pill_rLBand",
         "card_gQmrTB",
         "card_qLerzL"
       ],
