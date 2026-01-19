@@ -21,8 +21,8 @@
       "type": "page-banner",
       "name": "Page Banner",
       "settings": {
-        "desktop_image": "shopify://shop_images/Shop_by_Size.png",
-        "mobile_image": "shopify://shop_images/Shop_by_Size.png",
+        "desktop_image": "shopify://shop_images/Rectangle_40219_2.png",
+        "mobile_image": "shopify://shop_images/Rectangle_40222.png",
         "gradient_angle": "90deg",
         "gradient_color": "#000000",
         "gradient_opacity_start": 40,
