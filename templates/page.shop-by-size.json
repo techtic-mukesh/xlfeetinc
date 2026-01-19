@@ -27,6 +27,7 @@
         "gradient_color": "#000000",
         "gradient_opacity_start": 40,
         "gradient_opacity_end": 0,
+        "page_title": "",
         "title_color": "#ffffff",
         "text_transform": "uppercase",
         "font_size_min": 26,
@@ -116,14 +117,17 @@
         "heading": "",
         "text": "<p>XL Feet came into existence from <strong>real-life experiences</strong>, and we know how difficult it is to find that right pair of shoes when yours is a foot size that’s above 11.</p><p>When you are in need of <strong>men’s footwear</strong> that’s size<strong> 14 & above</strong> and want a width as wide as <strong>6E</strong>, XL Feet is the right destination.</p><p>We provide a wide selection of <strong>large-sized men’s boots</strong> and also offer <strong>designs, colors, categories, </strong>and <strong>brands </strong>to choose from.<br/><br/>Here’s our <strong>size-wise array</strong> for extra-large footwear. Shop from the range of <strong>big men’s shoes, boots, slippers, socks</strong>, and many more.<br/><br/></p>",
         "image": "shopify://shop_images/Frame_1321318998_a072cab9-ef70-49f2-b4f2-159e60fcb999.png",
-        "color_scheme": "",
+        "color_scheme": "scheme-8c4a1294-8eb7-41fe-b32c-4725426eef9e",
+        "pill_min_width": 72,
         "pill_bg": "#f5f5f5",
         "pill_text": "#000000",
         "pill_border": "#000000",
         "pill_hover_bg": "#000000",
         "pill_hover_text": "#ffffff",
         "padding_top": 48,
-        "padding_bottom": 48
+        "padding_bottom": 48,
+        "mpadding_top": 30,
+        "mpadding_bottom": 30
       }
     }
   },
