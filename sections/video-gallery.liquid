@@ -1,12 +1,22 @@
 {% comment %}
   Video gallery powered by Metaobjects + Fancybox
+
+  VIDEO ENTRIES (existing)
   Definition handle default: xl_feet_videos
   Field handles (exact):
-    - thumbnail (image/file reference)  — optional, falls back to YouTube preview
+    - thumbnail (image/file reference)
     - title      (single_line_text)
-    - video_url  (url) — YouTube/Vimeo/MP4
+    - video_url  (url)
     - video_tag  (single_line_text) — comma separated
+
+  FILTER TABS (new CMS you control the order with)
+  Definition handle default: xl_video_filters
+  Field handles (exact):
+    - name        (single_line_text) — label shown in the tab
+    - handle      (single_line_text, optional) — if blank we handleize name
+    - sort_order  (number/integer) — ascending display order
 {% endcomment %}
+
 {% style %}
 .section-{{ section.id }} {
   padding-top: {{ section.settings.padding_top }}px;
@@ -37,7 +47,6 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
 }
 {% endstyle %}
 
-
 {%- liquid
   assign def_handle = section.settings.definition_handle | default: 'xl_feet_videos' | strip
   assign entries_drop = shop.metaobjects[def_handle]
@@ -47,8 +56,17 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
   endif
 -%}
 {%- liquid
+  assign filter_def_handle = section.settings.filter_definition_handle | default: 'xl_video_filters' | strip
+  assign filters_drop = shop.metaobjects[filter_def_handle]
+  assign filters = nil
+  if filters_drop and filters_drop.values
+    assign filters = filters_drop.values | sort: 'sort_order'
+  endif
+-%}
+{%- liquid
   assign bg_opacity = section.settings.bg_opacity | divided_by: 100.0
 -%}
+
 <section id="video-metaobject-{{ section.id }}" class="section-{{ section.id }} section color-{{ section.settings.color_scheme }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
   <div class="page-width">
@@ -58,37 +76,97 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
 
     {%- if entries == blank -%}
       <div class="color-background-2 gradient content-container">
-        <p>No videos found. Enable Storefront access for the “{{ def_handle }}” metaobject and expose the fields.</p>
+        <p>No videos found. Enable Storefront access for the "{{ def_handle }}" metaobject and expose the fields.</p>
       </div>
     {%- else -%}
-      {%- comment -%} Build unique tag list {%- endcomment -%}
+      {%- comment -%} Build fallback tag list (only used when no filter metaobject provided) {%- endcomment -%}
       {%- assign unique_tags = '' | split: '' -%}
-      {%- for e in entries -%}
-        {%- assign raw_tag = e.video_tag | default: e.fields.video_tag | default: e.video_tag.value | default: '' -%}
-        {%- assign tokens = raw_tag | replace: ';', ',' | split: ',' -%}
+      {%- assign tag_labels = '' | split: '' -%}
+      {%- if filters == nil or filters == empty -%}
+        {%- for e in entries -%}
+          {%- assign raw_tag = e.video_tag | default: e.fields.video_tag | default: e.video_tag.value | default: '' -%}
+          {%- assign tokens = raw_tag | replace: ';', ',' | split: ',' -%}
+          {%- for t in tokens -%}
+            {%- assign label = t | strip -%}
+            {%- assign handle = label | handleize -%}
+            {%- if handle != '' -%}
+              {%- unless unique_tags contains handle -%}
+                {%- assign add_handle = handle | split: ',' -%}
+                {%- assign add_label = label | split: ',' -%}
+                {%- assign unique_tags = unique_tags | concat: add_handle -%}
+                {%- assign tag_labels = tag_labels | concat: add_label -%}
+              {%- endunless -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- comment -%} Manual list via section setting (comma-separated), takes priority over everything {%- endcomment -%}
+      {%- assign manual_handles = '' | split: '' -%}
+      {%- assign manual_labels = '' | split: '' -%}
+      {%- if section.settings.filters_manual and section.settings.filters_manual != '' -%}
+        {%- assign tokens = section.settings.filters_manual | replace: ';', ',' | split: ',' -%}
         {%- for t in tokens -%}
-          {%- assign handle = t | strip | handleize -%}
+          {%- assign label = t | strip -%}
+          {%- assign handle = label | handleize -%}
           {%- if handle != '' -%}
-            {%- unless unique_tags contains handle -%}
-              {%- assign add = handle | split: ',' -%}
-              {%- assign unique_tags = unique_tags | concat: add -%}
-            {%- endunless -%}
+            {%- assign add_handle = handle | split: ',' -%}
+            {%- assign add_label = label | split: ',' -%}
+            {%- assign manual_handles = manual_handles | concat: add_handle -%}
+            {%- assign manual_labels = manual_labels | concat: add_label -%}
           {%- endif -%}
         {%- endfor -%}
-      {%- endfor -%}
-      {%- assign unique_tags = unique_tags | sort -%}
+      {%- endif -%}
+
+      {%- comment -%} Build arrays for filter metaobject handles/labels (to reuse and to compute tag order) {%- endcomment -%}
+      {%- assign filter_handles = '' | split: '' -%}
+      {%- assign filter_labels = '' | split: '' -%}
+      {%- if filters and filters != empty -%}
+        {%- for f in filters -%}
+          {%- assign f_label = f.name | default: f.fields.name | default: f.name.value | default: '' -%}
+          {%- assign f_handle = f.handle | default: f.fields.handle | default: f_label | handleize -%}
+          {%- if f_handle != '' -%}
+            {%- assign add_handle = f_handle | split: ',' -%}
+            {%- assign add_label = f_label | split: ',' -%}
+            {%- assign filter_handles = filter_handles | concat: add_handle -%}
+            {%- assign filter_labels = filter_labels | concat: add_label -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- comment -%} The tag order string is used by JS to order the "All" view {%- endcomment -%}
+      {%- assign tag_order_str = '' -%}
+      {%- if manual_handles.size > 0 -%}
+        {%- assign tag_order_str = manual_handles | join: ',' -%}
+      {%- elsif filter_handles.size > 0 -%}
+        {%- assign tag_order_str = filter_handles | join: ',' -%}
+      {%- else -%}
+        {%- assign tag_order_str = unique_tags | join: ',' -%}
+      {%- endif -%}
 
       <div class="video-filter-buttons" role="tablist" aria-label="Video filters">
         <button class="button button--tertiary button--small tag_tabular is-active" data-filter="all" role="tab" aria-selected="true">All</button>
-        {%- for tag in unique_tags -%}
-          {%- assign label = tag | replace: '-', ' ' | capitalize -%}
-          <button class="button button--tertiary button--small tag_tabular" data-filter="{{ tag }}" role="tab" aria-selected="false">{{ label }}</button>
-        {%- endfor -%}
+
+        {%- if manual_handles.size > 0 -%}
+          {%- for tag in manual_handles -%}
+            {%- assign label = manual_labels[forloop.index0] -%}
+            <button class="button button--tertiary button--small tag_tabular" data-filter="{{ tag }}" role="tab" aria-selected="false">{{ label }}</button>
+          {%- endfor -%}
+        {%- elsif filter_handles.size > 0 -%}
+          {%- for tag in filter_handles -%}
+            {%- assign label = filter_labels[forloop.index0] -%}
+            <button class="button button--tertiary button--small tag_tabular" data-filter="{{ tag }}" role="tab" aria-selected="false">{{ label }}</button>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for tag in unique_tags -%}
+            {%- assign label = tag_labels[forloop.index0] -%}
+            <button class="button button--tertiary button--small tag_tabular" data-filter="{{ tag }}" role="tab" aria-selected="false">{{ label }}</button>
+          {%- endfor -%}
+        {%- endif -%}
       </div>
 
-      <div class="video-grid grid grid--{{ section.settings.columns_mobile }}-col grid--{{ section.settings.columns_desktop }}-col-desktop">
+      <div class="video-grid grid grid--{{ section.settings.columns_mobile }}-col grid--{{ section.settings.columns_desktop }}-col-desktop" data-tag-order="{{ tag_order_str }}">
         {%- for e in entries -%}
-          {%- comment -%} Tags for filtering {%- endcomment -%}
           {%- assign raw_tag = e.video_tag | default: e.fields.video_tag | default: e.video_tag.value | default: '' -%}
           {%- assign tag_tokens = raw_tag | replace: ';', ',' | split: ',' -%}
           {%- assign tag_handles = '' -%}
@@ -97,7 +175,6 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
             {%- if h != '' -%}{%- assign tag_handles = tag_handles | append: h | append: ' ' -%}{%- endif -%}
           {%- endfor -%}
 
-          {%- comment -%} Resolve field values safely {%- endcomment -%}
           {%- assign title_text = e.title | default: e.fields.title | default: e.title.value | default: '' -%}
           {%- assign raw_url = '' -%}
           {%- if e.video_url and e.video_url.value -%}
@@ -106,7 +183,6 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
             {%- assign raw_url = e.fields.video_url | strip -%}
           {%- endif -%}
 
-          {%- comment -%} Normalize YouTube/Vimeo/MP4 for Fancybox {%- endcomment -%}
           {%- assign video_type = 'other' -%}
           {%- assign video_href = raw_url -%}
           {%- assign yt_id = '' -%}
@@ -132,7 +208,6 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
             {%- assign video_type = 'html5video' -%}
           {%- endif -%}
 
-          {%- comment -%} Poster image: prefer metaobject thumbnail, else YouTube preview {%- endcomment -%}
           {%- capture poster_html -%}{%- endcapture -%}
           {%- if e.thumbnail and e.thumbnail != blank -%}
             {%- capture poster_html -%}
@@ -150,7 +225,7 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
             {%- endcapture -%}
           {%- endif -%}
 
-          <article class="grid__item video-card" data-tags="{{ tag_handles | strip }}">
+          <article class="grid__item video-card" data-tags="{{ tag_handles | strip }}" data-index="{{ forloop.index0 }}">
             <div class="card-wrapper underline-links-hover">
               <div class="card card--media card--text">
                 <div class="card__inner ratio" style="--ratio-percent: 56.25%;">
@@ -178,7 +253,6 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
                     <path d="M28.75 0C36.375 0 43.6876 3.02901 49.0793 8.42068C54.471 13.8124 57.5 21.125 57.5 28.75C57.5 36.375 54.471 43.6876 49.0793 49.0793C43.6876 54.471 36.375 57.5 28.75 57.5C21.125 57.5 13.8124 54.471 8.42068 49.0793C3.02901 43.6876 0 36.375 0 28.75C0 21.125 3.02901 13.8124 8.42068 8.42068C13.8124 3.02901 21.125 0 28.75 0ZM28.75 53.3929C35.2857 53.3929 41.5537 50.7966 46.1751 46.1751C50.7966 41.5537 53.3929 35.2857 53.3929 28.75C53.3929 22.2143 50.7966 15.9463 46.1751 11.3249C41.5537 6.70344 35.2857 4.10714 28.75 4.10714C22.2143 4.10714 15.9463 6.70344 11.3249 11.3249C6.70344 15.9463 4.10714 22.2143 4.10714 28.75C4.10714 35.2857 6.70344 41.5537 11.3249 46.1751C15.9463 50.7966 22.2143 53.3929 28.75 53.3929Z" fill="white"/>
                     <path d="M25.9511 18.3183L37.8146 26.4305C38.1273 26.6443 38.3836 26.9339 38.5609 27.2737C38.7382 27.6134 38.8309 27.9928 38.8309 28.3782C38.8309 28.7635 38.7382 29.1429 38.5609 29.4827C38.3836 29.8224 38.1273 30.1121 37.8146 30.3258L25.9511 38.438C25.6073 38.673 25.2078 38.808 24.7952 38.8284C24.3825 38.8489 23.9722 38.7541 23.6079 38.5542C23.2437 38.3543 22.9392 38.0567 22.7268 37.6932C22.5145 37.3298 22.4024 36.914 22.4023 36.4904V20.2628C22.4024 19.8392 22.5145 19.4234 22.7268 19.06C22.9392 18.6965 23.2437 18.399 23.6079 18.199C23.9722 17.9991 24.3825 17.9043 24.7952 17.9248C25.2078 17.9452 25.6073 18.0802 25.9511 18.3152V18.3183Z" fill="white"/>
                     </svg>
-
                   </span>
                 </div>
 
@@ -196,7 +270,7 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
   </div>
 
   <style>
-    #video-metaobject-{{ section.id }} .video-filter-buttons { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:30px; }
+    #video-metaobject-{{ section.id }} .video-filter-buttons { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:30px;     justify-content: center; }
     #video-metaobject-{{ section.id }} .video-card[hidden] { display: none !important; }
     #video-metaobject-{{ section.id }} .card--media .media { transition: transform .4s ease; width:100%; }
     #video-metaobject-{{ section.id }} .card--media img{
@@ -272,7 +346,12 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
 #video-metaobject-{{ section.id }} .video-filter-buttons .button:active::before {
   opacity: 1;
 }
-
+.video-grid .card__inner{
+    min-height: 252px;
+}
+.video-grid{
+  justify-content: center;
+}
 /* Pulse keyframe */
 @keyframes tabPulse {
   0% { transform: scale(0.96); }
@@ -330,17 +409,56 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
 
       const buttons = Array.from(root.querySelectorAll('[data-filter]'));
       const cards = Array.from(root.querySelectorAll('.video-card'));
+      const grid = root.querySelector('.video-grid');
+
+      // Build tag priority from Liquid-provided data (manual list > filter metaobject > fallback)
+      const tagOrder = (grid?.dataset.tagOrder || '').split(',').map(s => s.trim()).filter(Boolean);
+      const rankByTag = new Map(tagOrder.map((t, i) => [t, i]));
 
       function setActive(button) {
         buttons.forEach(b => b.classList.toggle('is-active', b === button));
         buttons.forEach(b => b.setAttribute('aria-selected', b === button ? 'true' : 'false'));
       }
 
+      function compositeOrder(el) {
+        const tags = (el.dataset.tags || '').split(' ').filter(Boolean);
+        const idx = Number(el.dataset.index || '0');
+
+        // No tag => show first
+        if (tags.length === 0) {
+          return (-1) * 10000 + idx;
+        }
+
+        let found = false;
+        let rank = Number.MAX_SAFE_INTEGER;
+        for (const t of tags) {
+          if (rankByTag.has(t)) {
+            found = true;
+            rank = Math.min(rank, rankByTag.get(t));
+          }
+        }
+        // If has tags but none are in configured order, push them after known tags
+        if (!found) rank = 9999;
+
+        return rank * 10000 + idx;
+      }
+
       function applyFilter(filter) {
-        if (filter === 'all') { cards.forEach(el => el.hidden = false); return; }
+        if (filter === 'all') {
+          cards.forEach(el => {
+            el.hidden = false;
+            el.style.order = compositeOrder(el);
+          });
+          return;
+        }
+        // For filtered views, keep original CMS order within the tag
         cards.forEach(el => {
           const tags = (el.dataset.tags || '').split(' ').filter(Boolean);
-          el.hidden = !tags.includes(filter);
+          const matches = tags.includes(filter);
+          el.hidden = !matches;
+          if (matches) {
+            el.style.order = el.dataset.index || '0';
+          }
         });
       }
 
@@ -359,6 +477,9 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
         });
       }
       initFancybox();
+
+      // Apply initial ordering in "All" according to tag priority, with tagless first
+      applyFilter('all');
     })();
   </script>
 </section>
@@ -374,6 +495,25 @@ button.button.button--tertiary.button--small.tag_tabular.is-active {
       "default": "background-1"
     },
     { "type": "text", "id": "heading", "label": "Heading" },
+    {
+      "type": "text",
+      "id": "definition_handle",
+      "label": "Video metaobject handle",
+      "default": "xl_feet_videos"
+    },
+    {
+      "type": "text",
+      "id": "filter_definition_handle",
+      "label": "Filter metaobject handle",
+      "info": "Create metaobject with fields: name, handle (optional), sort_order",
+      "default": "xl_video_filters"
+    },
+    {
+      "type": "textarea",
+      "id": "filters_manual",
+      "label": "Filter tabs (comma-separated, order preserved)",
+      "info": "Example: XL Feet, New Balance, Hoss Carson"
+    },
     {
       "type": "header",
       "content": "Block Color"
