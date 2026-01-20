@@ -243,9 +243,12 @@
                         <path d="M0.75 23.25C0.75 18.4175 4.66751 14.5 9.5 14.5C14.3325 14.5 18.25 18.4175 18.25 23.25M14.5 5.75C14.5 8.51142 12.2614 10.75 9.5 10.75C6.73858 10.75 4.5 8.51142 4.5 5.75C4.5 2.98858 6.73858 0.75 9.5 0.75C12.2614 0.75 14.5 2.98858 14.5 5.75Z" stroke="#191B1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                       </span>
-                      <span class="snv-text">
-                        Login / Register
-                      </span>
+                      {%- unless customer -%}
+                        <span class="snv-text">
+                          Login / Register
+                        </span>
+                      {%- endunless -%}
+
                     {%- endif -%}
                   </account-icon>
                 {%- else -%}

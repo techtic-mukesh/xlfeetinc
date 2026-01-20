@@ -141,6 +141,8 @@ button.password-toggle-button {
 
       {%- form 'recover_customer_password' -%}
         {% assign recover_success = form.posted_successfully? %}
+         <span class="login_grid">
+        <span class="login_grid_title">{{ 'customer.login_page.email' | t }}</span>
         <div class="field">
           <input
             type="email"
@@ -155,12 +157,13 @@ button.password-toggle-button {
               aria-describedby="RecoverEmail-email-error"
               autofocus
             {% endif %}
-            placeholder="{{ 'customer.login_page.email' | t }}"
+            placeholder="{{ section.settings.email_placeholder }}"
           >
           <label for="RecoverEmail">
-            {{ 'customer.login_page.email' | t }}
+            {{ section.settings.email_placeholder }}
           </label>
         </div>
+        </span>
         {%- if form.errors -%}
           <small id="RecoverEmail-email-error" class="form__message">
             <span class="svg-wrapper">
@@ -229,10 +232,10 @@ button.password-toggle-button {
             {% if form.errors contains 'form' %}
               aria-invalid="true"
             {% endif %}
-            placeholder="{{ 'customer.login_page.email' | t }}"
+            placeholder="{{  section.settings.email_placeholder }}"
           >
           <label for="CustomerEmail">
-            {{ 'customer.login_page.email' | t }}
+            {{ section.settings.email_placeholder }}
           </label>
         </div>
         </span>
@@ -251,10 +254,10 @@ button.password-toggle-button {
               {% if form.errors contains 'form' %}
                 aria-invalid="true"
               {% endif %}
-              placeholder="{{ 'customer.login_page.password' | t }}"
+              placeholder="{{  section.settings.password_placeholder }}"
             >
             <label for="CustomerPassword">
-              {{ 'customer.login_page.password' | t }}
+              {{ section.settings.password_placeholder }}
             </label>
           </div>
       </span>
@@ -310,6 +313,22 @@ button.password-toggle-button {
       "type":"color_scheme",
       "id":"color_scheme",
       "label":"Color Scheme"
+    },
+    {
+      "type":"header",
+      "content":"Field Placeholder"
+    },
+    {
+      "type":"text",
+      "id":"email_placeholder",
+      "label":"Email Placeholder",
+      "default":"Type in your email address"
+    },
+    {
+      "type":"text",
+      "id":"password_placeholder",
+      "label":"Password Placeholder",
+      "default":"Your Password"
     },
     {
       "type": "header",
