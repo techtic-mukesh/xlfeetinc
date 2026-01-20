@@ -40,6 +40,9 @@
       "settings": {
         "color_scheme": "",
         "heading": "",
+        "definition_handle": "xl_feet_videos",
+        "filter_definition_handle": "xl_video_filters",
+        "filters_manual": "XL Feet,New Balance,Hoss Carson,Avenger,Carolina Men,Hoss Cartwright,Large Socks",
         "tab_background_clr": "#fcfcfc",
         "tab_txt_color": "#646464",
         "active_tab_background_clr": "#000000",
