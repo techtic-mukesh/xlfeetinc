@@ -485,7 +485,7 @@
     },
     "recover_password": {
       "title": "Forgot Your Password?",
-      "subtext": "We will send you an email to reset your password",
+      "subtext": "Please enter your email address below to receive a password reset link.",
       "success": "We've sent you an email with a link to update your password."
     },
     "register": {
