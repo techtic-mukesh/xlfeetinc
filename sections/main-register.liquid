@@ -57,11 +57,11 @@ a.forgot-link {
 .remember-me{ 
     display: inline-flex;
     align-items: center;
-    gap: 8px;
     font-size: 14px;
     color: #5A5A5A;
     font-weight: 500;
     line-height: 24px; 
+    gap:12px;
 }
 .remember-me input{
   appearance: none;
@@ -185,6 +185,22 @@ p.already-account a{
   font-weight: 500;
   text-decoration: none;
   color: rgba(var(--color-foreground), 1);
+}
+@media screen and (max-width: 749px) {
+  .register_content{
+    font-size: 14px;
+    line-height: 22px;
+  }
+  a.forgot-link{
+    font-size: 12px;
+  }
+  .remember-me input{
+    width: 16px;
+    height: 16px;
+  }
+  .remember-me{
+    gap:8px;
+  }
 }
 {%- endstyle -%}
 <div class="custom_login_page_width">
