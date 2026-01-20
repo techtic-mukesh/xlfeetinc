@@ -435,8 +435,8 @@
     "log_in": "Log in",
     "log_out": "Log out",
     "login_page": {
-      "cancel": "Cancel",
-      "create_account": "Create account",
+      "cancel": "Back",
+      "create_account": "Sign Up",
       "email": "Email",
       "forgot_password": "Forgot your password?",
       "guest_continue": "Continue",
@@ -444,7 +444,7 @@
       "password": "Password",
       "title": "Login To Your Account",
       "sign_in": "Sign in",
-      "submit": "Submit",
+      "submit": "Reset My Password",
       "alternate_provider_separator": "or"
     },
     "order": {
@@ -484,8 +484,8 @@
       "none": "You haven't placed any orders yet."
     },
     "recover_password": {
-      "title": "Reset your password",
-      "subtext": "We will send you an email to reset your password",
+      "title": "Forgot Your Password?",
+      "subtext": "Please enter your email address below to receive a password reset link.",
       "success": "We've sent you an email with a link to update your password."
     },
     "register": {

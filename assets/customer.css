@@ -6,15 +6,15 @@
   text-align: center; */
 }
 .custom_login_page_width{
-    max-width: 566px;
+    max-width: 576px;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     text-align: center;
     margin: auto;
 }
 .customer:not(.account):not(.order){
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      padding-left: 30px;
+      padding-right: 25px;
 }
 
 @media screen and (min-width: 750px) {
@@ -381,6 +381,9 @@ span.login_grid_title {
   display: block;
   margin: 0 auto;
   width: fit-content;
+  text-decoration: none;
+  color: #1f1f1f;
+  font-size: 14px;
 }
 
 .login a[href='#recover'] {
@@ -398,7 +401,13 @@ span.login_grid_title {
 }
 
 .login p {
-  margin: 1.5rem 0;
+    margin: 10px 0;
+    color: #000000;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight:300;
+    letter-spacing: 0;
+    text-align: left;
 }
 
 .login h3 {
@@ -438,6 +447,13 @@ span.login_grid_title {
   font-weight: 900;
   text-transform: uppercase;
   margin-bottom: 10px;
+  letter-spacing: 2.2px;
+  text-align: left;
+}
+#recover:focus-visible, #login:focus-visible{
+  outline:unset;
+  outline-offset:unset;
+  box-shadow:unset;
 }
 
 #recover {

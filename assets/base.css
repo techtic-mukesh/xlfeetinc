@@ -1735,7 +1735,11 @@ details[open] > .share-button__fallback {
   letter-spacing: 0.1rem;
   line-height: 1.5;
 }
-
+.customer .field label {
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 1);
+  font-weight: 300;
+}
 .field__input:focus ~ .field__label,
 .field__input:not(:placeholder-shown) ~ .field__label,
 .field__input:-webkit-autofill ~ .field__label,
