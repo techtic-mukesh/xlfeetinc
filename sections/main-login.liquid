@@ -79,7 +79,7 @@ button.password-toggle-button {
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin:20px 0 12px;
+  margin:20px 0 0;
 }
 
 .remember-me{
@@ -87,20 +87,21 @@ button.password-toggle-button {
   align-items:center;
   gap:8px;
   font-size:14px;
-  line-height:1;
-  color:currentColor;
+  color: #5A5A5A;
+  font-weight: 500;
+  line-height:24px;
 }
 
 .remember-me input {
     appearance: none;
     width: 20px;
     height: 20px;
-    border: 1.5px solid rgba(0,0,0,.35);
+    border: 2px solid #5A5A5A;
     border-radius: 4px;
-    background: #fff;
     display: inline-grid;
     place-items: center;
-    margin: 0 .5rem 0 .5rem;
+    margin: 0;
+    
 }
 
 .remember-me input:checked{
@@ -339,7 +340,7 @@ button.password-toggle-button {
       "id": "padding_top",
       "min": 0,
       "max": 100,
-      "step": 4,
+      "step": 2,
       "unit": "px",
       "label": "t:sections.all.padding.padding_top",
       "default": 36
@@ -349,7 +350,7 @@ button.password-toggle-button {
       "id": "padding_bottom",
       "min": 0,
       "max": 100,
-      "step": 4,
+      "step": 2,
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36

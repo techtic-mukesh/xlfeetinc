@@ -13,6 +13,13 @@
       "type": "main-register",
       "settings": {
         "color_scheme": "scheme-290470d7-d10b-485e-a665-f3b64745a480",
+        "register_content": "Creating an account has many benefits: check out faster, keep more than one address, track orders and more.",
+        "name_label": "Your Full Name",
+        "name_placeholder": "Your Name",
+        "email_placeholder": "Type in your email address",
+        "password_placeholder": "Enter password",
+        "confirm_password_label": "Confirm Password",
+        "confirm_password_placeholder": "Re-enter password",
         "padding_top": 36,
         "padding_bottom": 36
       }
