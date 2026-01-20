@@ -7,7 +7,7 @@
     width: 100%;
 }
 .conatct_right_side_content {
-    max-width: 42.5%;
+    max-width: 42.7%;
     background: #F4F4F4;
     width: 100%;
     border-radius: 30px;
@@ -23,6 +23,7 @@ h2.title.title-wrapper--no-top-margin.inline-richtext.h1 {
     font-weight: 900;
     margin-bottom: 30px;
     line-height: 67px;
+    font-family: "HelveticaNeue-BlackExt";
 }
   .contact-info h4 , 
   .contact-info p strong  {
@@ -89,6 +90,9 @@ span.field_heading {
     width: 100%;
     font-weight: 500;
 }
+.conatct_right_side_content .contact__button{
+    margin-top:0;
+}
 @media screen and (max-width: 1024px) {
 .left_info_grid {
     display: flex;
@@ -105,20 +109,24 @@ h2.title.title-wrapper--no-top-margin.inline-richtext.h1 {
     gap:20px;
 }
 .conatct_right_side_content{
+    max-width: 50%;
+}
+.conatct_right_side_content{
     padding:20px;
 }
    .contact-info h4, .contact-info p strong{
-        font-size: 18px;
+        font-size: 14px;
     }
     .contact-info p{
-        font-size: 14px;
+        font-size: 12px;
         line-height: 20px;
     }
     .contact-info a{
         padding: 6px;
+        font-size: 12px;
     }
     .conatct_left_side_content {
-        max-width:55%;
+        max-width:49%;
     }
 }
 @media screen and (max-width: 749px) {
