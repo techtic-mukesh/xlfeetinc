@@ -261,11 +261,11 @@
     "contact": {
       "form": {
         "title": "Contact form",
-        "name": "Name",
+        "name": "Your Full Name",
         "email": "Email",
-        "phone": "Phone number",
-        "comment": "Comment",
-        "send": "Send",
+        "phone": "phone number?",
+        "comment": "What’s on your mind? ",
+        "send": "Submit",
         "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
         "error_heading": "Please adjust the following:"
       }
