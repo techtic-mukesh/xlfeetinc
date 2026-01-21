@@ -5,7 +5,7 @@
 
 <div class="shop-filter-wrapper">
   <!-- Shop by Width Section -->
-  <div class="frame-parent" style="background-image: url('{{ section.settings.width_background_image | image_url }}');">
+  <div class="frame-parent first_frame_parent" style="background-image: url('{{ section.settings.width_background_image | image_url }}');">
     <div
   class="overlay-background"
   style="--overlay-opacity: {{ section.settings.width_overlay_opacity | divided_by: 100.0 }};">
@@ -35,7 +35,7 @@
   </div>
 
   <!-- Shop by Size Section -->
-  <div class="frame-parent" style="background-image: url('{{ section.settings.size_background_image | image_url }}');">
+  <div class="frame-parent second_frame_parent" style="background-image: url('{{ section.settings.size_background_image | image_url }}');">
     
 <div
   class="overlay-background"
@@ -92,7 +92,12 @@
   color: #fff;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-
+.frame-parent.first_frame_parent {
+    width: 49.3%;
+}
+.frame-parent.second_frame_parent {
+   width: 50.7%;
+}
 .overlay-background {
   position: absolute;
   inset: 0;
@@ -123,8 +128,8 @@
 
 .shop-by-width,
 .shop-by-size {
-  position: relative;
- font-size: 38px;
+    position: relative;
+    font-size: 38px;
     font-weight: 500;
     font-family: 'Helvetica Neue';
     color: #fff;
@@ -133,6 +138,7 @@
     color: #fff;
     text-align: left;
     margin: 0;
+    line-height: 46px;
 }
 
 .shop-all-parent {
@@ -145,6 +151,7 @@
   font-size: 16px;
   text-decoration: none;
   color: #fff;
+  text-underline-offset: 2px;
   transition: opacity 0.3s ease;
 }
 
@@ -178,6 +185,7 @@
 
 .width-wrapper,
 .size-wrapper {
+  letter-spacing:0;
   backdrop-filter: blur(26px);
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.29);
@@ -199,7 +207,7 @@
 
 .frame-parent:first-child {
       padding-left: calc(50% - 1280px / 2);
-      padding-right: 49px;
+      padding-right: 80px;
 }
 
 .frame-parent:last-child {
@@ -212,13 +220,23 @@
   text-transform: uppercase;
   font-weight: 500;
   white-space: nowrap;
+  font-size: 16px;
+  letter-spacing: 0.06px;
 }
 
 @media screen and (max-width: 1300px) {
   .frame-parent:first-child {
     padding-left: 50px;
   }
-
+  .shop-by-width, .shop-by-size{
+        font-size: 34px;
+  }
+  .frame-parent.first_frame_parent {
+      width: 50%;
+  }
+  .frame-parent.second_frame_parent {
+    width: 50%;
+  }
   .frame-parent:last-child {
     padding-right: 50px;
             padding-left: 49px
@@ -234,7 +252,12 @@
     width: 100%;
     aspect-ratio: 4 / 2
 }
-
+.frame-parent.first_frame_parent {
+    width: 100%;
+}
+.frame-parent.second_frame_parent {
+   width: 100%;
+}
 .frame-content {
   gap: 100px;
 }
@@ -247,7 +270,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 10px;
     flex-shrink: 0;
   }
   .frame-parent {
@@ -284,7 +307,7 @@
   .frame-content {
     gap: 120px;
   }
-  
+  @media screen and (max-width: 768px) {
   .shop-all {
     font-size: 14px;
   }

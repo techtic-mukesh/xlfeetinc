@@ -175,6 +175,7 @@ footer.footer.color-scheme-3 .footer-block__heading  {
     line-height: 20px; /* 142.857% */
     font-family: "Helvetica Neue";
     color: #A6A6A6;
+    letter-spacing: 0;
 }
 
 
@@ -614,7 +615,7 @@ white-space: nowrap;
 
 .footer__blocks-wrapper.footer__blocks__cm--grid {
     display: grid;
-    grid-template-columns: auto auto auto 386px;
+    grid-template-columns: 236px auto auto 386px;
     gap: 125px;
 }
 
@@ -779,6 +780,7 @@ h2#footer-heading-social_newsletter_3XPFQE {
 .footer-block__social-newsletter .newsletter-form__field-wrapper input {
     padding: 12px 19px;
     border: 1px solid #A6A6A6;
+    border-radius: 0;
 }
 
 .copyright__content {

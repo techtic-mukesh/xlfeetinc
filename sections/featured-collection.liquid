@@ -35,7 +35,12 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-
+ #collection-{{ section.id }} .collection-subheading {
+   color: {{ section.settings.subheading_clr }};
+ }
+  #collection-{{ section.id }}.feature-collection .card__inner{
+    background:{{section.settings.card_img_bg_color }}
+  }
   {%- if section.settings.enable_swiper -%}
   .collection-header-with-arrows {
     display: flex;
@@ -77,7 +82,6 @@
   .collection-subheading {
     margin-top: 0;
     margin-bottom: 0;
-    color: #000;
     font-family: "Instrument Serif";
     font-size: 30px;
     font-style: normal;
@@ -104,10 +108,15 @@
   .feature-collection .swiper-horizontal {
     padding-left: calc(50% - 1280px / 2);
   }
-
+  .feature-collection .card__inner{
+    min-height: 390px;
+  }
   @media only screen and (max-width: 1300px) {
     .feature-collection .swiper-horizontal {
       padding-left: 50px;
+    }
+    .feature-collection .card__inner{
+      min-height: unset;
     }
   }
 
@@ -125,6 +134,10 @@
     }
     .collection-subheading {
       font-size: 20px;
+      margin-bottom:10px;
+    }
+     .feature-collection .card__inner{
+      min-height: unset;
     }
   }
   {%- endif -%}
@@ -144,7 +157,7 @@
   .collection-view-all-top .button {
    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     padding: 0 29px;
     min-height: 52px;
     border: 1px solid #000;
@@ -754,6 +767,18 @@
       "label": "t:sections.all.colors.label",
       "info": "t:sections.all.colors.has_cards_info",
       "default": "scheme-1"
+    },
+    {
+      "type":"color",
+      "id":"subheading_clr",
+      "label":"Subheading Color",
+      "default":"#000"
+    },
+    {
+      "type":"color",
+      "id":"card_img_bg_color",
+      "label":"card Image Background Color",
+      "default":"#D9D9D926"
     },
     {
       "type": "header",

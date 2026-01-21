@@ -67,7 +67,10 @@
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
   }
-
+.collection_view_btn{
+      font-size: 16px;
+    line-height: 20px;
+}
   .cl-section-{{ section.id }} .cl-view-all-btn svg path {transition: all 0.3s ease; }
 
   .cl-section-{{ section.id }} .cl-view-all-btn:hover {
@@ -185,12 +188,14 @@
     font-size: 30px;
     font-family: 'Instrument Serif';
     color: #fff;
+    font-weight:400;
     text-align: left;
     display: flex;
     align-items: center;
     margin: 0;
     text-shadow: 0 1px 3px rgba(0,0,0,0.3);
     z-index: 2;
+    text-transform: capitalize;
   }
 
   /* Shop Now Link - Bottom Left */
@@ -205,9 +210,10 @@
     z-index: 2;
     transition: all 0.2s ease;
     border-radius: 12px;
+    font-weight:500;
     display: flex;
     align-items: center;
-    padding: 15px 0px;
+    padding: 15px 0px 0;
     box-sizing: border-box;
     gap: 10px;
     text-align: center;
@@ -257,6 +263,7 @@
     .cl-section-{{ section.id }} .cl-subtitle {
       font-size: 22px;
       /* line-height: 18px; */
+      margin-bottom:10px;
   }
     .cl-section-{{ section.id }} .cl-collections-grid {
       display: grid !important;
@@ -322,6 +329,7 @@
     .cl-section-{{ section.id }} .cl-view-all-btn {
       font-size: 14px;
       padding: 10px 30px;
+      min-height:unset;
     }
     .cl-section-{{ section.id }} .cl-arrows {
       display: none;
@@ -374,7 +382,7 @@
         <div class="cl-header-right">
           {%- if section.settings.header_button_type == 'view_all' -%}
             <a href="{{ routes.collections_url }}" class="cl-view-all-btn">
-              VIEW ALL
+             <span class="collection_view_btn"> VIEW ALL </span>
              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
                   <path d="M6.41699 15.5834L15.5837 6.41675M15.5837 6.41675H7.33366M15.5837 6.41675V14.6667" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -629,8 +637,8 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "range",
       "id": "card_width",
       "min": 200,
-      "max": 400,
-      "step": 10,
+      "max": 500,
+      "step": 4,
       "default": 300,
       "unit": "px",
       "label": "Card Width"
@@ -639,7 +647,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "range",
       "id": "card_height",
       "min": 250,
-      "max": 500,
+      "max": 600,
       "step": 10,
       "default": 400,
       "unit": "px",

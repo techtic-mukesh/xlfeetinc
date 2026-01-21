@@ -58,10 +58,10 @@
       "settings": {
         "section_height": 100,
         "section_height_mobile": 80,
-        "min_height": 600,
+        "min_height": 564,
         "transition_effect": "fade",
         "transition_speed": 800,
-        "autoplay": true,
+        "autoplay": false,
         "autoplay_delay": 200,
         "autoplay_disable_on_interaction": false,
         "autoplay_pause_on_hover": true,
@@ -121,6 +121,8 @@
         "show_view_all": true,
         "view_all_style": "solid",
         "color_scheme": "scheme-1",
+        "subheading_clr": "#000000",
+        "card_img_bg_color": "#d9d9d926",
         "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -293,16 +295,16 @@
             "collection": "shoes-copy"
           }
         },
-        "featured_collection_EyAHyJ": {
-          "type": "featured_collection",
-          "settings": {
-            "collection": "boots-copy"
-          }
-        },
         "featured_collection_yQk6ez": {
           "type": "featured_collection",
           "settings": {
             "collection": "shoes"
+          }
+        },
+        "featured_collection_EyAHyJ": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "boots-copy"
           }
         },
         "featured_collection_pAiyQB": {
@@ -326,8 +328,8 @@
       },
       "block_order": [
         "featured_collection_WnRhmT",
-        "featured_collection_EyAHyJ",
         "featured_collection_yQk6ez",
+        "featured_collection_EyAHyJ",
         "featured_collection_pAiyQB",
         "featured_collection_MnXPeP",
         "featured_collection_YrDkpY"
@@ -339,8 +341,8 @@
         "heading_size": "h1",
         "link_text": "Shop Now",
         "header_button_type": "view_all",
-        "card_width": 400,
-        "card_height": 500,
+        "card_width": 412,
+        "card_height": 560,
         "columns_desktop": 4,
         "enable_carousel": true,
         "color_scheme": "",
@@ -437,6 +439,8 @@
         "show_view_all": true,
         "view_all_style": "solid",
         "color_scheme": "",
+        "subheading_clr": "#191b1d",
+        "card_img_bg_color": "#f4f4f4",
         "image_ratio": "portrait",
         "image_shape": "default",
         "show_secondary_image": true,
