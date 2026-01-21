@@ -61,7 +61,7 @@
         "min_height": 564,
         "transition_effect": "fade",
         "transition_speed": 800,
-        "autoplay": false,
+        "autoplay": true,
         "autoplay_delay": 200,
         "autoplay_disable_on_interaction": false,
         "autoplay_pause_on_hover": true,
