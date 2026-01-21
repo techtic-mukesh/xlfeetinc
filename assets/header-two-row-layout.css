@@ -157,10 +157,13 @@ account-icon {
 }
 
 .header__icons-new a span.svg-wrapper {
-    width: 22px;
+    width: 30px;
+    height: 30px;
+}
+.header__icons-new a span.svg-wrapper svg {
+    width: 20px;
     height: 22px;
 }
-
 .header__icons-new a.header__icon-row-layout span.snv-text {
     color: #191B1D;
     font-family: "Helvetica Neue";
@@ -325,7 +328,10 @@ header.header.header--two-row .header__top-row-inner {
     header.header.header--two-row .header__top-row-inner .header__search-section {
     display: none;
 }
-
+    .header__icons-new a span.svg-wrapper{
+        width: 20px;
+        height: 20px;
+    }   
  }
 
 
