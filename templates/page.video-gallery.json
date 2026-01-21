@@ -49,11 +49,11 @@
         "active_tab_txt_color": "#ffffff",
         "bg_color": "#000000",
         "bg_opacity": 30,
-        "show_card_heading": false,
+        "show_card_heading": true,
         "padding_top": 32,
         "padding_bottom": 32,
         "padding_top_desktop": 60,
-        "padding_bottom_desktop": 60,
+        "padding_bottom_desktop": 40,
         "columns_mobile": "1",
         "columns_desktop": 3
       }

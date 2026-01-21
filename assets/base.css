@@ -2809,9 +2809,12 @@ details[open] > .header__submenu {
 
 .header__menu-item span {
   transition: text-decoration var(--duration-short) ease;
+  font-size: 14px;
+  line-height: 14px;
+  letter-spacing: 0;
 }
 
-.header__menu-item:hover span {
+.header__menu-item:hover span { 
   text-decoration: unset;
   text-underline-offset: 0.3rem;
 }

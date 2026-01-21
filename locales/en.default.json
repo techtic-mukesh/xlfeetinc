@@ -263,7 +263,7 @@
         "title": "Contact form",
         "name": "Your Full Name",
         "email": "Email",
-        "phone": "phone number?",
+        "phone": "Phone number?",
         "comment": "What’s on your mind? ",
         "send": "Submit",
         "post_success": "Thanks for contacting us. We'll get back to you as soon as possible.",
