@@ -33,6 +33,7 @@
       aria-label="{{ 'sections.cart.title' | t }}"
       tabindex="-1"
     >
+    <div>
       {%- if cart == empty -%}
         <div class="drawer__inner-empty">
           <div class="cart-drawer__warnings center{% if settings.cart_drawer_collection != blank %} cart-drawer__warnings--has-collection{% endif %}">
@@ -83,6 +84,7 @@
       {%- if cart != empty -%}
       <div>{% render 'cart-progress' %}</div>
       {% endif %}
+      <div class="card_item_related_product">
       <cart-drawer-items{% if cart == empty %} class=" is-empty"{% endif %}>
         <form
           action="{{ routes.cart_url }}"
@@ -200,9 +202,9 @@
                                 </div>
                               </div>
                             </quantity-popover>
-                            <div>
+                            <div class="card_drawer_price">
                               <div class="cart-item__totals right" role="cell" headers="CartDrawer-ColumnTotal">
-                                {%- render 'loading-spinner' -%}
+                              
                                 <div class="cart-item__price-wrapper">
                                   {%- if item.original_line_price != item.final_line_price -%}
                                     <div class="cart-item__discounted-prices">
@@ -294,12 +296,16 @@
                     </div>
                   {%- endfor -%}
                 </div>
-                <div class="swiper-button-prev">  </div>
-                <div class="swiper-button-next"> </div>
+               {% comment %} <div class="swiper-button-prev">  </div>
+                <div class="swiper-button-next"> </div> {% endcomment %}
               </div>
             </div>
           {%- endif -%}
           {% endif %}
+      </div>
+    </div>
+
+    
       <div class="drawer__footer">
         {%- if settings.show_cart_note -%}
           <details id="Details-CartDrawer">
@@ -336,9 +342,19 @@
             {%- endif -%}
           </div>
 
-          <div class="totals" role="status">
+          {% comment %}<div class="totals" role="status">
             <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
             <p class="totals__total-value">{{ cart.total_price | money_with_currency }}</p>
+          </div> {%  endcomment%}
+          <div class="totals totals--subtotal" role="status">
+            <p class="totals__label">
+              Subtotal ({{ cart.item_count }}
+              {{ cart.item_count | pluralize: 'item', 'items' }})
+            </p>
+
+            <p class="totals__value">
+              {{ cart.items_subtotal_price | money }}
+            </p>
           </div>
 
           <small class="tax-note caption-large rte">
@@ -431,46 +447,148 @@
     </div>
   </div>
 </cart-drawer>
+<style>
+/* Stable pre-init layout that matches slidesPerView: 1.2 (keeps right gap) */
+.cart-upsell__swiper { overflow: hidden; }
 
+/* Before Swiper initializes */
+.cart-upsell__swiper:not(.swiper-initialized) .swiper-wrapper {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 14px;
+  transform: none !important;
+}
+/* Multi-slide: show a right peek (~1.2 per view) */
+.cart-upsell__swiper:not(.swiper-initialized):not(.is-single) .swiper-wrapper {
+  grid-auto-columns: calc(100% / 1.2);
+}
+/* Single item: full width, no gap */
+.cart-upsell__swiper.is-single .swiper-wrapper {
+  grid-auto-columns: 100%;
+  transform: none !important;
+}
+.cart-upsell__swiper.is-single .swiper-slide {
+  width: 100% !important;
+  margin-right: 0 !important;
+}
+</style>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    function initCartUpsellSwiper(){
+  document.addEventListener('DOMContentLoaded', () => {
+    const INIT_DELAY = 40;
+
+    function destroyUpsell() {
+      if (window.__cartUpsellSwiper && typeof window.__cartUpsellSwiper.destroy === 'function') {
+        try { window.__cartUpsellSwiper.destroy(true, true); } catch (e) {}
+      }
+      window.__cartUpsellSwiper = null;
+      const el = document.querySelector('.cart-upsell__swiper');
+      if (el) el._swiperInstance = null;
+    }
+
+    function getSlidesPerView(el) {
+      const n = el.querySelectorAll('.swiper-slide').length;
+      return n <= 1 ? 1 : 1.2;
+    }
+
+    function markSingleClass(el) {
+      const n = el.querySelectorAll('.swiper-slide').length;
+      el.classList.toggle('is-single', n <= 1);
+    }
+
+    function initUpsell() {
       if (!window.Swiper) return;
       const el = document.querySelector('.cart-upsell__swiper');
-      if (el && !el._inited) {
-        new Swiper(el, {
-          slidesPerView: 1.2,
-          spaceBetween: 14,
-          navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-          breakpoints: { 480:{slidesPerView:1.2}, 640:{slidesPerView:1.2}, 990:{slidesPerView:1.2} }
-        });
-        el._inited = true;
-      }
-    }
-    initCartUpsellSwiper();
+      if (!el) return;
 
+      markSingleClass(el);
+
+      // Update existing instance if possible
+      if (el._swiperInstance && !el._swiperInstance.destroyed) {
+        el._swiperInstance.params.slidesPerView = getSlidesPerView(el);
+        el._swiperInstance.update();
+        return;
+      }
+
+      destroyUpsell();
+
+      const instance = new Swiper(el, {
+        slidesPerView: getSlidesPerView(el),
+        spaceBetween: 14,
+        watchOverflow: true,
+        observer: true,
+        observeParents: true,
+        resizeObserver: true,
+        breakpoints: {
+          480: { slidesPerView: getSlidesPerView(el) },
+          640: { slidesPerView: getSlidesPerView(el) },
+          990: { slidesPerView: getSlidesPerView(el) }
+        },
+        on: {
+          init() { setTimeout(() => this.update(), 100); },
+          resize() {
+            this.params.slidesPerView = getSlidesPerView(this.el);
+            markSingleClass(this.el);
+            this.update();
+          },
+          observerUpdate() {
+            this.params.slidesPerView = getSlidesPerView(this.el);
+            markSingleClass(this.el);
+            this.update();
+          }
+        }
+      });
+
+      el._swiperInstance = instance;
+      window.__cartUpsellSwiper = instance;
+    }
+
+    // Initial
+    setTimeout(initUpsell, INIT_DELAY);
+
+    // Re-init whenever the cart drawer DOM is replaced (quantity/add/remove)
+    const drawer = document.querySelector('cart-drawer');
+    if (drawer) {
+      const mo = new MutationObserver((muts) => {
+        for (const m of muts) {
+          if (m.type === 'childList') {
+            setTimeout(initUpsell, INIT_DELAY);
+            break;
+          }
+        }
+      });
+      mo.observe(drawer, { childList: true, subtree: true });
+    }
+
+    // Keep your ADD flow; re-init after HTML swap
     let adding = false;
-    document.addEventListener('click', async function(e){
+    document.addEventListener('click', async (e) => {
       const btn = e.target.closest('.cart-upsell__add[data-variant-id]');
       if (!btn || adding) return;
+
       const id = btn.getAttribute('data-variant-id');
       if (!id) return;
+
       try {
         adding = true;
         btn.disabled = true;
+
         await fetch((window.routes?.cart_add_url || '/cart/add') + '.js', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ id: Number(id), quantity: 1 })
         });
+
         const res = await fetch((window.routes?.cart_url || '/cart') + '?section_id=cart-drawer');
         const html = await res.text();
         const doc = new DOMParser().parseFromString(html, 'text/html');
         const newDrawer = doc.querySelector('cart-drawer');
         const current = document.querySelector('cart-drawer');
+
         if (newDrawer && current) {
+          destroyUpsell();
           current.innerHTML = newDrawer.innerHTML;
           current.classList.add('active');
-          setTimeout(initCartUpsellSwiper, 0);
+          setTimeout(initUpsell, INIT_DELAY);
         } else {
           location.reload();
         }

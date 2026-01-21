@@ -164,8 +164,11 @@ cart-items {
 }
 
 .cart__ctas button {
-  width: 100%;
-  gap:14px;
+    width: 100%;
+    gap: 10px;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 500;
 }
 
 .cart__ctas > * + * {
