@@ -1329,6 +1329,11 @@ shopify-accelerated-checkout-cart {
   rgba(var(--color-shadow), var(--shadow-opacity));
 }
 
+:host([page-type="product"]) .accelerated-checkout-button{
+  max-width: 520px;
+  height: 45px;
+  min-height: 45px;
+}
 
 /* Button - other */
 
