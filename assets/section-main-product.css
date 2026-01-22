@@ -1918,9 +1918,11 @@ span.size-option-title {
   }
 
   .icon-with-text--horizontal {
-    padding: 11.5px;
+    padding: 11.5px 0;
   }
-
+li.icon-with-text__item.your-special-class {
+    width: 35%;
+}
   .icon-with-text--horizontal .icon-with-text__item span.icon-with-text__icon {
     width: 40px;
     height: 40px;

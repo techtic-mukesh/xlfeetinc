@@ -113,7 +113,10 @@ line-height: 12px; /* 66.667% */
 }
 @media screen and (max-width: 769px) {
 
-.product__accordion .accordion__content ol li{
-  
+.product__accordion .accordion__content ol li:before{
+      margin-right: 6px;
+}
+.product__accordion .accordion__content ol{
+    gap:0;
 }
 }

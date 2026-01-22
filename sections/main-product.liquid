@@ -37,6 +37,37 @@
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
     }
+    .zoom-globle__img button,
+.zoom-globle__img span {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.zoom-globle__img button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  color: #191b1d;
+  text-align: center;
+  font-family: Helvetica Neue;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.zoom-globle__img button:focus,
+.zoom-globle__img button:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>

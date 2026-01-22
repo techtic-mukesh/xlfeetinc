@@ -124,13 +124,15 @@
       {%- endif -%}
 
       <div class="zoom-globle__img">
-        <a href="" >
-          <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
-            <path d="M6.79258 10.1886H13.585M10.1888 13.5848V6.79234M10.1888 18.6791C14.8586 18.6791 18.6794 14.8584 18.6794 10.1886C18.6794 5.51875 14.8586 1.698 10.1888 1.698C5.519 1.698 1.69824 5.51875 1.69824 10.1886C1.69824 14.8584 5.519 18.6791 10.1888 18.6791Z" stroke="#333333" stroke-width="1.27358" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          zoom
-        </a>
-      </div>
+  <button type="button" class="zoom-trigger">
+    <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
+      <path d="M6.79258 10.1886H13.585M10.1888 13.5848V6.79234M10.1888 18.6791C14.8586 18.6791 18.6794 14.8584 18.6794 10.1886C18.6794 5.51875 14.8586 1.698 10.1888 1.698C5.519 1.698 1.69824 5.51875 1.69824 10.1886C1.69824 14.8584 5.519 18.6791 10.1888 18.6791Z"
+        stroke="#333333" stroke-width="1.27358" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span>Zoom</span>
+  </button>
+</div>
+
     </div>
   </div>
  {%- if total_images > 1 -%}
@@ -272,12 +274,13 @@ function initGalleryZoom() {
     if ($('.gallery-thumbs').length > 0) {
       console.log('📸 Initializing thumbnail swiper...');
       galleryThumbs = new Swiper('.gallery-thumbs', {
-        direction: 'vertical',
-        spaceBetween: 15, 
-        slidesPerView: 2.4,
+        direction: 'horizontal',
+        slidesPerView: 5.4,  // keep your desired peek
+        spaceBetween: 6,
         freeMode: true,
         watchSlidesProgress: true,
-        loop: false,
+        loop: false,          // no looping
+        slidesOffsetAfter: 6, // <-- add some extra space after last slide
         navigation: {
             nextEl: '.gallery-thumbs-next',
             prevEl: '.gallery-thumbs-prev',
@@ -286,23 +289,26 @@ function initGalleryZoom() {
             0: {
                 direction: 'horizontal',
                 slidesPerView: 5.4,
-                spaceBetween: 6, 
+                spaceBetween: 6,
+                slidesOffsetAfter: 15, // same here
             },
             640: {
                 direction: 'horizontal',
                 slidesPerView: 6.4,
+                slidesOffsetAfter: 6,
             },
             750: {
                 direction: 'horizontal',
                 slidesPerView: 4.2,
-                spaceBetween: 10, 
+                spaceBetween: 10,
             },
             990: {
                 direction: 'vertical',
                 slidesPerView: 2.5,
             }
         }
-      });
+    });
+
       console.log('✅ Thumbnail swiper initialized');
     }
 
