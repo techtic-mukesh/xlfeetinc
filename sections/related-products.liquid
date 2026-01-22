@@ -34,6 +34,7 @@
 
   .related-products__heading {
     margin: 0;
+    font-size: 46px;
   }
 
   .related-products__subheading {
@@ -62,8 +63,9 @@
     font-weight: 500;
     font-family: 'Helvetica Neue';
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0;
     transition: all 0.3s ease;
+    min-width:165px;
   }
 
   .related-products__view-all svg path {
@@ -78,7 +80,9 @@
 .related-products__view-all:hover svg path {
   stroke: #fff;
  }
-
+.related-products .card__inner{
+  max-height:350px;
+}
 
  @media (max-width: 767px) {
   .related-products__header {
@@ -99,7 +103,9 @@
 
 .related-products__view-all {
     min-height: 42px;
+    min-width: 156px;
     font-size: 13px;
+    justify-content: center;
 }
  }
   
