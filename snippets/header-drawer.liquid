@@ -392,7 +392,13 @@
 </header-drawer>
 
 <style>
+.moblie_search{
+    display:none;
+  }
 @media screen and (max-width: 1080px) {
+  .moblie_search{
+    display:block;
+  }
   .drawer-filters { padding: 12px 16px 4px; display: grid; gap: 14px; }
   .drawer-filter__title, .drawer-brands__title { margin: 10px 0 8px; font-size: 14px; font-weight: 600; color:{{ section.settings.menu_title_color}}; }
   .drawer-pills { display: flex; flex-wrap: wrap; gap: 8px; }
