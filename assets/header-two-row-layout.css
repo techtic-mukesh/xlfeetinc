@@ -326,6 +326,7 @@ header.header.header--two-row .header__top-row-inner {
 
     header.header.header--two-row .header__top-row-inner {
         grid-template-columns: auto auto 1fr;
+        gap:10px;
     }
 
     header.header.header--two-row .header__top-row-inner .header__search-section {
