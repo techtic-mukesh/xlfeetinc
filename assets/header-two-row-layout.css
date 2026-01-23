@@ -339,10 +339,10 @@ header.header.header--two-row .header__top-row-inner {
  }
 @media only screen and (max-width: 990px) {
     .header__icons-new a.header__icon-row-layout span.snv-text{
-        font-size: 13px;
+        font-size: 11px;
     }
     .header__icons-new{
-        gap: 11px;
+        gap: 7px;
     }
 }
 
