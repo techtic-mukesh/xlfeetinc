@@ -33,6 +33,9 @@ h2 {
  .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn{
     display: none;
  }
+ span.add_to_card_sold_ouy_btn {
+    line-height: 1;
+}
 @media screen and (max-width: 1024px) {
     .comp_heighlight_description p {
         font-size: 14px;
