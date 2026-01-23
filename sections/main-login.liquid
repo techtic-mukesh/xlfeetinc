@@ -42,9 +42,22 @@
   z-index:1;
 }
 
-.password-toggle-button .icon{ display:none; }
-.password-toggle-button[aria-pressed="false"] .icon-show{ display:block; }
-.password-toggle-button[aria-pressed="true"] .icon-hide{ display:block; }
+.password-toggle-button .icon { 
+  display: none; 
+  color: #1D1D1D;
+}
+
+/* Password hidden → show crossed eye */
+.password-toggle-button[aria-pressed="false"] .icon-hide {
+  display: block;
+  color: #1D1D1D;
+}
+
+/* Password visible → show open eye */
+.password-toggle-button[aria-pressed="true"] .icon-show {
+  display: block;
+}
+
 
 .password-toggle-button:focus-visible{
   outline:2px solid currentColor;
