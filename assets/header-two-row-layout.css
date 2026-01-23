@@ -333,7 +333,14 @@ header.header.header--two-row .header__top-row-inner {
         height: 20px;
     }   
  }
-
+@media only screen and (max-width: 990px) {
+    .header__icons-new a.header__icon-row-layout span.snv-text{
+        font-size: 13px;
+    }
+    .header__icons-new{
+        gap: 11px;
+    }
+}
 
 @media only screen and (max-width: 750px) {
     .header__heading a.header__heading-link {
@@ -410,4 +417,10 @@ header.header.header--two-row .header__top-row-inner {
     .header__menu-item .icon-caret{
         right: -1.5rem;
     }
+}
+@media only screen and (max-width: 370px) {
+.header__icon, .header__icon--cart .icon{
+    height: 2.4rem;
+    width: 2.4rem;
+}
 }

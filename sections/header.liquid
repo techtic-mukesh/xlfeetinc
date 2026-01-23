@@ -204,8 +204,11 @@
 
           {%- comment -%} Icons {%- endcomment -%}
           <div class="header__icons-new {% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}">
+           <div class="moblie_search">
+           {% render 'header-search', input_id: 'Search-In-Header' %}
+           </div>
+            {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
             <div class="desktop-localization-wrapper">
-              {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
                 <localization-form class="small-hide medium-hide" data-prevent-hide>
                   {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form' -%}
                     <div>
@@ -225,8 +228,8 @@
                     </div>
                   {%- endform -%}
                 </localization-form>
-              {%- endif -%}
             </div>
+          {%- endif -%}
 
             {%- if shop.customer_accounts_enabled -%}
               <a
