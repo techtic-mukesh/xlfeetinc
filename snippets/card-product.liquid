@@ -113,10 +113,10 @@
   </div>
 {%- endif -%}
 
-        <div class="card__content">
+        <div class="card__content dfgdrgre">
           {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
 
-<div class="quick-add no-js-hidden">
+<div class="quick-add no-js-hidden desktop_custom_add_btn">
   <product-form data-section-id="{{ section.id }}">
     {%- form 'product',
       card_product,
@@ -208,7 +208,7 @@
           </div>
         </div>
       </div>
-      <div class="card__content">
+      <div class="card__content ">
         <div class="card__information">
           <h3
             class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
@@ -351,6 +351,61 @@
                 </quantity-popover>
               {% endif %}
             {%- endif -%}
+          </div>
+          <div class="quick-add no-js-hidden mobile_add_quick_btn">
+            <product-form data-section-id="{{ section.id }}">
+              {%- form 'product',
+                card_product,
+                id: product_form_id,
+                class: 'form',
+                novalidate: 'novalidate',
+                data-type: 'add-to-cart-form'
+              -%}
+
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ card_product.selected_or_first_available_variant.id }}"
+                  class="product-variant-id"
+                  {% if card_product.selected_or_first_available_variant.available == false %}
+                    disabled
+                  {% endif %}
+                >
+
+                <button
+                  id="{{ product_form_id }}-submit"
+                  type="submit"
+                  name="add"
+                  class="quick-add__submit button button--full-width button--secondary{% if horizontal_quick_add %} card--horizontal__quick-add{% endif %}"
+                  aria-live="polite"
+                  data-sold-out-message="true"
+                  {% if card_product.selected_or_first_available_variant.available == false %}
+                    disabled
+                  {% endif %}
+                >
+                  <span>
+                    {% if card_product.selected_or_first_available_variant.available %}
+                      {{ 'products.product.add_to_cart' | t }}
+                    {% else %}
+                      {{ 'products.product.sold_out' | t }}
+                    {% endif %}
+                  </span>
+
+                  <span class="sold-out-message hidden">
+                    {{ 'products.product.sold_out' | t }}
+                  </span>
+
+                  {% if horizontal_quick_add %}
+                    <span class="icon-wrap">
+                      {{ 'icon-plus.svg' | inline_asset_content }}
+                    </span>
+                  {% endif %}
+
+                  {% render 'loading-spinner' %}
+                </button>
+
+              {%- endform -%}
+            </product-form>
           </div>
         </div>
         {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
@@ -668,7 +723,7 @@
           </div>
         </div>
       </div>
-      <div class="card__content">
+      <div class="card__content dfrdgr">
         <div class="card__information">
           <h3 class="card__heading card__heading--placeholder{% if settings.card_style == 'standard' %} h5{% endif %}">
             <a role="link" aria-disabled="true" class="full-unstyled-link">
