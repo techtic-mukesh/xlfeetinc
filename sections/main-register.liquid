@@ -180,6 +180,7 @@ p.already-account {
     font-size: 14px;
     margin: 5px 0 0;
     line-height: 100%;
+    font-weight: 300;
 }
 p.already-account a{
   font-weight: 500;
@@ -344,13 +345,13 @@ p.already-account a{
       <small id="RegisterForm-password-confirm-error" class="form__message" style="display:none;"></small>
       </span>
       <!-- Actions row -->
-      <div class="register-actions">
+      {% comment %}<div class="register-actions">
         <label for="RegisterRemember" class="remember-me">
           <input type="checkbox" id="RegisterRemember">
           <span>Remember me</span>
         </label>
         <a class="forgot-link" href="{{ routes.account_login_url }}#recover">Forgot password?</a>
-      </div>
+      </div> {% endcomment %}
       {%- if form.errors contains 'password' -%}
         <span id="RegisterForm-password-error" class="form__message">
           <span class="svg-wrapper">

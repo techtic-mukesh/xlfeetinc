@@ -1859,7 +1859,9 @@ span.size-option-title {
   .product-availability .availability-left p {
     font-size: 13px;
   }
-
+  .shopify-payment-button__more-options{
+    margin-top:20px;
+  }
 }
 
 
@@ -1913,7 +1915,7 @@ span.size-option-title {
   }
 
   .shopify-payment-button__more-options {
-    margin-top: 18px;
+    margin-top: 20px;
     font-size: 14px;
   }
 
