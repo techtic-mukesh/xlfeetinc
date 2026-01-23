@@ -465,6 +465,7 @@ span.login_grid_title {
   margin-bottom: 10px;
   letter-spacing: 2.2px;
   text-align: left;
+  font-family: "HelveticaNeue-BlackExt";
 }
 #recover:focus-visible, #login:focus-visible{
   outline:unset;

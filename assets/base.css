@@ -1745,6 +1745,8 @@ details[open] > .share-button__fallback {
   color: rgba(var(--color-foreground), 1);
   font-weight: 300;
   line-height: 1.8;
+  letter-spacing: 0;
+  font-weight: 300;
 }
 .field__input:focus ~ .field__label,
 .field__input:not(:placeholder-shown) ~ .field__label,
