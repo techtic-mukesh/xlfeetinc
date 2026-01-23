@@ -27,6 +27,12 @@ h2 {
     max-width:50px;
     width:100%;
 } */
+ .card--standard>.card__content .quick-add  .quick-add.no-js-hidden.desktop_custom_add_btn {
+    display: block;
+}
+ .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn{
+    display: none;
+ }
 @media screen and (max-width: 1024px) {
     .comp_heighlight_description p {
         font-size: 14px;
@@ -50,5 +56,25 @@ h2 {
     padding: 15px 10px;
     margin-bottom: 20px;
 }
-
+ .card--standard>.card__content .quick-add.quick-add.no-js-hidden.desktop_custom_add_btn {
+    display: none;
+}
+ .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn{
+    display: block;
+ }
+ .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn button{
+    min-height: 37px;
+    min-width: unset;
+    border: 1px solid #191B1D;
+    color: #000000;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 20px;
+    letter-spacing: 0;
+    padding: 10px;
+ }
+ .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn button:after{
+    box-shadow: unset;
+ }
 }
