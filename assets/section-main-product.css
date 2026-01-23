@@ -1862,6 +1862,9 @@ span.size-option-title {
   .shopify-payment-button__more-options{
     margin-top:20px;
   }
+  .icon-with-text--horizontal .h4{
+    line-height: normal;
+  }
 }
 
 
