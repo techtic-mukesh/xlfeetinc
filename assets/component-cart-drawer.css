@@ -31,6 +31,7 @@
   transform: translateX(100%);
   transition: transform var(--duration-default) ease;
   justify-content: space-between;
+  color: rgba(var(--color-foreground), 1);
 }
 
 .drawer__inner-empty {
@@ -894,6 +895,11 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     --swiper-navigation-color: #111;
   }
   .swiper-button-prev:after, .swiper-button-next:after { font-size: 14px; }
+ @media (min-width: 990px){
+  .card_drawer_price{
+        margin-right: -46px;
+    }
+  }
   @media (max-width: 749px){
     .swiper-button-prev, .swiper-button-next { display: none; }
   }

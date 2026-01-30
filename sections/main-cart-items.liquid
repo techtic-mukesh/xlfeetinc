@@ -264,7 +264,7 @@
 .cart-item__details > * + * { margin-top: .6rem; }
 .cart-item__name { text-decoration: none; display: block; }
 .cart-item__name:hover { text-decoration: underline; text-underline-offset: .3rem; text-decoration-thickness: .2rem; }
-.meta-line { margin-top: 6px; }
+.meta-line { margin-top: 0;     line-height: normal; }
 .meta { font-size: 12px; color: #666; }
 .meta-dot { margin: 0 6px; color: #c7c7c7; }
 
@@ -310,7 +310,7 @@ cart-remove-button .icon-remove { height: 1.5rem; width: 1.5rem; }
 .cart-items--custom { table-layout: fixed; }
 
 /* Title */
-.title.title--primary { font-size: 28px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+.title.title--primary { font-size: 28px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-family: "HelveticaNeue-BlackExt"; }
 
 /* Quantity pill */
 .quantity--pill { border: 1px solid #e5e5e5; border-radius: 24px; padding: 2px; display: inline-flex; }
@@ -319,7 +319,16 @@ cart-remove-button .icon-remove { height: 1.5rem; width: 1.5rem; }
 
 /* Subtotal actions (edit/remove) */
 .line-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; }
-.line-action { color: #666; display: inline-flex; padding: 6px; border-radius: 6px; border: 1px solid rgba(0,0,0,.1); }
+.line-action {     
+    color: #231F20;
+    display: inline-flex;
+    /* padding: 6px; */
+    border-radius: 6px;
+    width: 22px;
+    height: 22px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;  }
 .line-action:hover { color: #111; border-color: rgba(0,0,0,.25); }
 
 /* Mobile keeps Dawn behavior */
@@ -356,12 +365,23 @@ cart-remove-button .icon-remove { height: 1.5rem; width: 1.5rem; }
     font-size: 16px;
     font-weight: 500;
     text-transform: capitalize;
+        opacity: 1;
 }
 .is-cart-page{
   display:flex;
 }
 .cart-item__quantity .quantity:after{
   box-shadow:unset;
+}
+.cart__items-wrapper .cart-item__details .cart-item__name{
+      margin: 0 0 13px;
+}
+.cart__items-wrapper  .quantity--pill{
+      width: 82px;
+          min-height: 27px;
+}
+.cart__items-wrapper  .quantity__button ,.cart__items-wrapper .quantity--pill .quantity__input{
+  width:27px;
 }
 @media screen and (min-width: 750px) {
 
