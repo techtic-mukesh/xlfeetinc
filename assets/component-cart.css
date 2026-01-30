@@ -51,6 +51,7 @@ cart-items.is-empty .title-wrapper-with-link,
     max-width: calc(70% - 20px);
     display: inline-block;
     width: 100%;
+    color: rgba(var(--color-foreground), 1);
 }
 .cart__items-wrapper .cart-items thead { display: block; }
 @media screen and (min-width: 990px) {

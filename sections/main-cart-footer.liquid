@@ -18,7 +18,7 @@
 
   /* Summary card */
   .cart-summary {
-    border: 1px solid rgba(0,0,0,.1);
+    border: 1px solid #D9D9D9;
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 24px;
@@ -30,11 +30,14 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .5px;
+    font-family: "HelveticaNeue-BlackExt";
   }
   .cart-summary > p {
-    font-size: 13px;
-    margin: 0 0 16px;
-    color: #666;
+    font-size: 16px;
+    margin: 0 0 20px;
+    font-weight: 300;
+    letter-spacing: 0;
+    line-height: 20px;
   }
 
   /* Inputs */
@@ -44,10 +47,10 @@
     flex-direction: column; }
   .cart-summary label {
     display: block;
-    font-size: 13px;
-    font-weight: 500;
-    margin-bottom: 6px;
-    color: #333;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: rgba(var(--color-foreground), 1);
   }
   .cart-summary  .field:after ,   .cart-summary .field:hover.field:after{
     box-shadow:unset;
@@ -57,8 +60,8 @@
   .cart-summary input {
     width:auto;
     padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+    border-radius: 50px;
+    border: 1px solid rgba(var(--color-foreground), 1);
     font-size: 14px;
     transition: border-color .2s;
     background: #fff;
@@ -81,11 +84,17 @@
 
   /* Rates header and list (UL) */
   .rates-header {
-    margin-top: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #333;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(var(--color-foreground), 1);
+    line-height: 20px;
+    margin-bottom: 12px;
   }
+  span#summary-subtotal , span#summary-tax{
+    font-weight: 600;
+    color: rgba(var(--color-foreground), 1);
+}
  .shipping-rates-list {
     list-style: none;
     margin: 6px 0 0;
@@ -125,21 +134,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 13px;
-    padding: 6px 0;
-    color: #666;
+    font-size: 14px;
+    color: rgba(var(--color-foreground), 1);
+    font-weight: 300;
+    line-height: 22px;
+    margin-bottom: 20px;
   }
   .summary-row.summary_row_text {
     padding-bottom: 20px;
     margin-bottom: 10px;
     border-bottom: 1px solid #D9D9D9;
 }
-  .summary-row--total {
-    font-size: 14px;
-    font-weight: 700;
-    color: #111;
-    padding-top: 10px;
-  }
+.summary-row--total {
+    font-size: 16px;
+    font-weight: 500;
+}
 
   /* Inline shipping line */
   .shipping-rate-row {
@@ -157,14 +166,11 @@
   /* Button */
   .summary-checkout-btn {
     width: 100%;
-    margin-top: 14px;
-    background: #111;
-    color: #fff;
     border: 0;
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-weight: 700;
-    letter-spacing: .25px;
+    font-weight: 500;
+    letter-spacing: 0;
+    cursor: pointer;
+    text-transform: uppercase;
     cursor: pointer;
   }
   .summary-checkout-btn:disabled { opacity: .6; cursor: not-allowed; }
@@ -172,6 +178,45 @@
   /* Hide duplicated default totals/cta (styled ones are inside card) */
   .cart__blocks > .js-contents,
   .cart__blocks > .cart__ctas { display: none; }
+/* Remove native select arrow */
+.custom-select select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none;
+  padding-right: 44px;
+}
+
+/* Wrapper */
+.select-wrapper {
+  position: relative;
+}
+
+/* Custom SVG arrow */
+.select-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  pointer-events: none;
+  line-height:0;
+  transition: transform 0.25s ease;
+}
+
+/* Rotate when open */
+.select-wrapper.is-open .select-icon {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* Disabled select */
+.custom-select select:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.custom-select select:disabled + .select-icon {
+  opacity: 0.4;
+}
 
   @media screen and (max-width: 749px) {
     .cart-summary { padding: 16px; }
@@ -183,11 +228,32 @@
     display: block;
     width: 100%;
 }
+.cart__items-wrapper .cart-items--custom td.cart-item__price .price--end{
+      font-size: 14px;
+    font-weight: 500;
+}
 .is-cart-page {
     display: block;
 }
 }
 {%- endstyle -%}
+<script>
+document.querySelectorAll('.select-wrapper select').forEach(select => {
+  const wrapper = select.closest('.select-wrapper');
+
+  select.addEventListener('focus', () => {
+    wrapper.classList.add('is-open');
+  });
+
+  select.addEventListener('blur', () => {
+    wrapper.classList.remove('is-open');
+  });
+
+  select.addEventListener('change', () => {
+    wrapper.classList.remove('is-open');
+  });
+});
+</script>
 
 <script>
 /**
@@ -391,26 +457,56 @@
           <h3>SUMMARY</h3>
           <p>Estimate Shipping and Tax</p>
 
-          <div class="field">
+         <div class="field custom-select">
             <label for="cart-country">Country *</label>
-            <select id="cart-country" required>
-              <option value="">Select a country</option>
-              {% if localization.available_countries.size > 0 %}
-                {% for country in localization.available_countries %}
-                  <option value="{{ country.iso_code }}" {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>{{ country.name }}</option>
-                {% endfor %}
-              {% else %}
-                {{ all_country_option_tags }}
-              {% endif %}
-            </select>
+
+            <div class="select-wrapper">
+              <select id="cart-country" required>
+                <option value="">Select a country</option>
+                {% if localization.available_countries.size > 0 %}
+                  {% for country in localization.available_countries %}
+                    <option value="{{ country.iso_code }}"
+                      {% if country.iso_code == localization.country.iso_code %}selected{% endif %}>
+                      {{ country.name }}
+                    </option>
+                  {% endfor %}
+                {% else %}
+                  {{ all_country_option_tags }}
+                {% endif %}
+              </select>
+
+              <span class="select-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M15 7.64038L10 12.6404L5 7.64038"
+                    stroke="#231F20"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
           </div>
 
-          <div class="field province-field">
+          <div class="field province-field custom-select">
             <label for="cart-province">State / Province</label>
-            <select id="cart-province" disabled>
-              <option value="">Please select a region</option>
-            </select>
+
+            <div class="select-wrapper">
+              <select id="cart-province" disabled>
+                <option value="">Please select a region</option>
+              </select>
+
+              <span class="select-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M15 7.64038L10 12.6404L5 7.64038"
+                    stroke="#231F20"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
           </div>
+
 
           <div class="field">
             <label for="cart-zip">Zip / Postal Code *</label>
@@ -443,12 +539,12 @@
           <button
             type="submit"
             id="checkout-summary"
-            class="summary-checkout-btn"
+            class="summary-checkout-btn button"
             name="checkout"
             form="cart"
             {% if cart == empty %}disabled{% endif %}
           >
-            {{ 'sections.cart.checkout' | t }}
+           Proceed to checkout
           </button>
         </div>
         <!-- END SUMMARY CARD -->
