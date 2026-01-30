@@ -217,12 +217,14 @@
 .custom-select select:disabled + .select-icon {
   opacity: 0.4;
 }
-
-  @media screen and (max-width: 749px) {
-    .cart-summary { padding: 16px; }
-    .cart-summary h3 { font-size: 16px; }
-  }
-  @media screen and (max-width: 750px) {
+.cart__items-wrapper quantity-input.quantity.cart-quantity.quantity--pill{
+  width: 82px;
+  height: 27px;
+  min-height: unset;
+  justify-content: center;
+}
+ 
+  @media screen and (max-width: 769px) {
   .cart__footer-wrapper , .cart__items-wrapper {
     max-width: 100%;
     display: block;
@@ -235,7 +237,20 @@
 .is-cart-page {
     display: block;
 }
+ .cart__footer-wrapper:last-child .cart__footer{
+  padding: 5rem;
 }
+}
+ @media screen and (max-width: 749px) {
+    .cart-summary { padding: 16px; }
+    .cart-summary h3 { font-size: 16px; }
+    .cart__items-wrapper .cart-item__quantity-wrapper{
+      justify-content: left;
+    }
+.cart__footer-wrapper:last-child .cart__footer{
+      padding: 0 1rem;
+    }
+  }
 {%- endstyle -%}
 <script>
 document.querySelectorAll('.select-wrapper select').forEach(select => {
