@@ -14,18 +14,18 @@
   }
 {%- endstyle -%}
 
-<div class="customer account section-{{ section.id }}-padding">
-  <div>
+<div class="main_customer_account customer account  section-{{ section.id }}-padding">
+  <div class="main_customer_account_left">
     <h1 class="customer__title">{{ 'customer.account.title' | t }}</h1>
     <a href="{{ routes.account_logout_url }}">
-      <span class="svg-wrapper">
+    <span class="svg-wrapper">
         {{- 'icon-account.svg' | inline_asset_content -}}
       </span>
       {{ 'customer.log_out' | t }}
     </a>
   </div>
 
-  <div>
+  <div class="main_customer_account_right">
     <div>
       <h2>{{ 'customer.orders.title' | t }}</h2>
 
@@ -138,10 +138,10 @@
       {% endpaginate %}
     </div>
 
-    <div>
+    <div class="main_customer_default_address">
       <h2>{{ 'customer.account.details' | t }}</h2>
 
-      {{ customer.default_address | format_address }}
+      <div class="customer_default_address">{{ customer.default_address | format_address }}</div>
 
       <a href="{{ routes.account_addresses_url }}">
         {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
