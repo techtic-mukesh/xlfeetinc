@@ -49,7 +49,11 @@
     font-size: 16px;
     font-weight: 500;
     min-height: unset;
-    margin-top: 21px;
+    margin-top: 20px;
+    line-height: 22px;
+  }
+  .article-read-more span{
+    line-height:0;
   }
 .button.article-read-more:after , 
 .button.article-read-more:not([disabled]):hover:after{
@@ -69,8 +73,22 @@
     z-index: 2;
   }
 
-  .blog-load-more { text-align: center; margin-top: 24px; }
+  .blog-load-more { text-align: center; margin-top: 50px; }
   .blog-load-more .button.is-loading { opacity: .6; pointer-events: none; }
+  .blog-load-more button{
+    border: 1px solid #000;
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    min-height: 50px;
+  }
+  .blog-load-more button:after , .blog-load-more .button:not([disabled]):hover:after{
+    box-shadow:unset;
+  }
+  @media screen and (max-width: 749px) {
+    .blog-load-more { margin-top: 20px; }
+  }
 {%- endstyle -%}
 
 {%- paginate blog.articles by section.settings.items_per_load -%}
@@ -80,7 +98,7 @@
     data-section-id="{{ section.id }}"
     style="--cols-desktop: {{ section.settings.columns_desktop }}; --cols-mobile: {{ section.settings.columns_mobile }}; --card-radius: {{ section.settings.card_radius }}px;"
   >
-    <h1 class="title--primary{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+    <h1 class="main_blog_heading title--primary{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       {%- if section.settings.custom_heading != blank -%}
         {{ section.settings.custom_heading | escape }}
       {%- else -%}

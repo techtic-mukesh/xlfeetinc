@@ -128,9 +128,47 @@ h2 {
 .main_customer_default_address{
         flex-grow: 0.3;
 }
+.customer .main_customer_account_right td:before{
+    color: rgba(var(--color-foreground), 1);    
+    font-weight: 500;
+}
+.custom_wishlist_btn.wishlistBtn{
+    position: relative;
+}
+.wishlist-icon { display: none; }
+.default-icon { display: inline-block; }
+
+/* When product is in wishlist */
+.wishlistBtn.in-wishlist .default-icon {
+  display: none;
+}
+
+.wishlistBtn.in-wishlist .added-icon {
+  display: inline-block;
+}
+.custom_wishlist_btn.wishlistBtn {
+    position: relative;
+    z-index: 9999;
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 45px;
+}
+.custom_wishlist_btn.wishlistBtn span{
+    line-height: 0;
+}
 @media screen and (max-width: 1100px) {
     .main_customer_account .main_customer_account_right{
         flex-direction: column;
         gap:20px;
     }
+}
+@media screen and (max-width: 990px) {
+    :is(.account,.order)>div:nth-of-type(2){
+        margin-top: 1rem;
+    }
+}
+@media screen and (max-width: 800px) {
+.customer .main_customer_account_right th, .customer .main_customer_account_right td:first-of-type , .customer .main_customer_account_right td{
+    padding-right: 5px;
+}
 }
