@@ -45,7 +45,7 @@
               <h1 class="article-template__title">
                 {{ article.title | escape }}
               </h1>
-
+            <div class="article_blog_title">  {{ blog.title | escape }}</div>
             {%- if block.settings.blog_show_date -%}
               <span class="circle-divider date_time_grid">
               <span class="date_time_svg"> 
@@ -105,15 +105,7 @@
               <div id="ArticleContent-{{ section.id }}" class="article-content-wrapper">
                 {{ article.content }}
               </div>
-              <button
-                id="ArticleLoadMore-{{ section.id }}"
-                class="button article-content__load-more button--secondary"
-                type="button"
-                aria-controls="ArticleContent-{{ section.id }}"
-                aria-expanded="false"
-              >
-                Load More
-              </button>
+             
               <noscript></noscript>
             </div>
 
@@ -141,207 +133,14 @@
         </div>
       {%- endif -%}
 
-      {%- if blog.comments_enabled? -%}
-        <div class="article-template__comment-wrapper background-secondary">
-          <div
-            id="comments"
-            class="{% if settings.animations_reveal_on_scroll %}scroll-trigger animate--slide-in{% endif %}"
-          >
-            {%- if article.comments_count > 0 -%}
-              {%- assign anchorId = '#Comments-' | append: article.id -%}
-
-              <h2 id="Comments-{{ article.id }}" tabindex="-1">
-                {{ 'blogs.article.comments' | t: count: article.comments_count }}
-              </h2>
-              {% paginate article.comments by 5 %}
-                <div class="article-template__comments">
-                  {%- if comment.status == 'pending' and comment.content -%}
-                    <article id="{{ comment.id }}" class="article-template__comments-comment">
-                      {{ comment.content }}
-                      <footer class="right">
-                        <span class="circle-divider caption-with-letter-spacing">{{ comment.author }}</span>
-                      </footer>
-                    </article>
-                  {%- endif -%}
-
-                  {%- for comment in article.comments -%}
-                    <article id="{{ comment.id }}" class="article-template__comments-comment">
-                      {{ comment.content }}
-                      <footer class="right">
-                        <span class="circle-divider caption-with-letter-spacing">{{ comment.author }}</span
-                        ><span class="caption-with-letter-spacing">
-                          {{- comment.created_at | time_tag: format: 'date' -}}
-                        </span>
-                      </footer>
-                    </article>
-                  {%- endfor -%}
-                  {% render 'pagination', paginate: paginate, anchor: anchorId %}
-                </div>
-              {% endpaginate %}
-            {%- endif -%}
-            {% form 'new_comment', article %}
-              {%- liquid
-                assign post_message = 'blogs.article.success'
-                if blog.moderated? and comment.status == 'unapproved'
-                  assign post_message = 'blogs.article.success_moderated'
-                endif
-              -%}
-              <h2>{{ 'blogs.article.comment_form_title' | t }}</h2>
-              {%- if form.errors -%}
-                <div class="form__message" role="alert">
-                  <h3 class="form-status caption-large text-body" tabindex="-1" autofocus>
-                    <span class="svg-wrapper">
-                      {{- 'icon-error.svg' | inline_asset_content -}}
-                    </span>
-                    {{ 'templates.contact.form.error_heading' | t }}
-                  </h3>
-                </div>
-                <ul class="form-status-list caption-large">
-                  {%- for field in form.errors -%}
-                    <li>
-                      <a href="#CommentForm-{{ field }}" class="link">
-                        {%- if form.errors.translated_fields[field] contains 'author' -%}
-                          {{ 'blogs.article.name' | t }}
-                        {%- elsif form.errors.translated_fields[field] contains 'body' -%}
-                          {{ 'blogs.article.message' | t }}
-                        {%- else -%}
-                          {{ form.errors.translated_fields[field] }}
-                        {%- endif -%}
-                        {{ form.errors.messages[field] }}
-                      </a>
-                    </li>
-                  {%- endfor -%}
-                </ul>
-              {%- elsif form.posted_successfully? -%}
-                <div class="form-status-list form__message" role="status">
-                  <h3 class="form-status" tabindex="-1" autofocus>
-                    <span class="svg-wrapper">
-                      {{- 'icon-success.svg' | inline_asset_content -}}
-                    </span>
-                    {{ post_message | t }}
-                  </h3>
-                </div>
-              {%- endif -%}
-
-              <div
-                {% if blog.moderated? == false %}
-                  class="article-template__comments-fields"
-                {% endif %}
-              >
-                <div class="article-template__comment-fields">
-                  <div class="field field--with-error">
-                    <input
-                      type="text"
-                      name="comment[author]"
-                      id="CommentForm-author"
-                      class="field__input"
-                      autocomplete="name"
-                      value="{{ form.author }}"
-                      aria-required="true"
-                      required
-                      {% if form.errors contains 'author' %}
-                        aria-invalid="true"
-                        aria-describedby="CommentForm-author-error"
-                      {% endif %}
-                      placeholder="{{ 'blogs.article.name' | t }}"
-                    >
-                    <label class="field__label" for="CommentForm-author">
-                      {{- 'blogs.article.name' | t }}
-                      <span aria-hidden="true">*</span></label
-                    >
-                    {%- if form.errors contains 'author' -%}
-                      <small id="CommentForm-author-error">
-                        <span class="form__message">
-                          <span class="svg-wrapper">
-                            {{- 'icon-error.svg' | inline_asset_content -}}
-                          </span>
-                          {{- 'blogs.article.name' | t }}
-                          {{ form.errors.messages.author }}.</span
-                        >
-                      </small>
-                    {%- endif -%}
-                  </div>
-                  <div class="field field--with-error">
-                    <input
-                      type="email"
-                      name="comment[email]"
-                      id="CommentForm-email"
-                      autocomplete="email"
-                      class="field__input"
-                      value="{{ form.email }}"
-                      autocorrect="off"
-                      autocapitalize="off"
-                      aria-required="true"
-                      required
-                      {% if form.errors contains 'email' %}
-                        aria-invalid="true"
-                        aria-describedby="CommentForm-email-error"
-                      {% endif %}
-                      placeholder="{{ 'blogs.article.email' | t }}"
-                    >
-                    <label class="field__label" for="CommentForm-email">
-                      {{- 'blogs.article.email' | t }}
-                      <span aria-hidden="true">*</span></label
-                    >
-                    {%- if form.errors contains 'email' -%}
-                      <small id="CommentForm-email-error">
-                        <span class="form__message">
-                          <span class="svg-wrapper">
-                            {{- 'icon-error.svg' | inline_asset_content -}}
-                          </span>
-                          {{- 'blogs.article.email' | t }}
-                          {{ form.errors.messages.email }}.</span
-                        >
-                      </small>
-                    {%- endif -%}
-                  </div>
-                </div>
-                <div class="field field--with-error">
-                  <textarea
-                    rows="5"
-                    name="comment[body]"
-                    id="CommentForm-body"
-                    class="text-area field__input"
-                    aria-required="true"
-                    required
-                    {% if form.errors contains 'body' %}
-                      aria-invalid="true"
-                      aria-describedby="CommentForm-body-error"
-                    {% endif %}
-                    placeholder="{{ 'blogs.article.message' | t }}"
-                  >{{ form.body }}</textarea>
-                  <label class="form__label field__label" for="CommentForm-body">
-                    {{- 'blogs.article.message' | t }}
-                    <span aria-hidden="true">*</span></label
-                  >
-                </div>
-                {%- if form.errors contains 'body' -%}
-                  <small id="CommentForm-body-error">
-                    <span class="form__message">
-                      <span class="svg-wrapper">
-                        {{- 'icon-error.svg' | inline_asset_content -}}
-                      </span>
-                      {{- 'blogs.article.message' | t }}
-                      {{ form.errors.messages.body }}.</span
-                    >
-                  </small>
-                {%- endif -%}
-              </div>
-              {%- if blog.moderated? -%}
-                <p class="article-template__comment-warning caption">{{ 'blogs.article.moderated' | t }}</p>
-              {%- endif -%}
-              <input type="submit" class="button" value="{{ 'blogs.article.post' | t }}">
-            {% endform %}
-          </div>
-        </div>
-      {%- endif -%}
+      
     </div>
 
     <aside class="article-layout__aside">
     <div class="artical_layout_aside_top">
       {%- if section.settings.show_sidebar_search -%}
         <div class="blog-sidebar__widget blog-sidebar__widget--search">
-          <h3 class="blog-sidebar__title">{{ section.settings.search_heading | default: 'Search' }}</h3>
+         
           <form action="{{ routes.search_url }}" method="get" role="search" class="blog-search" novalidate>
             <input type="hidden" name="type" value="article">
             <span class="blog-search__icon" aria-hidden="true">
@@ -409,75 +208,233 @@
         </div>
       {%- endif -%}
     </aside>
+    
   </div>
+  {%- if blog.comments_enabled? -%}
+    <div class="page-width">
+      {%- comment -%} NEXT/PREVIOUS BLOG POST NAVIGATION {%- endcomment -%}
+          {%- if section.settings.show_next_prev_posts -%}
+            <nav class="blog-post-navigation{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+              {%- if blog.previous_article -%}
+                <div class="blog-post-navigation__item blog-post-navigation__item--prev">
+                  <a href="{{ blog.previous_article.url }}" class="blog-post-navigation__link">
+                    <span class="blog-post-navigation__label">Previous</span>
+                    <span class="blog-post-navigation__title">{{ blog.previous_article.title | escape }}</span>
+                  </a>
+                </div>
+              {%- else -%}
+                <div class="blog-post-navigation__item"></div>
+              {%- endif -%}
+
+              {%- if blog.next_article -%}
+                <div class="blog-post-navigation__item blog-post-navigation__item--next">
+                  <a href="{{ blog.next_article.url }}" class="blog-post-navigation__link">
+                    <span class="blog-post-navigation__label">Next </span>
+                    <span class="blog-post-navigation__title">{{ blog.next_article.title | escape }}</span>
+                  </a>
+                </div>
+              {%- else -%}
+                <div class="blog-post-navigation__item"></div>
+              {%- endif -%}
+            </nav>
+          {%- endif -%}
+          <div class="article-template__comment-wrapper background-secondary">
+            <div
+              id="comments"
+              class="{% if settings.animations_reveal_on_scroll %}scroll-trigger animate--slide-in{% endif %}"
+            >
+              {%- if article.comments_count > 0 -%}
+                {%- assign anchorId = '#Comments-' | append: article.id -%}
+
+                <h2 id="Comments-{{ article.id }}" tabindex="-1">
+                  {{ 'blogs.article.comments' | t: count: article.comments_count }}
+                </h2>
+                {% paginate article.comments by 5 %}
+                  <div class="article-template__comments">
+                    {%- if comment.status == 'pending' and comment.content -%}
+                      <article id="{{ comment.id }}" class="article-template__comments-comment">
+                        {{ comment.content }}
+                        <footer class="right">
+                          <span class="circle-divider caption-with-letter-spacing">{{ comment.author }}</span>
+                        </footer>
+                      </article>
+                    {%- endif -%}
+
+                    {%- for comment in article.comments -%}
+                      <article id="{{ comment.id }}" class="article-template__comments-comment">
+                        {{ comment.content }}
+                        <footer class="right">
+                          <span class="circle-divider caption-with-letter-spacing">{{ comment.author }}</span
+                          ><span class="caption-with-letter-spacing">
+                            {{- comment.created_at | time_tag: format: 'date' -}}
+                          </span>
+                        </footer>
+                      </article>
+                    {%- endfor -%}
+                    {% render 'pagination', paginate: paginate, anchor: anchorId %}
+                  </div>
+                {% endpaginate %}
+              {%- endif -%}
+              {% form 'new_comment', article %}
+                {%- liquid
+                  assign post_message = 'blogs.article.success'
+                  if blog.moderated? and comment.status == 'unapproved'
+                    assign post_message = 'blogs.article.success_moderated'
+                  endif
+                -%}
+                <h3> <span>{{ 'blogs.article.comment_form_title' | t }}</span></h3>
+                {%- if form.errors -%}
+                  <div class="form__message" role="alert">
+                    <h3 class="form-status caption-large text-body" tabindex="-1" autofocus>
+                      <span class="svg-wrapper">
+                        {{- 'icon-error.svg' | inline_asset_content -}}
+                      </span>
+                      {{ 'templates.contact.form.error_heading' | t }}
+                    </h3>
+                  </div>
+                  <ul class="form-status-list caption-large">
+                    {%- for field in form.errors -%}
+                      <li>
+                        <a href="#CommentForm-{{ field }}" class="link">
+                          {%- if form.errors.translated_fields[field] contains 'author' -%}
+                            {{ 'blogs.article.name' | t }}
+                          {%- elsif form.errors.translated_fields[field] contains 'body' -%}
+                            {{ 'blogs.article.message' | t }}
+                          {%- else -%}
+                            {{ form.errors.translated_fields[field] }}
+                          {%- endif -%}
+                          {{ form.errors.messages[field] }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- elsif form.posted_successfully? -%}
+                  <div class="form-status-list form__message" role="status">
+                    <h3 class="form-status" tabindex="-1" autofocus>
+                      <span class="svg-wrapper">
+                        {{- 'icon-success.svg' | inline_asset_content -}}
+                      </span>
+                      {{ post_message | t }}
+                    </h3>
+                  </div>
+                {%- endif -%}
+
+                <div
+                  {% if blog.moderated? == false %}
+                    class="article-template__comments-fields"
+                  {% endif %}
+                >
+                  <div class="article-template__comment-fields">
+                    <div class="field field--with-error">
+                      <input
+                        type="text"
+                        name="comment[author]"
+                        id="CommentForm-author"
+                        class="field__input"
+                        autocomplete="name"
+                        value="{{ form.author }}"
+                        aria-required="true"
+                        required
+                        {% if form.errors contains 'author' %}
+                          aria-invalid="true"
+                          aria-describedby="CommentForm-author-error"
+                        {% endif %}
+                        placeholder="{{ 'blogs.article.name' | t }}"
+                      >
+                      <label class="field__label" for="CommentForm-author">
+                        {{- 'blogs.article.name' | t }}
+                        <span aria-hidden="true">*</span></label
+                      >
+                      {%- if form.errors contains 'author' -%}
+                        <small id="CommentForm-author-error">
+                          <span class="form__message">
+                            <span class="svg-wrapper">
+                              {{- 'icon-error.svg' | inline_asset_content -}}
+                            </span>
+                            {{- 'blogs.article.name' | t }}
+                            {{ form.errors.messages.author }}.</span
+                          >
+                        </small>
+                      {%- endif -%}
+                    </div>
+                    <div class="field field--with-error">
+                      <input
+                        type="email"
+                        name="comment[email]"
+                        id="CommentForm-email"
+                        autocomplete="email"
+                        class="field__input"
+                        value="{{ form.email }}"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        aria-required="true"
+                        required
+                        {% if form.errors contains 'email' %}
+                          aria-invalid="true"
+                          aria-describedby="CommentForm-email-error"
+                        {% endif %}
+                        placeholder="{{ 'blogs.article.email' | t }}"
+                      >
+                      <label class="field__label" for="CommentForm-email">
+                        {{- 'blogs.article.email' | t }}
+                        <span aria-hidden="true">*</span></label
+                      >
+                      {%- if form.errors contains 'email' -%}
+                        <small id="CommentForm-email-error">
+                          <span class="form__message">
+                            <span class="svg-wrapper">
+                              {{- 'icon-error.svg' | inline_asset_content -}}
+                            </span>
+                            {{- 'blogs.article.email' | t }}
+                            {{ form.errors.messages.email }}.</span
+                          >
+                        </small>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                  <div class="field field--with-error">
+                    <textarea
+                      rows="5"
+                      name="comment[body]"
+                      id="CommentForm-body"
+                      class="text-area field__input"
+                      aria-required="true"
+                      required
+                      {% if form.errors contains 'body' %}
+                        aria-invalid="true"
+                        aria-describedby="CommentForm-body-error"
+                      {% endif %}
+                      placeholder="{{ 'blogs.article.message' | t }}"
+                    >{{ form.body }}</textarea>
+                    <label class="form__label field__label" for="CommentForm-body">
+                      {{- 'blogs.article.message' | t }}
+                      <span aria-hidden="true">*</span></label
+                    >
+                  </div>
+                  {%- if form.errors contains 'body' -%}
+                    <small id="CommentForm-body-error">
+                      <span class="form__message">
+                        <span class="svg-wrapper">
+                          {{- 'icon-error.svg' | inline_asset_content -}}
+                        </span>
+                        {{- 'blogs.article.message' | t }}
+                        {{ form.errors.messages.body }}.</span
+                      >
+                    </small>
+                  {%- endif -%}
+                </div>
+                {%- if blog.moderated? -%}
+                  <p class="article-template__comment-warning caption">{{ 'blogs.article.moderated' | t }}</p>
+                {%- endif -%}
+                <input type="submit" class="button" value="{{ 'blogs.article.post' | t }}">
+              {% endform %}
+            </div>
+          </div>
+    </div>
+  {%- endif -%}
 </article>
 
-<script>
-  (function() {
-    var content = document.getElementById('ArticleContent-{{ section.id }}');
-    var btn = document.getElementById('ArticleLoadMore-{{ section.id }}');
-    if (!content || !btn) return;
 
-    function clampToHalfMinus() {
-      content.classList.remove('is-expanded', 'is-expanding', 'has-more');
-      content.style.maxHeight = '';
-
-      var full = content.scrollHeight;
-      if (!full || full < 200) {
-        btn.style.display = 'none';
-        return;
-      }
-
-      // Use ~49% and shave a few pixels to avoid cutting a heading
-      var initial = Math.max(120, Math.floor(full * 0.49) - 0);
-      content.style.maxHeight = initial + 'px';
-      content.classList.add('has-more');
-      btn.style.display = '';
-      btn.setAttribute('aria-expanded', 'false');
-    }
-
-    function expandSmooth() {
-      btn.disabled = true;
-      content.classList.add('is-expanding'); // fades overlay
-      // Animate to the full pixel height first
-      content.style.maxHeight = content.scrollHeight + 'px';
-
-      var onEnd = function(e) {
-        if (e.propertyName !== 'max-height') return;
-        content.removeEventListener('transitionend', onEnd);
-        // After animation completes, let it be natural height
-        content.classList.add('is-expanded');
-        content.classList.remove('is-expanding', 'has-more');
-        content.style.maxHeight = '';
-        btn.style.display = 'none';
-        btn.disabled = false;
-        btn.setAttribute('aria-expanded', 'true');
-      };
-      content.addEventListener('transitionend', onEnd);
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', clampToHalfMinus);
-    } else {
-      clampToHalfMinus();
-    }
-
-    // Recalculate after resources load and on resize
-    window.addEventListener('load', function() {
-      if (!content.classList.contains('is-expanded')) clampToHalfMinus();
-    });
-    window.addEventListener('resize', function() {
-      if (!content.classList.contains('is-expanded')) {
-        clampToHalfMinus();
-      } else {
-        // keep inline height natural after expansion
-        content.style.maxHeight = '';
-      }
-    });
-
-    btn.addEventListener('click', expandSmooth);
-  })();
-</script>
 <script>
   (function() {
     function updateArticleStickyTop() {
@@ -515,6 +472,12 @@
       "type": "checkbox",
       "id": "show_back_to_blog",
       "label": "Show back-to-blog link",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_next_prev_posts",
+      "label": "Show next/previous posts navigation",
       "default": true
     },
     {
