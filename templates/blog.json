@@ -31,7 +31,7 @@
       "settings": {
         "color_scheme": "scheme-5ce89a8f-a0c7-452c-baae-2fea85722b41",
         "layout": "grid",
-        "custom_heading": "",
+        "custom_heading": "Large size and Wide mens Boots Shoes Socks Slippers and Sandals Blog",
         "title_align": "center",
         "show_image": true,
         "image_height": "medium",
@@ -44,8 +44,8 @@
         "read_more_label": "READ MORE",
         "show_tag_badge": false,
         "load_more_label": "LOAD MORE",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 40
       }
     }
   },

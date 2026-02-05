@@ -81,3 +81,94 @@ h2 {
     box-shadow: unset;
  }
 }
+.main_customer_account .main_customer_account_right{
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 20px;
+}
+.customer__title{
+    font-family: HelveticaNeue-BlackExt;
+    letter-spacing: 3px;
+    font-size: 30px;
+}
+.main_customer_account .main_customer_account_right h2{
+    font-family: HelveticaNeue-BlackExt;
+    letter-spacing: 2.2px;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+.main_customer_account .customer thead th{
+    background: #fff;
+    font-weight: 500;
+    color: rgba(var(--color-foreground), 1);
+}
+
+.main_customer_account .customer tbody td{
+    font-weight: 300;
+    font-size: 14px;
+}
+.main_customer_default_address .customer_default_address p{
+    font-weight: 300;
+    font-size: 1.5rem;
+}
+.main_customer_default_address  a{
+    font-weight: 500;
+    color: rgba(var(--color-foreground), 1);
+    text-underline-offset: 5px;
+}
+.customer thead th{
+    background: #fff;
+    color: rgba(var(--color-foreground), 1);
+    font-weight: 500;
+}
+.customer tbody td{
+    font-size: 14px;
+    font-weight: 300;
+}
+.main_customer_default_address{
+        flex-grow: 0.3;
+}
+.customer .main_customer_account_right td:before{
+    color: rgba(var(--color-foreground), 1);    
+    font-weight: 500;
+}
+.custom_wishlist_btn.wishlistBtn{
+    position: relative;
+}
+.wishlist-icon { display: none; }
+.default-icon { display: inline-block; }
+
+/* When product is in wishlist */
+.wishlistBtn.in-wishlist .default-icon {
+  display: none;
+}
+
+.wishlistBtn.in-wishlist .added-icon {
+  display: inline-block;
+}
+.custom_wishlist_btn.wishlistBtn {
+    position: relative;
+    z-index: 9999;
+    text-align: right;
+    padding-right: 20px;
+    padding-top: 45px;
+}
+.custom_wishlist_btn.wishlistBtn span{
+    line-height: 0;
+}
+@media screen and (max-width: 1100px) {
+    .main_customer_account .main_customer_account_right{
+        flex-direction: column;
+        gap:20px;
+    }
+}
+@media screen and (max-width: 990px) {
+    :is(.account,.order)>div:nth-of-type(2){
+        margin-top: 1rem;
+    }
+}
+@media screen and (max-width: 800px) {
+.customer .main_customer_account_right th, .customer .main_customer_account_right td:first-of-type , .customer .main_customer_account_right td{
+    padding-right: 5px;
+}
+}
