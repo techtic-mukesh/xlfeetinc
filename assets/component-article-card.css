@@ -166,7 +166,8 @@ span.date_time_svg {
     line-height:0;
   }
   .blog-articles .card.article-card .card__inner img{
-      object-fit: cover;
+      object-fit: contain;
+      padding: 0;
 }
 @media screen and (min-width: 750px) {
   .article-card__image--small .ratio::before {
@@ -216,15 +217,18 @@ span.date_time_svg {
   .article-card__excerpt{
     font-size: 14px;
     margin-top: 10px;
-    line-height: 22px;
+    line-height: 20px
   }
   .article-read-more{
     font-size: 14px;
-    margin-top: 15px;
+    margin-top: 12px;
     line-height: 22px;
   }
+  .article-card .card__heading a {
+        line-height: 20px
+  }
   .blog-articles .article-card .card__information{
-        padding-top: 15px;
+        padding-top: 12px;
   }
 
 }
