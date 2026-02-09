@@ -32,6 +32,8 @@
         "color_scheme": "scheme-5ce89a8f-a0c7-452c-baae-2fea85722b41",
         "layout": "grid",
         "custom_heading": "Large size and Wide mens Boots Shoes Socks Slippers and Sandals Blog",
+        "heading_color": "#000000",
+        "article_card_content_color": "#646464",
         "title_align": "center",
         "show_image": true,
         "image_height": "medium",

@@ -121,8 +121,15 @@
 
 .card__inner {
   width: 100%;
+  min-height: 350px;
 }
-
+.card__inner img{
+  padding: 10px 20px;
+}
+.card--standard .card__inner .card__content .quick-add button{
+    color: #191b1d;
+    background-color: #fff;
+}
 .card--media .card__inner .card__content {
   position: relative;
   padding: calc(var(--image-padding) + 1rem);
@@ -218,7 +225,12 @@
     width: calc(100% + var(--border-width) + 1rem);
   }
 }
-
+@media screen and (max-width: 1200px) {
+  .card__inner {
+    width: 100%;
+    min-height: unset;
+  }
+}
 @media screen and (max-width: 749px) {
   .grid--2-col-tablet-down .card__content quick-add-bulk .quantity__button {
     width: calc(3.5rem / var(--font-body-scale));
@@ -236,7 +248,14 @@
     transform: translate(-50%);
   }
 
-
+.card__inner img{
+    padding:0  10px;
+  }
+  .card__inner {
+    width: 100%;
+    border: 1px solid #ECECEC !important;
+    min-height: 199px;
+  }
   .grid--2-col-tablet-down
     .card--standard
     .card__information-volume-pricing-note--button
@@ -312,16 +331,16 @@
 .card__heading {
   margin-top: 0;
   margin-bottom: 0;
-      color: #191B1D;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 20px;
-    margin-bottom: 10px;
-        display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
+  color: #191B1D;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 10px;
+    display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .card__heading:last-child {
@@ -659,8 +678,7 @@ line-height: 16px; /* 100% */
 @media screen and (max-width: 767px) {
   
  .card__heading {
-    font-size: 14px;
-    line-height: 1.2;
+    -webkit-line-clamp:unset;
 } 
 
 .card-information>.price {

@@ -39,22 +39,7 @@
     display: block;
   }
 
-  .article-read-more {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin: 0;
-    text-decoration: none;
-    padding: 0;
-    font-size: 16px;
-    font-weight: 500;
-    min-height: unset;
-    margin-top: 20px;
-    line-height: 22px;
-  }
-  .article-read-more span{
-    line-height:0;
-  }
+
 .button.article-read-more:after , 
 .button.article-read-more:not([disabled]):hover:after{
   box-shadow:unset;
@@ -76,17 +61,35 @@
   .blog-load-more { text-align: center; margin-top: 50px; }
   .blog-load-more .button.is-loading { opacity: .6; pointer-events: none; }
   .blog-load-more button{
-    border: 1px solid #000;
-    color: #000;
+    border: 1px solid {{ section.settings.heading_color }};
+    color:{{ section.settings.heading_color }};
     font-size: 16px;
     font-weight: 500;
     letter-spacing: 0;
     min-height: 50px;
+    max-width: 164px;
+    width: 100%;
   }
   .blog-load-more button:after , .blog-load-more .button:not([disabled]):hover:after{
     box-shadow:unset;
   }
-  @media screen and (max-width: 749px) {
+  .main_blog_heading , .article-read-more{
+    color:{{ section.settings.heading_color }};
+  }
+  .article-card__excerpt{
+    color:{{section.settings.article_card_content_color }};
+  }
+  @media screen and (max-width: 990px) {
+    .blog--center h1{
+      font-size: 25px;
+      line-height: normal;
+      margin-bottom: 30px;
+    }
+    .blog-articles .card.article-card .card__inner{
+      height:unset;
+    }
+  }
+    @media screen and (max-width: 749px) {
     .blog-load-more { margin-top: 20px; }
   }
 {%- endstyle -%}
@@ -129,7 +132,11 @@
           {%- if section.settings.show_custom_read_more -%}
             <a class="article-read-more button" href="{{ article.url }}" aria-label="{{ article.title | escape }}">
               {{ section.settings.read_more_label }}
-              <span aria-hidden="true">↗</span>
+              <span aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.41602 15.5833L15.5827 6.41663M15.5827 6.41663H7.33268M15.5827 6.41663V14.6666" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </a>
           {%- endif -%}
         </div>
@@ -214,6 +221,16 @@
     ], "default": "grid", "label": "t:sections.main-blog.settings.layout.label" },
 
     { "type": "text", "id": "custom_heading", "label": "Custom heading (optional)" },
+    {
+      "type":"color",
+      "id":"heading_color",
+      "label":"Heading Color"
+    },
+    {
+      "type":"color",
+      "id":"article_card_content_color",
+      "label":"Article Card Content Color"
+    },
     { "type": "select", "id": "title_align", "label": "Heading alignment", "options": [
       { "value": "center", "label": "Center" },
       { "value": "left", "label": "Left" }
