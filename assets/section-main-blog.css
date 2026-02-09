@@ -21,9 +21,7 @@
       width: 100%;
     height: 236px;
 }
-.blog-articles .card.article-card .card__inner img{
-      object-fit: cover;
-}
+
 @media screen and (min-width: 750px) {
   .blog-articles {
     grid-template-columns:1fr 1fr 1fr;
