@@ -64,7 +64,7 @@
 {%- endstyle -%}
 
 {% paginate search.results by 24 %}
-  <div class="template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
+  <div class="template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding color-{{ section.settings.color_scheme }} gradient">
     <div class="template-search__header page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
       <h1 class="h2 center">
         {%- if search.performed -%}
@@ -117,7 +117,10 @@
                 aria-label="{{ 'general.search.reset' | t }}"
               >
                 <span class="svg-wrapper">
-                  {{- 'icon-reset.svg' | inline_asset_content -}}
+                  <svg class="icon icon-close" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.8159 5.27174L5.27246 15.8152" stroke="#666270" stroke-width="1.75725" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M5.27246 5.27174L15.8159 15.8152" stroke="#666270" stroke-width="1.75725" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>    
                 </span>
               </button>
               <button type="submit" class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
@@ -150,7 +153,7 @@
         and section.settings.filter_type == 'vertical'
         and search.filters != empty
       -%}
-        <facet-filters-form class="facets facets-vertical-sort page-width small-hide">
+        <facet-filters-form class="facets facets-vertical-sort page-width ">
           <form class="facets-vertical-form" id="FacetSortForm">
             <div class="facet-filters sorting caption">
               <div class="facet-filters__field">
@@ -339,6 +342,13 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "info": "t:sections.all.colors.has_cards_info",
+      "default": "scheme-1"
+    },
     {
       "type": "range",
       "id": "columns_desktop",

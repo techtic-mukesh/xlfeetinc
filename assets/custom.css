@@ -80,6 +80,14 @@ h2 {
  .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn button:after{
     box-shadow: unset;
  }
+ .template-search .facets-vertical-form{
+    position: absolute;
+    right: 10px;
+    margin-top: 10px;
+ }
+ .template-search  .product-count-vertical.light {
+    display: none;
+}
 }
 .main_customer_account .main_customer_account_right{
     background: #f4f4f4;

@@ -126,6 +126,10 @@
 .card__inner img{
   padding: 10px 20px;
 }
+.template-search .card__inner{
+  min-height: 280px;
+  max-height: 280px;
+}
 .card--standard .card__inner .card__content .quick-add button{
     color: #191b1d;
     background-color: #fff;
@@ -229,6 +233,12 @@
   .card__inner {
     width: 100%;
     min-height: unset;
+  }
+}
+@media screen and (max-width:1100px) {
+  .template-search .card__inner {
+      min-height: 200px;
+      max-height: 200px;
   }
 }
 @media screen and (max-width: 749px) {
