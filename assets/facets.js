@@ -177,17 +177,50 @@ class FacetFiltersForm extends HTMLElement {
   }
 
   static renderActiveFacets(html) {
-    const activeFacetElementSelectors = ['.active-facets-mobile', '.active-facets-desktop'];
+  const activeFacetElementSelectors = ['.active-facets-mobile', '.active-facets-desktop'];
 
-    activeFacetElementSelectors.forEach((selector) => {
-      const activeFacetsElement = html.querySelector(selector);
-      if (!activeFacetsElement) return;
-      document.querySelector(selector).innerHTML = activeFacetsElement.innerHTML;
+  activeFacetElementSelectors.forEach((selector) => {
+    const activeFacetsElement = html.querySelector(selector);
+    if (!activeFacetsElement) return;
+    document.querySelector(selector).innerHTML = activeFacetsElement.innerHTML;
+  });
+
+  FacetFiltersForm.toggleActiveFacets(false);
+  FacetFiltersForm.checkActiveFacets(); // Add this line
+}
+
+static checkActiveFacets() {
+  const activeFacetsDesktop = document.querySelector('.active-facets-desktop');
+  const activeFacetsMobile = document.querySelector('.active-facets-mobile');
+  
+  // Check desktop active facets
+  if (activeFacetsDesktop) {
+    const desktopFacetRemoves = activeFacetsDesktop.querySelectorAll('facet-remove');
+    const hasActiveFilters = Array.from(desktopFacetRemoves).some(facetRemove => {
+      return !facetRemove.classList.contains('active-facets__button-wrapper');
     });
-
-    FacetFiltersForm.toggleActiveFacets(false);
+    
+    if (hasActiveFilters) {
+      activeFacetsDesktop.classList.remove('hidden-filters');
+    } else {
+      activeFacetsDesktop.classList.add('hidden-filters');
+    }
   }
-
+  
+  // Check mobile active facets
+  if (activeFacetsMobile) {
+    const mobileFacetRemoves = activeFacetsMobile.querySelectorAll('facet-remove');
+    const hasActiveFilters = Array.from(mobileFacetRemoves).some(facetRemove => {
+      return !facetRemove.classList.contains('active-facets__button-wrapper');
+    });
+    
+    if (hasActiveFilters) {
+      activeFacetsMobile.classList.remove('hidden-filters');
+    } else {
+      activeFacetsMobile.classList.add('hidden-filters');
+    }
+  }
+}
   static renderAdditionalElements(html) {
     const mobileElementSelectors = ['.mobile-facets__open', '.mobile-facets__count', '.sorting'];
 
@@ -298,7 +331,9 @@ FacetFiltersForm.searchParamsInitial = window.location.search.slice(1);
 FacetFiltersForm.searchParamsPrev = window.location.search.slice(1);
 customElements.define('facet-filters-form', FacetFiltersForm);
 FacetFiltersForm.setListeners();
-
+document.addEventListener('DOMContentLoaded', function() {
+  FacetFiltersForm.checkActiveFacets();
+});
 class PriceRange extends HTMLElement {
   constructor() {
     super();

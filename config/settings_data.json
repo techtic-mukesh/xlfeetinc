@@ -159,6 +159,11 @@
           "append_position_desktop": "beforebegin",
           "append_position_mobile": "beforebegin"
         }
+      },
+      "7570552984445421165": {
+        "type": "shopify://apps/yotpo-product-reviews/blocks/settings/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
@@ -301,6 +306,17 @@
           "text": "#191b1d",
           "button": "#ffffff",
           "button_label": "#191b1d",
+          "secondary_button_label": "#191b1d",
+          "shadow": "#191b1d"
+        }
+      },
+      "scheme-50cd9e36-599f-47e5-994a-309152b31d85": {
+        "settings": {
+          "background": "#ffffff",
+          "background_gradient": "",
+          "text": "#191b1d",
+          "button": "#191b1d",
+          "button_label": "#ffffff",
           "secondary_button_label": "#191b1d",
           "shadow": "#191b1d"
         }
