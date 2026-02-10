@@ -524,6 +524,11 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   font-size: 16px;
   font-weight: 700;
 }
+.custom_main_cart_items .cart-item__totals .price{
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+}
 .drawer__cart-items-wrapper .quantity__button{
   width: unset;
 }

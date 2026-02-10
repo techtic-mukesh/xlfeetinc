@@ -25,7 +25,7 @@
 
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
-<cart-items class="gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
+<cart-items class="custom_main_cart_items gradient color-{{ section.settings.color_scheme }} isolate{% if cart == empty %} is-empty{% else %} section-{{ section.id }}-padding{% endif %}">
   <div class="page-width">
     <div class="title-wrapper-with-link">
       <h1 class="title title--primary">SHOPPING BAG</h1>
@@ -265,7 +265,10 @@
 .cart-item__name { text-decoration: none; display: block; }
 .cart-item__name:hover { text-decoration: underline; text-underline-offset: .3rem; text-decoration-thickness: .2rem; }
 .meta-line { margin-top: 0;     line-height: normal; }
-.meta { font-size: 12px; color: #666; }
+.meta  , .meta-line{ font-size: 14px;
+    color: rgba(var(--color-foreground),1);
+    line-height:24px;
+    font-weight: 300; }
 .meta-dot { margin: 0 6px; color: #c7c7c7; }
 
 /* Prices block */
@@ -305,12 +308,15 @@ cart-remove-button .icon-remove { height: 1.5rem; width: 1.5rem; }
 }
 .cart-items--custom td.cart-item__price .price--end{
   text-align:center;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
 }
 /* Column widths (desktop) */
 .cart-items--custom { table-layout: fixed; }
 
 /* Title */
-.title.title--primary { font-size: 28px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; font-family: "HelveticaNeue-BlackExt"; }
+.title.title--primary { font-size: 28px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; font-family: "HelveticaNeue-BlackExt"; }
 
 /* Quantity pill */
 .quantity--pill { border: 1px solid #e5e5e5; border-radius: 24px; padding: 2px; display: inline-flex; }

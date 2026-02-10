@@ -35,6 +35,20 @@
       ],
       "settings": {
         "color_scheme": "scheme-d1e5d253-1a37-40b8-a39e-320e5b282a61",
+        "summary_heading": "SUMMARY",
+        "shipping_description": "<p><strong>Estimate Shipping and Tax</strong><br/>Enter your destination to get a shipping estimate.</p>",
+        "country_label": "Country",
+        "country_placeholder": "Select a country",
+        "province_label": "State / Province",
+        "province_placeholder": "Please select a region",
+        "zip_label": "Zip/Postal Code",
+        "zip_placeholder": "Enter zip code",
+        "shipping_options_heading": "Shipping options",
+        "shipping_text": "Shipping",
+        "subtotal_text": "Subtotal",
+        "tax_text": "Tax",
+        "total_text": "Order Total",
+        "checkout_button_text": "Proceed to checkout",
         "padding_top": 20,
         "padding_bottom": 40
       }
