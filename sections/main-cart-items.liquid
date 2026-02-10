@@ -162,7 +162,7 @@
                             {%- endif -%}
                             <quantity-input class="quantity cart-quantity quantity--pill">
                               {% assign can_update_quantity = item.instructions.can_update_quantity | default: true %}
-                              <button class="quantity__button" name="minus" type="button" {% if can_update_quantity == false %}disabled{% endif %}>
+                              <button class="quantity__button quantity__button_minus" name="minus" type="button" {% if can_update_quantity == false %}disabled{% endif %}>
                                 <span class="visually-hidden">{{- 'products.product.quantity.decrease' | t: product: item.product.title | escape -}}</span>
                                 <span class="svg-wrapper">{{- 'icon-minus.svg' | inline_asset_content -}}</span>
                               </button>
@@ -183,7 +183,7 @@
                                 data-index="{{ item.index | plus: 1 }}"
                                 {% if can_update_quantity == false %}disabled{% endif %}
                               >
-                              <button class="quantity__button" name="plus" type="button" {% if can_update_quantity == false %}disabled{% endif %}>
+                              <button class="quantity__button quantity__button_plus" name="plus" type="button" {% if can_update_quantity == false %}disabled{% endif %}>
                                 <span class="visually-hidden">{{- 'products.product.quantity.increase' | t: product: item.product.title | escape -}}</span>
                                 <span class="svg-wrapper">{{- 'icon-plus.svg' | inline_asset_content -}}</span>
                               </button>

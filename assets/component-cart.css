@@ -170,6 +170,8 @@ cart-items {
     font-size: 16px;
     line-height: 16px;
     font-weight: 500;
+    border-radius: 5px;
+    min-height: 54px;
 }
 
 .cart__ctas > * + * {
@@ -235,5 +237,10 @@ cart-items {
   .cart__ctas {
     display: flex;
     gap: 1rem;
+  }
+}
+@media screen and (max-width: 990px) {
+  .cart__ctas button{
+       min-height: calc(4.5rem + var(--buttons-border-width) * 2);
   }
 }
