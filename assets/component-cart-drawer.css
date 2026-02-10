@@ -23,7 +23,7 @@
   width: 49.7rem;
   max-width: calc(100vw - 3rem);
   padding: 0 15px 0 20px;
-  border: 0.1rem solid rgba(var(--color-foreground), 0.2);
+  /* border: 0.1rem solid rgba(var(--color-foreground), 0.2); */
   border-right: 0;
   overflow: hidden;
   display: flex;
@@ -36,7 +36,6 @@
 
 .drawer__inner-empty {
   height: 100%;
-  padding: 0 1.5rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -50,12 +49,17 @@
 }
 
 cart-drawer.is-empty .drawer__inner {
-  display: grid;
-  grid-template-rows: 1fr;
-  align-items: center;
-  padding: 0;
+  display: flex;
+  padding: 0 15px 0 20px;
+  overflow-y: scroll;
+  gap: 10px;
 }
-
+cart-drawer.is-empty .totals , cart-drawer.is-empty .cart__ctas{
+  display: none;
+}
+cart-drawer.is-empty .cart-drawer__warnings .drawer__close{
+  right: 28px;
+}
 cart-drawer.is-empty .drawer__header {
   display: none;
 }
@@ -323,6 +327,7 @@ p.totals__label {
     color: rgba(var(--color-foreground), 1);
     font-size: 18px;
     line-height: 100%;
+    font-weight: 300;
 }
 p.totals__value {
     color: rgba(var(--color-foreground), 1);
@@ -467,7 +472,6 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
 .cart-item__name {
   font-size: 16px;
   font-weight: 700;
-  color: #111;
   line-height: 1.3;
   margin-bottom: 8px;
 }
@@ -496,15 +500,20 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   border-radius: 9999px;
   border: 1px solid #e5e7eb;
 } */
-.quantity__input {
+.cart-item__qty-inline .quantity__input {
   width: 26px;
   text-align: center;
   border: 0;
   font-weight: 600;
   font-size: 16px;
   flex: 0 0 26px;
+  padding: 0;
 }
-
+.cart-item__qty-inline .quantity__input:focus-visible{
+  outline:unset;
+  outline-offset:unset;
+  box-shadow:unset;
+}
 /* Price (right aligned) */
 .cart-item__totals {
   white-space: nowrap;
@@ -514,7 +523,6 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
 .cart-item__totals .price {
   font-size: 16px;
   font-weight: 700;
-  color: #111;
 }
 .drawer__cart-items-wrapper .quantity__button{
   width: unset;
@@ -590,7 +598,6 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
 .cart-drawer .cart-item__name {
   font-size: 16px;
   font-weight: 700;
-  color: #111;
   line-height: 1.3;
   margin-bottom: 10px;
 }
@@ -708,7 +715,6 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     font-size: 16px;
     line-height: 1.25;
     font-weight: 700;
-    color: #111;
   }
 
   /* Quantity pill under title */
@@ -719,7 +725,6 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   .cart-item__totals .price,
   .cart-item__totals .cart-item__discounted-prices .price {
     font-weight: 700;
-    color: #111;
     font-size: 16px;
   }
 
@@ -729,6 +734,10 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     min-width: unset;
     line-height: 0;
     align-items: baseline;
+  }
+  .cart-item .cart-remove-button .svg-wrapper{
+    width: 100%;
+    height: 100%;
   }
   .cart-remove-button .button{
     width:36px; height:36px; padding:0;
@@ -828,7 +837,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   background:#f3f3f5;
   display:grid; place-items:center;
 }
-.cart-benefit__icon img{ width:22px; height:22px; object-fit:contain; }
+.cart-benefit__icon img{  object-fit:contain; }
 .cart-benefit__label{
     font-size: 12px;
     font-weight: 500;
@@ -864,9 +873,9 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   .upsell-card__title {
     display: block;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.2;
-    color: #111;
+    color: rgba(var(--color-foreground),1);
     text-decoration: none;
     margin-bottom: 6px;
     overflow: hidden;
@@ -877,13 +886,14 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
   .upsell-card__price { font-size: 14px; color: #111; }
   .cart-upsell__add.button {
       padding: 8px 20px;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 14px;
     min-height: unset;
     max-width: max-content;
     min-width: unset;
     line-height: 24px;
     border-radius:5px;
+    font-family: "Onest", sans-serif;
   }
   .cart-upsell__add.button:before , .cart-upsell__add.button:after{
     border-radius:unset;box-shadow: unset;
@@ -895,6 +905,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     --swiper-navigation-color: #111;
   }
   .swiper-button-prev:after, .swiper-button-next:after { font-size: 14px; }
+  
  @media (min-width: 990px){
   .card_drawer_price{
         margin-right: -46px;

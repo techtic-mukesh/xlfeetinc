@@ -18,7 +18,14 @@ cart-items .title-wrapper-with-link {
 .cart-item__quantity-wrapper {
   display: flex;
 }
-
+.cart-item__quantity-wrapper .quantity__button_minus.quantity__button .svg-wrapper{
+      width: 12px;
+      height: 1px;
+}
+.cart-item__quantity-wrapper .quantity__button_plus.quantity__button .svg-wrapper{
+      width: 12px;
+      height: 12px;
+}
 .cart-item__totals {
   position: relative;
 }
