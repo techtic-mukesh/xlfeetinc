@@ -74,7 +74,6 @@
         "show_line_separator": true,
         "color_scheme": "scheme-1",
         "menu_color_scheme": "scheme-1",
-        "cart_redirect": "https://8jgdw1-9d.myshopify.com/cart",
         "enable_country_selector": true,
         "enable_language_selector": true,
         "enable_customer_avatar": true,
