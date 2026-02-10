@@ -82,7 +82,20 @@
     font-size: 14px;
     transition: border-color .2s;
     background: #fff;
+    color: rgba(var(--color-foreground));
+    font-size: 14px;
     font-weight: 300;
+    font-family: var(--font-body-family);
+  }
+  .main_zip_code input {   
+    min-height:83px;
+  } 
+  .main_zip_code input::placeholder{
+        align-items: start;
+        text-align: left;
+        display: flex;
+        position: relative;
+        top:0;
   }
   .cart-summary select{
     width:100%;
@@ -94,7 +107,7 @@
     background-color: #f5f5f5;
     cursor: not-allowed;
     opacity: .6;
-  }
+  }   
 
   /* Province visibility */
   .field.province-field { display: none; }
@@ -209,6 +222,10 @@
     cursor: pointer;
     text-transform: uppercase;
     cursor: pointer;
+    max-width: 365px;
+    width: 100%;
+    min-height: 50px;
+    font-size: 16px;
   }
   .summary-checkout-btn:disabled { opacity: .6; cursor: not-allowed; }
 
@@ -260,7 +277,12 @@
   min-height: unset;
   justify-content: center;
 }
- 
+  @media screen and (max-width: 1070px) {
+    .summary-checkout-btn{
+          padding: 10px;
+        font-size: 14px;
+    }
+  }
   @media screen and (max-width: 769px) {
   .cart__footer-wrapper , .cart__items-wrapper {
     max-width: 100%;
@@ -548,7 +570,7 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
 
             <div class="select-wrapper">
               <select id="cart-province" disabled>
-                <option value="">{{ section.settings.province_placeholder }}</option>
+                <option value="">Please select a region, state or country </option>
               </select>
 
               <span class="select-icon">
@@ -564,7 +586,7 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
           </div>
 
 
-          <div class="field">
+          <div class="field main_zip_code">
             <label for="cart-zip">{{ section.settings.zip_label }}</label>
             <input type="text" id="cart-zip" placeholder="{{ section.settings.zip_placeholder }}" required>
           </div>
@@ -705,12 +727,7 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
       "label": "Province/State Label",
       "default": "State / Province"
     },
-    {
-      "type": "text",
-      "id": "province_placeholder",
-      "label": "Province/State Placeholder",
-      "default": "Please select a region"
-    },
+    
     {
       "type": "header",
       "content": "Zip/Postal Code Field Settings"
