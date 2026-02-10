@@ -88,7 +88,7 @@
 }
 .article-template__title {
     margin: 0;
-    font-size: 30px;
+    font-size: 37px;
     line-height: 42px;
     font-weight: 500;
     letter-spacing: 0;
@@ -237,7 +237,7 @@
 /* Article layout with right sidebar */
 .article-layout {
   display: flex;
-  gap: 3rem;
+  gap: 20px;
   align-items: start;
   margin-top: 50px;
 }
@@ -263,6 +263,7 @@
     padding: 0 10px;
     font-size: 14px;
     font-weight: 300;
+    letter-spacing: 0;
 }
 span.circle-divider.date_time_grid {
     display: flex;
@@ -307,7 +308,7 @@ article.article-template {
 /* Sidebar widgets */
 .blog-sidebar__widget + .blog-sidebar__widget { margin-top: 2rem; }
 .blog-sidebar__title { 
-      font-weight: 500;
+    font-weight: 700;
     margin: 0 0 0;
     font-size: 20px;
  }
@@ -331,7 +332,7 @@ article.article-template {
 .blog-sidebar__tag:hover { opacity: 1; }
 .artical_layout_aside_top  , .blog-sidebar__widget.blog-sidebar__widget--tags{
     border: 1px solid #E8E8E8;
-    padding: 24px;
+    padding: 23px;
     border-radius: 10px;
 }
 /* Sidebar search: rounded, icon-left */
@@ -359,10 +360,14 @@ article.article-template {
   height: 18px;
   display: block;
 }
-
+.blog-search__input::placeholder {
+  color : #919191;
+  font-size: 14px;
+  font-weight: 300;
+}
 .blog-search__input {
   width: 100%;
-  height: 44px;
+  height: 42px;
   padding: 0 14px 0 44px;
   border: 1px solid #A1A1A1;
   border-radius: 10px;
@@ -370,9 +375,11 @@ article.article-template {
   transition: box-shadow .2s, border-color .2s;
 }
 
-.blog-search__input::placeholder {
+/* .blog-search__input::placeholder {
   color: rgba(0,0,0,.55);
-}
+} */
+
+
 
 .blog-search__input:focus {
   outline: none;
@@ -396,7 +403,7 @@ article.article-template {
 .blog-sidebar__text{min-width:0}
 .blog-sidebar__title{display:block;   line-height:20px}
 .blog-sidebar__meta{display:block;font-size:12px;color: #646464; text-transform: capitalize;     font-weight: 300;
-    opacity: 1;} 
+    opacity: 1;     margin-top: 4px;} 
 .blog-sidebar__text .blog-sidebar__title{
     font-size: 14px;
     color: rgba(var(--color-foreground), 1);
@@ -456,6 +463,7 @@ li.blog-sidebar__item.blog-sidebar__item--last {
     margin-bottom: 5px;
     color: #646464;
     line-height: 24px;
+    font-weight: 300;
 }
 
 .blog-post-navigation__title {
