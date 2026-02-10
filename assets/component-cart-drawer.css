@@ -115,7 +115,10 @@ cart-drawer:not(.is-empty) .cart-drawer__collection {
   height: 2rem;
   width: 2rem;
 }
-
+.drawer__close .svg-wrapper svg{
+  width:auto;
+  height: auto;
+}
 .drawer__contents {
   flex-grow: 1;
   display: flex;
