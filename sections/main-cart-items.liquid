@@ -182,6 +182,7 @@
                                 id="Quantity-{{ item.index | plus: 1 }}"
                                 data-index="{{ item.index | plus: 1 }}"
                                 {% if can_update_quantity == false %}disabled{% endif %}
+                                readonly
                               >
                               <button class="quantity__button quantity__button_plus" name="plus" type="button" {% if can_update_quantity == false %}disabled{% endif %}>
                                 <span class="visually-hidden">{{- 'products.product.quantity.increase' | t: product: item.product.title | escape -}}</span>
