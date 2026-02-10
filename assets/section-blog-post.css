@@ -379,6 +379,8 @@ article.article-template {
   color: rgba(0,0,0,.55);
 } */
 
+
+
 .blog-search__input:focus {
   outline: none;
   border-color: rgba(0,0,0,.4);
