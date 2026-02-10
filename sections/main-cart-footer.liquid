@@ -25,12 +25,14 @@
     background: #fff;
   }
   .cart-summary h3 {
-    margin: 0 0 8px;
-    font-size: 18px;
-    font-weight: 700;
+    margin: 0 0 20px;
+    font-size: 24px;
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: .5px;
+    letter-spacing: 2.2px;
     font-family: "HelveticaNeue-BlackExt";
+    border-bottom: 1px solid #D9D9D9;
+    padding-bottom: 10px;
   }
   .cart-summary > p {
     font-size: 16px;
@@ -39,10 +41,24 @@
     letter-spacing: 0;
     line-height: 20px;
   }
+  .cart-summary > .rte {
+    font-size: 16px;
+    margin: 0 0 20px;
+    font-weight: 300;
+    letter-spacing: 0;
+    color: rgba(var(--color-foreground), 1);
+    line-height: 20px;
+  }
+  .cart_summary_content p strong{
+    font-weight: bold;
+    color: rgba(var(--color-foreground), 1);
+    line-height: 30px;
+    font-size: 16px;
+  }
 
   /* Inputs */
   .cart-summary .field { 
-    margin-bottom: 12px;
+    margin-bottom: 20px;
     border: none;
     flex-direction: column; }
   .cart-summary label {
@@ -51,6 +67,8 @@
     font-weight: 700;
     margin-bottom: 10px;
     color: rgba(var(--color-foreground), 1);
+    line-height:20px;
+    letter-spacing:0;
   }
   .cart-summary  .field:after ,   .cart-summary .field:hover.field:after{
     box-shadow:unset;
@@ -58,13 +76,13 @@
   
   .cart-summary select,
   .cart-summary input {
-    width:auto;
     padding: 10px 12px;
-    border-radius: 50px;
+    border-radius: 6px;
     border: 1px solid rgba(var(--color-foreground), 1);
     font-size: 14px;
     transition: border-color .2s;
     background: #fff;
+    font-weight: 300;
   }
   .cart-summary select{
     width:100%;
@@ -82,7 +100,7 @@
   .field.province-field { display: none; }
   .field.province-field.show { display: block; }
 
-  /* Rates header and list (UL) */
+  /* Rates header and list (UL) - NEW SIMPLIFIED DESIGN */
   .rates-header {
     margin-top: 20px;
     font-size: 16px;
@@ -91,39 +109,58 @@
     line-height: 20px;
     margin-bottom: 12px;
   }
-  span#summary-subtotal , span#summary-tax{
-    font-weight: 600;
-    color: rgba(var(--color-foreground), 1);
-}
- .shipping-rates-list {
+  
+  /* New simplified shipping rates list */
+  .shipping-rates-list {
     list-style: none;
-    margin: 6px 0 0;
+    margin: 0;
     padding: 0;
-    border: 1px solid rgba(0,0,0,.1);
-    border-radius: 8px;
-    overflow: hidden;
     max-width: 100%;
     margin-bottom: 20px;
     width: 100%;
-}
+  }
+  
   .shipping-rates-list li {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 12px;
-    background: #fff;
-    border-bottom: 1px solid rgba(0,0,0,.06);
+    padding: 10px 0;
+    background: transparent;
+    border: none;
   }
-  .shipping-rates-list li:last-child { border-bottom: 0; }
+  
   .rate-radio {
     margin: 0;
-    width: 16px; height: 16px;
+    width: 18px; 
+    height: 18px;
     accent-color: #111;
     flex: 0 0 auto;
+    cursor: pointer;
   }
-  .rate-label { flex: 1 1 auto; font-size: 14px; color: #333; }
-  .rate-price { font-weight: 600; color: #333; font-size: 14px; }
-  .rate-price.free { color: #28a745; }
+  
+  .rate-label { 
+    flex: 1 1 auto; 
+    font-size: 14px; 
+    color: rgba(var(--color-foreground), 1);
+    font-weight: 400;
+    cursor: pointer;
+  }
+  
+  .rate-price { 
+    font-weight: 700; 
+    color: rgba(var(--color-foreground), 1);
+    font-size: 14px; 
+  }
+  
+  .rate-price.free { 
+    color: rgba(var(--color-foreground), 1);
+    font-weight: 700;
+  }
+
+  span#summary-subtotal , span#summary-tax{
+    font-weight: 600;
+    color: rgba(var(--color-foreground), 1);
+}
 
   /* Divider and rows */
   .summary-divider {
@@ -156,7 +193,7 @@
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
-    color: #666;
+    color: rgba(var(--color-foreground), 1);
     padding-bottom: 20px;
     border-bottom: 1px solid #D9D9D9;
     margin-bottom: 14px;
@@ -305,6 +342,7 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
       this.zipInput = document.getElementById('cart-zip');
       this.rateDisplay = document.querySelector('.shipping-rate-value');
       this.ratesList = document.getElementById('shipping-rates-list');
+      this.defaultProvinceText = this.provinceSelect ? this.provinceSelect.querySelector('option[value=""]')?.textContent : 'Please select a region';
       if (!this.countrySelect || !this.provinceSelect || !this.zipInput) return;
       this.init();
     }
@@ -318,7 +356,7 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
     updateProvinces() {
       const selectedOption = this.countrySelect.options[this.countrySelect.selectedIndex];
       const countryName = selectedOption ? selectedOption.text.trim() : '';
-      this.provinceSelect.innerHTML = '<option value="">Please select a region</option>';
+      this.provinceSelect.innerHTML = '<option value="">' + this.defaultProvinceText + '</option>';
       if (PROVINCE_DATA[countryName]) {
         this.provinceField && this.provinceField.classList.add('show');
         this.provinceSelect.disabled = false;
@@ -386,7 +424,7 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
         radio.type = 'radio'; radio.name = 'shipping-rate'; radio.className = 'rate-radio'; radio.id = 'rate-' + idx; radio.checked = rate.name === selectedName;
         const label = document.createElement('label'); label.className = 'rate-label'; label.setAttribute('for', radio.id); label.textContent = rate.name;
         const price = document.createElement('span'); const isFree = parseFloat(rate.price) === 0;
-        price.className = 'rate-price' + (isFree ? ' free' : ''); price.textContent = isFree ? 'FREE' : this.formatMoneyFromFloat(rate.price);
+        price.className = 'rate-price' + (isFree ? ' free' : ''); price.textContent = isFree ? '$0.00' : this.formatMoneyFromFloat(rate.price);
         radio.addEventListener('change', () => this.displayRate(rate));
         li.appendChild(radio); li.appendChild(label); li.appendChild(price);
         this.ratesList.appendChild(li);
@@ -469,15 +507,18 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
 
         <!-- SUMMARY CARD -->
         <div class="cart-summary">
-          <h3>SUMMARY</h3>
-          <p>Estimate Shipping and Tax</p>
+          <h3>{{ section.settings.summary_heading }}</h3>
+          
+          {% if section.settings.shipping_description != blank %}
+            <div class="rte cart_summary_content">{{ section.settings.shipping_description }}</div>
+          {% endif %}
 
          <div class="field custom-select">
-            <label for="cart-country">Country *</label>
+            <label for="cart-country">{{ section.settings.country_label }}</label>
 
             <div class="select-wrapper">
               <select id="cart-country" required>
-                <option value="">Select a country</option>
+                <option value="">{{ section.settings.country_placeholder }}</option>
                 {% if localization.available_countries.size > 0 %}
                   {% for country in localization.available_countries %}
                     <option value="{{ country.iso_code }}"
@@ -503,11 +544,11 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
           </div>
 
           <div class="field province-field custom-select">
-            <label for="cart-province">State / Province</label>
+            <label for="cart-province">{{ section.settings.province_label }}</label>
 
             <div class="select-wrapper">
               <select id="cart-province" disabled>
-                <option value="">Please select a region</option>
+                <option value="">{{ section.settings.province_placeholder }}</option>
               </select>
 
               <span class="select-icon">
@@ -524,30 +565,30 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
 
 
           <div class="field">
-            <label for="cart-zip">Zip / Postal Code *</label>
-            <input type="text" id="cart-zip" placeholder="Enter zip code" required>
+            <label for="cart-zip">{{ section.settings.zip_label }}</label>
+            <input type="text" id="cart-zip" placeholder="{{ section.settings.zip_placeholder }}" required>
           </div>
 
-          <div class="rates-header">Shipping options</div>
+          <div class="rates-header">{{ section.settings.shipping_options_heading }}</div>
           <ul id="shipping-rates-list" class="shipping-rates-list" hidden></ul>
 
           <div class="summary-divider"></div>
 
           <div class="shipping-rate-row">
-            <span>Shipping</span>
+            <span>{{ section.settings.shipping_text }}</span>
             <span class="shipping-rate-value">—</span>
           </div>
 
           <div class="summary-row">
-            <span>Subtotal</span>
+            <span>{{ section.settings.subtotal_text }}</span>
             <span id="summary-subtotal">{{ cart.items_subtotal_price | money }}</span>
           </div>
           <div class="summary-row summary_row_text">
-            <span>Tax</span>
+            <span>{{ section.settings.tax_text }}</span>
             <span id="summary-tax">{{ cart.total_tax | default: 0 | money }}</span>
           </div>
           <div class="summary-row summary-row--total">
-            <span>Order Total</span>
+            <span>{{ section.settings.total_text }}</span>
             <span id="summary-total">{{ cart.total_price | money }}</span>
           </div>
 
@@ -559,7 +600,7 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
             form="cart"
             {% if cart == empty %}disabled{% endif %}
           >
-           Proceed to checkout
+           {{ section.settings.checkout_button_text }}
           </button>
         </div>
         <!-- END SUMMARY CARD -->
@@ -616,15 +657,163 @@ document.querySelectorAll('.select-wrapper select').forEach(select => {
   "name": "t:sections.main-cart-footer.name",
   "class": "cart__footer-wrapper",
   "settings": [
-    { "type": "color_scheme", "id": "color_scheme", "label": "t:sections.all.colors.label", "default": "scheme-1" },
-    { "type": "header", "content": "t:sections.all.padding.section_padding_heading" },
-    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "t:sections.all.padding.padding_top", "default": 40 },
-    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "t:sections.all.padding.padding_bottom", "default": 40 }
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Cart Summary Settings"
+    },
+    {
+      "type": "text",
+      "id": "summary_heading",
+      "label": "Summary Heading",
+      "default": "SUMMARY"
+    },
+    {
+      "type": "richtext",
+      "id": "shipping_description",
+      "label": "Shipping Description",
+      "default": "<p>Estimate Shipping and Tax</p>"
+    },
+    {
+      "type": "header",
+      "content": "Country Field Settings"
+    },
+    {
+      "type": "text",
+      "id": "country_label",
+      "label": "Country Label",
+      "default": "Country *"
+    },
+    {
+      "type": "text",
+      "id": "country_placeholder",
+      "label": "Country Placeholder",
+      "default": "Select a country"
+    },
+    {
+      "type": "header",
+      "content": "Province/State Field Settings"
+    },
+    {
+      "type": "text",
+      "id": "province_label",
+      "label": "Province/State Label",
+      "default": "State / Province"
+    },
+    {
+      "type": "text",
+      "id": "province_placeholder",
+      "label": "Province/State Placeholder",
+      "default": "Please select a region"
+    },
+    {
+      "type": "header",
+      "content": "Zip/Postal Code Field Settings"
+    },
+    {
+      "type": "text",
+      "id": "zip_label",
+      "label": "Zip/Postal Code Label",
+      "default": "Zip / Postal Code *"
+    },
+    {
+      "type": "text",
+      "id": "zip_placeholder",
+      "label": "Zip/Postal Code Placeholder",
+      "default": "Enter zip code"
+    },
+    {
+      "type": "header",
+      "content": "Shipping Options Settings"
+    },
+    {
+      "type": "text",
+      "id": "shipping_options_heading",
+      "label": "Shipping Options Heading",
+      "default": "Shipping options"
+    },
+    {
+      "type": "header",
+      "content": "Summary Labels"
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Shipping Label",
+      "default": "Shipping"
+    },
+    {
+      "type": "text",
+      "id": "subtotal_text",
+      "label": "Subtotal Label",
+      "default": "Subtotal"
+    },
+    {
+      "type": "text",
+      "id": "tax_text",
+      "label": "Tax Label",
+      "default": "Tax"
+    },
+    {
+      "type": "text",
+      "id": "total_text",
+      "label": "Order Total Label",
+      "default": "Order Total"
+    },
+    {
+      "type": "header",
+      "content": "Checkout Button"
+    },
+    {
+      "type": "text",
+      "id": "checkout_button_text",
+      "label": "Checkout Button Text",
+      "default": "Proceed to checkout"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 40
+    }
   ],
   "blocks": [
-    { "type": "subtotal", "name": "t:sections.main-cart-footer.blocks.subtotal.name", "limit": 1 },
-    { "type": "buttons", "name": "t:sections.main-cart-footer.blocks.buttons.name", "limit": 1 },
-    { "type": "@app" }
+    {
+      "type": "subtotal",
+      "name": "t:sections.main-cart-footer.blocks.subtotal.name",
+      "limit": 1
+    },
+    {
+      "type": "buttons",
+      "name": "t:sections.main-cart-footer.blocks.buttons.name",
+      "limit": 1
+    },
+    {
+      "type": "@app"
+    }
   ]
 }
 {% endschema %}

@@ -281,8 +281,12 @@
                   {% render block %}
               {%- endcase -%}
             {%- endfor -%}
+            <a 
+              href="{{ routes.cart_url }}" 
+              class="header__icon-row-layout header__icon--cart link focus-inset"
+              id="cart-icon-bubble"
+              data-no-ajax="true">
 
-            <a href="{{ routes.cart_url }}" class="header__icon-row-layout header__icon--cart link focus-inset" id="cart-icon-bubble">
               {% if cart == empty %}
                  <span class="svg-wrapper">
                   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="24" viewBox="0 0 22 24" fill="none">
@@ -545,7 +549,22 @@
     desktop_menu_type: section.settings.menu_type_desktop
   -%}
 {%- endif -%}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const headerCart = document.querySelector("#cart-icon-bubble");
 
+  if (!headerCart) return;
+
+  headerCart.addEventListener("click", function (e) {
+    // If this is the header cart, STOP any theme drawer behavior
+    if (headerCart.hasAttribute("data-no-ajax")) {
+      e.stopImmediatePropagation(); // 🔥 BLOCKS drawer script
+      window.location.href = "/cart";
+    }
+  }, true); // capture phase = runs before Shopify theme JS
+});
+
+</script>
 {% javascript %}
   class StickyHeader extends HTMLElement {
     constructor() {
