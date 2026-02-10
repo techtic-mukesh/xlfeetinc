@@ -10,8 +10,12 @@
   .article-content-wrapper.is-expanded {
     max-height: none !important;
   }
-
- 
+.article-template__content.rte h3{
+  color:{{ section.settings.content_block_subheading}};
+} 
+.blog-sidebar__title{
+  color:{{ section.settings.recent_posts_heading_color}};
+}
   .article-content__load-more {
     
     margin-top: 1.5rem;
@@ -28,7 +32,7 @@
   {%- endfor -%}
 
   {%- comment -%} TWO-COLUMN LAYOUT: LEFT (article), RIGHT (sidebar) {%- endcomment -%}
-  <div class="article-layout page-width">
+  <div class="article-layout page-width color-{{ section.settings.color_scheme }} ">
     <div class="article-layout__main">
       {%- for block in section.blocks -%}
         {%- case block.type -%}
@@ -145,7 +149,11 @@
             <input type="hidden" name="type" value="article">
             <span class="blog-search__icon" aria-hidden="true">
               <span class="svg-wrapper">
-                {{- 'icon-search.svg' | inline_asset_content -}}
+                <svg class="icon icon-search" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g opacity="0.5">
+                <path d="M15.2831 15.2544L19.25 19.25M17.4167 10.0833C17.4167 14.1334 14.1334 17.4167 10.0833 17.4167C6.03325 17.4167 2.75 14.1334 2.75 10.0833C2.75 6.03325 6.03325 2.75 10.0833 2.75C14.1334 2.75 17.4167 6.03325 17.4167 10.0833Z" stroke="#191B1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                </svg>
               </span>
             </span>
             <input
@@ -469,6 +477,17 @@
   "class": "section",
   "settings": [
     {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type":"color",
+      "id":"content_block_subheading",
+      "label":"Content Block Subheading"
+    },
+    {
       "type": "checkbox",
       "id": "show_back_to_blog",
       "label": "Show back-to-blog link",
@@ -519,6 +538,11 @@
       "id": "recent_posts_heading",
       "label": "Recent posts heading",
       "default": "Recent posts"
+    },
+    {
+      "type":"color",
+      "id":"recent_posts_heading_color",
+      "label":"Recent Post / Tag  Heading Color"
     },
     {
       "type": "range",

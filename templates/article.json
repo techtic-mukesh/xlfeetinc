@@ -9,6 +9,23 @@
  */
 {
   "sections": {
+    "page_banner_RNmrcE": {
+      "type": "page-banner",
+      "name": "Page Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/Rectangle_40219.png",
+        "mobile_image": "shopify://shop_images/Rectangle_40224.png",
+        "gradient_angle": "90deg",
+        "gradient_color": "#000000",
+        "gradient_opacity_start": 40,
+        "gradient_opacity_end": 0,
+        "page_title": "Blog",
+        "title_color": "#ffffff",
+        "text_transform": "uppercase",
+        "font_size_min": 26,
+        "font_size_max": 48
+      }
+    },
     "main": {
       "type": "main-article",
       "blocks": {
@@ -44,13 +61,17 @@
         "share"
       ],
       "settings": {
+        "color_scheme": "",
+        "content_block_subheading": "#191b1d",
         "show_back_to_blog": false,
+        "show_next_prev_posts": true,
         "show_sidebar_search": true,
         "search_heading": "Search",
-        "search_placeholder": "Search articles",
+        "search_placeholder": "Search posts here",
         "search_button_label": "Search",
         "show_sidebar_recent_posts": true,
-        "recent_posts_heading": "Recent posts",
+        "recent_posts_heading": "Recent Posts",
+        "recent_posts_heading_color": "#222026",
         "recent_posts_count": 5,
         "show_sidebar_tags": true,
         "tags_heading": "Tags"
@@ -58,6 +79,7 @@
     }
   },
   "order": [
+    "page_banner_RNmrcE",
     "main"
   ]
 }

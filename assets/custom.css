@@ -52,6 +52,9 @@ h2 {
         font-size: 14px;
     }
 }
+.cart__dynamic-checkout-buttons {
+    display: none;
+}
 @media screen and (max-width: 749px) {
 .comp_heighlight_heading{
     font-size: 12px;
