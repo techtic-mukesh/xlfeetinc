@@ -375,7 +375,7 @@ class ShippingEstimator {
     const countryName = selectedOption ? selectedOption.text : '';
 
     // Clear existing provinces
-    this.provinceSelect.innerHTML = '<option value="">Select region</option>';
+    this.provinceSelect.innerHTML = '<option value="">Please select a region, state or country </option>';
 
     if (this.provinceData[countryName]) {
       this.provinceSelect.disabled = false;
