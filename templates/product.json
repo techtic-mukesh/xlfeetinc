@@ -40,11 +40,16 @@
             "swatch_shape": "circle"
           }
         },
+        "wishlist_guru_app_block_QDYmb4": {
+          "type": "shopify://apps/wishlist-guru/blocks/app-block/2c17f518-d350-4883-a154-c9a194a4a585",
+          "settings": {}
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true
+            "show_gift_card_recipient": true,
+            "add_to_cart_btn_text": "Add to cart"
           }
         },
         "icon_with_text_fNinkw": {
@@ -98,6 +103,7 @@
         "price",
         "sku_R6KRbj",
         "variant_picker",
+        "wishlist_guru_app_block_QDYmb4",
         "buy_buttons",
         "icon_with_text_fNinkw",
         "collapsible_tab_8pYYPd",
