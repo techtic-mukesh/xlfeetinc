@@ -534,6 +534,7 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
 }
 .drawer__cart-items-wrapper .quantity__button{
   width: unset;
+  height: 100%;
 }
 
 /* Remove crossed / unit prices */
