@@ -71,7 +71,7 @@
         "search_button_label": "Search",
         "show_sidebar_recent_posts": true,
         "recent_posts_heading": "Recent Posts",
-        "recent_posts_heading_color": "#222026",
+        "recent_posts_heading_color": "",
         "recent_posts_count": 5,
         "show_sidebar_tags": true,
         "tags_heading": "Tags"
