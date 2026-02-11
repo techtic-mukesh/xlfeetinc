@@ -179,7 +179,7 @@
       },
       "1166917345295625399": {
         "type": "shopify://apps/wishlist-myappgurus/blocks/wishlist/c6177d6e-9cc4-45ab-abe5-45a6a5289882",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "visible_page_button": true,
           "target_class": "",
