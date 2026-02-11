@@ -28,7 +28,12 @@
   max-width: 100%;
   width: 100%;
 }
-
+.custom_list_collections {
+    margin: 20px 0;
+}
+.custom_list_collections .collection-list__item .card__heading{
+    text-transform: capitalize;
+}
 @media screen and (max-width: 749px) {
   .slider.collection-list--1-items {
     padding-bottom: 0;

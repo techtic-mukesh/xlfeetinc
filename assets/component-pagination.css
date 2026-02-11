@@ -123,7 +123,8 @@ a.pagination__item:hover::after {
 /* iOS Safari fine-tune (very tiny) */
 @supports (-webkit-touch-callout: none) {
   .custom_prev_pagination,
-  .custom_next_pagination {
-    transform: translateY(0.5px);
+  .custom_next_pagination,
+  .custom_page_title_pagination{
+    transform: translateY(1.10px);
   }
 }
