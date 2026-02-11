@@ -149,17 +149,6 @@
     },
     "content_for_index": [],
     "blocks": {
-      "1166917345295625399": {
-        "type": "shopify://apps/wishlist-myappgurus/blocks/wishlist/c6177d6e-9cc4-45ab-abe5-45a6a5289882",
-        "disabled": true,
-        "settings": {
-          "visible_page_button": true,
-          "target_class": "",
-          "target_class_mobile": "",
-          "append_position_desktop": "beforebegin",
-          "append_position_mobile": "beforebegin"
-        }
-      },
       "7570552984445421165": {
         "type": "shopify://apps/yotpo-product-reviews/blocks/settings/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
         "disabled": false,
@@ -186,6 +175,17 @@
           "modalButtonAppend": "",
           "modalVariantSelector": "",
           "modalVariantSubSelector": ""
+        }
+      },
+      "1166917345295625399": {
+        "type": "shopify://apps/wishlist-myappgurus/blocks/wishlist/c6177d6e-9cc4-45ab-abe5-45a6a5289882",
+        "disabled": true,
+        "settings": {
+          "visible_page_button": true,
+          "target_class": "",
+          "target_class_mobile": "",
+          "append_position_desktop": "beforebegin",
+          "append_position_mobile": "beforebegin"
         }
       }
     },
