@@ -24,9 +24,7 @@
               class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce"
               aria-label="{{ 'general.pagination.previous' | t }}"
             >
-              <span class="custom_prev_pagination">
-                prev
-              </span>
+              <span class="custom_prev_pagination">prev</span>
             </a>
           </li>
         {%- endif -%}
@@ -39,7 +37,7 @@
                 class="pagination__item link"
                 aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
               >
-                {{- part.title -}}
+                <span class="custom_pagination_title">{{- part.title -}} </span>
               </a>
             {%- else -%}
               {%- if part.title == paginate.current_page -%}
