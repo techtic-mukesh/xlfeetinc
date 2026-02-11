@@ -294,7 +294,7 @@
                 </span>
               </p>
             {%- endif -%}
-
+              <div class="wf-wishlist"  product-id="{{ product.id }}" product-handle="{{ product.handle }}" variant-id="{{ product.selected_or_first_available_variant.id }}"></div>
             {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
             {%- if card_product.quantity_price_breaks_configured? -%}
               {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
