@@ -164,6 +164,29 @@
         "type": "shopify://apps/yotpo-product-reviews/blocks/settings/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
         "disabled": false,
         "settings": {}
+      },
+      "16428855274652595211": {
+        "type": "shopify://apps/wishlist-guru/blocks/heart_button/2c17f518-d350-4883-a154-c9a194a4a585",
+        "disabled": true,
+        "settings": {}
+      },
+      "11224365712497073626": {
+        "type": "shopify://apps/wishlist-guru/blocks/collection-heart/2c17f518-d350-4883-a154-c9a194a4a585",
+        "disabled": true,
+        "settings": {
+          "selectCurrentFilter": "none",
+          "afterIcon": false,
+          "appendIconCheck": false,
+          "buttonPrependBeforeElemnt": false,
+          "productGridElement": "",
+          "productAnchorElement": "",
+          "iconElement": "",
+          "modalGridElement": "",
+          "modalOpenElement": "",
+          "modalButtonAppend": "",
+          "modalVariantSelector": "",
+          "modalVariantSubSelector": ""
+        }
       }
     },
     "color_schemes": {
