@@ -27,10 +27,10 @@ h2 {
     max-width:50px;
     width:100%;
 } */
- .card--standard>.card__content .quick-add  .quick-add.no-js-hidden.desktop_custom_add_btn {
+ .product .card--standard>.card__content .quick-add  .quick-add.no-js-hidden.desktop_custom_add_btn {
     display: block;
 }
- .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn{
+ .product .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn{
     display: none;
  }
  span.add_to_card_sold_ouy_btn {
@@ -62,13 +62,13 @@ h2 {
     padding: 15px 10px;
     margin-bottom: 20px;
 }
- .card--standard>.card__content .quick-add.quick-add.no-js-hidden.desktop_custom_add_btn {
+ .product .card--standard>.card__content .quick-add.quick-add.no-js-hidden.desktop_custom_add_btn {
     display: none;
 }
- .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn{
+ .product .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn{
     display: block;
  }
- .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn button{
+ .product .card--standard>.card__content .quick-add.quick-add.no-js-hidden.mobile_add_quick_btn button{
     min-height: 37px;
     min-width: unset;
     border: 1px solid #191B1D;

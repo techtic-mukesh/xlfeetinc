@@ -104,3 +104,15 @@
         font-size: 22px;
   }
 }
+.collection--empty .title-wrapper{
+  margin: 0;
+}
+.collection--empty .title--primary{
+    margin: 0;
+    font-size: 30px;
+}
+@media only screen and (max-width: 749px) {
+.collection--empty .title--primary{
+  margin-top: 30px;
+}
+}
