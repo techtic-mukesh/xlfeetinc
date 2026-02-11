@@ -373,6 +373,7 @@ article.article-template {
   border-radius: 10px;
   background-color: #fff;
   transition: box-shadow .2s, border-color .2s;
+  font-family: var(--font-body-family);
 }
 
 /* .blog-search__input::placeholder {
