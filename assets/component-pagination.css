@@ -26,6 +26,7 @@
 a.pagination__item.pagination__item--current.light {
     background: #7d7d7d;
     color: #fff;
+    opacity: 1;
 }
 .pagination__item {
   color: rgb(var(--color-foreground));
@@ -33,19 +34,20 @@ a.pagination__item.pagination__item--current.light {
   justify-content: center;
   align-items: center;
   position: relative;
-  height: 4.4rem;
   width: 100%;
   padding: 0;
   text-decoration: none;
   border: 1px solid #7D7D7D;
   color: #7D7D7D;
   font-weight: 500;
-  font-size: 14px;
-  padding: 8px 20px;
+  padding: 7px 19px;
   height: unset;
   width: unset;
   border-radius: 12px;
   text-transform: uppercase;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0;
 }
 
 a.pagination__item:hover::after {

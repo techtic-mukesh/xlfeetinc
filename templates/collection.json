@@ -18,6 +18,21 @@
         "color_scheme": "scheme-1"
       }
     },
+    "breadcrumbs_KCQpax": {
+      "type": "breadcrumbs",
+      "name": "Breadcrumbs",
+      "settings": {
+        "home_text": "Home",
+        "separator": "//",
+        "bg_color": "#f4f4f4",
+        "link_color": "#191b1d",
+        "separator_color": "#191b1d",
+        "font_size": 14,
+        "padding_top": 14,
+        "padding_bottom": 14,
+        "padding_side": 20
+      }
+    },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
@@ -41,6 +56,7 @@
   },
   "order": [
     "banner",
+    "breadcrumbs_KCQpax",
     "product-grid"
   ]
 }
